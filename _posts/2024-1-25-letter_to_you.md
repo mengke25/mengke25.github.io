@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "文献导读：Minimum Wage and Individual Worker Productivity"
-date:   2024-4-22
+date:   2024-1-25
 tags: [文献导读]
 comments: true
 author: mengke25
