@@ -27,7 +27,7 @@ footer-links:
 
 footer-text: Copyright (c) 2024 Mengke
 
-url: https://mengke25.github.io
+url: https://mengke25.github.io/tags
 
 permalink: /:title/
 paginate_path: /page:num/
