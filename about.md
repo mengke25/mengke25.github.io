@@ -16,7 +16,8 @@ permalink: /about/
 
 如果您对我博客中的观点或代码有任何疑问，欢迎您通过邮件与我联系
 
-[邮箱1:uibemk@126.com](uibemk@126.com)
+[邮箱1:uibemk@126.com](uibemk@126.com)  
+
 [邮箱2:allenmeng97@gmail.com](allenmeng97@gmail.com)
 
 ## 版权声明
