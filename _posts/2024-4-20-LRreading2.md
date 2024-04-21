@@ -7,6 +7,18 @@ comments: true
 author: mengke25
 ---
 
+<head>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+</head>
+
 JPE的非常经典的一篇文章《Minimum Wage and Individual Worker Productivity : Evidence from a Large US Retailer》
 Coviello, D., Deserranno, E. and Persico, N., 2022. Minimum wage and individual worker productivity: Evidence from a large US retailer. Journal of Political Economy, 130(9), pp.2315-2360.
 <!-- more -->
