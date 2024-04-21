@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "文献导读"
+title: "文献导读：Minimum Wage and Individual Worker Productivity : Evidence from a Large US Retailer"
 date:   2024-4-20
 tags: [文献导读]
 comments: true
