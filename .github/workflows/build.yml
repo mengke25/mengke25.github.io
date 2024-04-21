@@ -15,9 +15,7 @@ jobs:
       
     - name: Setup Node.js environment
       uses: actions/setup-node@v4
-      with:
-        node-version: 'v20.6.1'
-        
+      
     - run: npm install -g bats
     
     - run: bats -v
