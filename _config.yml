@@ -5,11 +5,11 @@ avatar: https://mengke25.github.io/images/avatar.png
 favicon: https://mengke25.github.io/images/favicon.ico
 
 navigation:
-  - name: 首页
+  - name: 最近更新
     url: 
-  - name: 关于
+  - name: 关于我
     url: /about
-  - name: 分类
+  - name: 我的博客
     url: /tags
 
 paginate: 8
