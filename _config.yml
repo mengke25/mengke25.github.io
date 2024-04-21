@@ -17,12 +17,12 @@ paginate: 8
 excerpt_separator: <!-- more -->
 
 footer-links:
-  zhihu: 
+  zhihu: meng-ke-89-15
   email: allenmeng97@gmail.com
-  facebook:
+  facebook: meng.allen.54
   github: mengke25
   rss: # just type anything here for a working RSS icon
-  twitter: 
+  twitter: mengke1997
   youtube:
 
 footer-text: Copyright (c) 2024 Mengke
