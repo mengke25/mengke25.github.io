@@ -14,17 +14,16 @@ jobs:
       uses: actions/checkout@v3
       
     - name: Setup Node.js environment
-      uses: actions/setup-node@v4.0.1
+      uses: actions/setup-node@v4
       with:
-        node-version: 20
+        node-version: 'v20.6.1'
         
     - run: npm install -g bats
     
     - run: bats -v
       
     - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v4.3.0
+      uses: actions/upload-artifact@v4
       with:
         name: 'my-blog'
         path: '_site'
-        
