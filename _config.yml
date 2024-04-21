@@ -27,10 +27,6 @@ footer-links:
 
 footer-text: Copyright (c) 2024 Mengke
 
-site:
-  name: "mengke25.github.io"
-  title: "mengke25.github.io"
-
 url: https://mengke25.github.io
 
 permalink: /:title/
