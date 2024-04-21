@@ -1,88 +1,63 @@
-title: Hanlin Cai
-# tagline: Here is personal website of Hanlin Cai. Powered by Jekyll, based on the Minimal Mistakes theme.
-# description: Two roads diverged in woods, I took the one less traveled by.
-#Comment out url when working locally to resolve base urls correctly
-url: https://mengke25.github.io
+name: "Mengke's blog"
+description: "Mengke的个人博客"
 
-# Owner/author information
-owner:
-  name: Hanlin Cai
-  avatar: https://mengke25.github.io/images/avatar.png
-  favicon: https://mengke25.github.io/images/favicon.ico
-  # bio: Two roads diverged in woods, I took the one less traveled by.
-  email: hanlin.cai@ieee.org
-  cv: https://caihanlin.com/file/CV-HanlinCAI.pdf
-  # Social networking links are used in author-bio sidebar. Update and remove as you like.
-  twitter: lancecai2002
-  github: GuangLun2000
-  linkedin: hanlincai
-  scholar: https://scholar.google.com/citations?user=8igSoWgAAAAJ
-  bilibili: 594030035
-  researchgate: https://www.researchgate.net/profile/Hanlin-Cai
-  zhihu: https://www.zhihu.com/people/chlire
-  # facebook: caihanlin2002
-  # instagram: lancecai2002
-  # lastfm:
-  # tumblr:
-  # For Google Authorship https://plus.google.com/authorship
-  # google_plus:
+avatar: https://mengke25.github.io/images/avatar.png
+favicon: https://mengke25.github.io/images/favicon.ico
 
-# Analytics and webmaster tools stuff goes here
-# https://search.google.com/search-console/ownership
-google_verify: "SkiyuGpJOKT74vv5GmXLvYXXDkXy4v8VWPtbelYz3Hs"
+navigation:
+  - name: 首页
+    url: /tags
+  - name: 关于
+    url: /about
+  - name: 分类
+    url: /tags
 
-# https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
-# bing_verify: ""
+paginate: 8
 
-# Links to include in top navigation
-# For external links add external: true
-links:
-  - title: About Me
-    url: /
-  - title: Teams
-    url: /teams/
-  - title: Publications
-    url: /publications/
-  - title: Awards
-    url: /awards/
-  - title: Hobbies
-    url: /hobbies/
-  - title: Blogs
-    url: /blogs/
+excerpt_separator: <!-- more -->
 
-# http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-timezone: China/Beijing
-future: true
-highlighter: rouge
-# markdown: kramdown
-# markdown: redcarpet
-# pygments: true
+footer-links:
+  zhihu: meng-ke-89-15
+  email: allenmeng97@gmail.com
+  facebook: meng.allen.54
+  github: mengke25
+  rss: # just type anything here for a working RSS icon
+  twitter: mengke1997
+  youtube:
 
+footer-text: Copyright (c) 2024 Mengke
 
-# https://github.com/mojombo/jekyll/wiki/Permalinks
-permalink:   /:categories/:title
+url: https://mengke25.github.io/tags
 
+permalink: /:title/
+paginate_path: /page:num/
 
+# The release of Jekyll Now
+version: v1.2.0
+
+# Jekyll 3 now only supports Kramdown for Markdown
 kramdown:
-  auto_ids: true
-  footnote_nr: 1
-  entity_output: as_char
-  toc_levels: 1..6
-  enable_coderay: false
+  # Use GitHub flavored markdown, including triple backtick fenced code blocks
+  input: GFM
+  # Jekyll 3 and GitHub Pages now only support rouge for syntax highlighting
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    # Use existing pygments syntax highlighting css
+    css_class: 'highlight'
 
-  # coderay:
-  #   coderay_line_numbers:
-  #   coderay_line_numbers_start: 1
-  #   coderay_tab_width: 4
-  #   coderay_bold_every: 10
-  #   coderay_css: class
+# Set the Sass partials directory, as we're using @imports
+sass:
+  style: :expanded # You might prefer to minify using :compressed
 
+# Use the following plug-ins
+plugins:
+  - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
+  - jekyll-feed # Create an Atom feed using the official Jekyll feed gem
+  - jekyll-paginate
 
-# disqus settings:
-disqus:
-  shortname: lancecai
-
-include: [".htaccess"]
-exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "minimal-mistakes.sublime-project", "minimal-mistakes.sublime-workspace"]
-
-# Latest update in 2023/12/10 by Hanlin Cai.
+# Exclude these files from your production _site
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - README.md
