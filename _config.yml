@@ -6,7 +6,7 @@ favicon: https://mengke25.github.io/images/favicon.ico
 
 navigation:
   - name: 最近更新
-    url: 
+    url: /
   - name: 关于我
     url: /about
   - name: 我的博客
