@@ -127,6 +127,7 @@ set scheme tufte, perm
 ```
 
 ##### 字体大小 option
+
 | 字体大小option | description                           |
 | :------------: | :-----------------------------------: |
 | zero           | no size whatsoever, vanishingly small |
@@ -153,8 +154,8 @@ set scheme tufte, perm
 
 
 
-
 ##### 节点样式  eg: msymbol(O) mlcolor(gs5) mfcolor(gs12)
+
 | symbolstyle       | Synonym(if any) | Description                |
 | :---------------: | :-------------: | :------------------------: |
 | circle            | O               | solid                      |
@@ -187,6 +188,7 @@ set scheme tufte, perm
 
 
 ##### 线样式
+
 | linepatternstyle                            | Description                 |
 | :-----------------------------------------: | :-------------------------: |
 | solid                                       | solid line                  |
@@ -207,6 +209,7 @@ set scheme tufte, perm
 | #                                           | small amount of blank space |
 
 ##### 颜色
+
 | black        | edkblue       | gs12      | lime            | orange        |
 | :----------: | :-----------: | :-------: | :-------------: | :-----------: |
 | blue         | eggshell      | gs13      | ltblue          | orange_red    |
@@ -909,6 +912,7 @@ graph export "$path_output\hy`i'_`gamma'.png", as(png) name("Graph") replace
 ```
 
 ### 9.拟合选项
+
 |    fit情况     |
 |---------------------------------------------------------------------------|
 | [G-2] graph twoway line — Twoway line plots                               |
@@ -964,6 +968,7 @@ label var Nfirm_ind20 "国际组织"
 
 
 ### 12.egen 函数
+
 | 函数     | 用法                                                         | 释义                                                         |
 | -------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | xtile    | egen A = xtile(n) ,nq(10)                                    | 对于n变量生成分位数，分位数的范围用nq=10来度量               |
