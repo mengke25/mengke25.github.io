@@ -128,7 +128,7 @@ set scheme tufte, perm
 
 ##### 字体大小 option
 | 字体大小option | description                           |
-| -------------- | ------------------------------------- |
+| :------------: | :-----------------------------------: |
 | zero           | no size whatsoever, vanishingly small |
 | minuscule      | smallest                              |
 | quarter_tiny   |                                       |
@@ -156,7 +156,7 @@ set scheme tufte, perm
 
 ##### 节点样式  eg: msymbol(O) mlcolor(gs5) mfcolor(gs12)
 | symbolstyle       | Synonym(if any) | Description                |
-|-------------------|-----------------|----------------------------|
+| :---------------: | :-------------: | :------------------------: |
 | circle            | O               | solid                      |
 | diamond           | D               | solid                      |
 | triangle          | T               | solid                      |
@@ -188,7 +188,7 @@ set scheme tufte, perm
 
 ##### 线样式
 | linepatternstyle                            | Description                 |
-|---------------------------------------------|-----------------------------|
+| :-----------------------------------------: | :-------------------------: |
 | solid                                       | solid line                  |
 | dash                                        | dashed line                 |
 | dot                                         | dotted line                 |
@@ -208,7 +208,7 @@ set scheme tufte, perm
 
 ##### 颜色
 | black        | edkblue       | gs12      | lime            | orange        |
-|--------------|---------------|-----------|-----------------|---------------|
+| :----------: | :-----------: | :-------: | :-------------: | :-----------: |
 | blue         | eggshell      | gs13      | ltblue          | orange_red    |
 | bluishgray   | eltblue       | gs14      | ltbluishgray    | pink          |
 | bluishgray8  | eltgreen      | gs15      | ltbluishgray8   | purple        |
