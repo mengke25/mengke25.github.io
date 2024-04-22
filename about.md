@@ -39,7 +39,7 @@ allenmeng97@gmail.com
 
 ## 打赏渠道
 
-![image](https://mengke25.github.io/images/dashang.jpg)
+![image](https://mengke25.github.io/images/dashang.png)
 
 
 ## 其他信息： 
