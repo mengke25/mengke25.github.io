@@ -8,13 +8,14 @@ author: mengke25
 ---
 
 
-## Stata备忘录
+一些常见的stata命令，用于处理数据/画图
+
+<!-- more -->
 
 
+#### 1. 画图
 
-### 1. 画图
-
-#### （1）时间趋势图
+##### （1）时间趋势图
 
 ```stata
 graph twoway (connect wzje_2 year if yhsf==1&wzlx==0 ,yaxis(1) sort) ///
@@ -116,7 +117,7 @@ coefplot
 
 ![image](https://mengke25.github.io/images/stata_memo/fig3.png)
 
-#### 主题设定
+##### 主题设定
 ```
 set scheme s2color    //  默认绘图主题
 set scheme cleanplots, perm
@@ -229,7 +230,7 @@ set scheme tufte, perm
 
 
 
-#### （2）柱状图
+##### （2）柱状图
 
 ```stata
 #delimit ;
@@ -267,7 +268,7 @@ graph bar (sum) ActiveUsers1 ActiveUsers2 ActiveUsers3 , over(year) ///
 	title("The scale of China's game App Active Users varies across different target countries",size(small))
 ```
 
-#### （3）散点图
+##### （3）散点图
 
 ```stata
 graph twoway (scatter sc1 sc2 if wzlx_xf==1, mlabel(sec) mlabv(sec) ) (function y=x, range(-10000 10000)) , ///
@@ -312,7 +313,7 @@ xtitle("11-05年进口占比(%)",axis(1) height(5)) legend(off)
 ```
 
 
-#### （4）bgshade
+##### （4）bgshade
 
 ```stata
 bgshade ks, shaders(uu9)  ///
@@ -323,7 +324,7 @@ bgshade ks, shaders(uu9)  ///
 ```
 ![image](https://mengke25.github.io/images/stata_memo/fig7.png)
 
-#### （5）coefplot
+##### （5）coefplot
 
 ```stata
 coefplot,  levels(90) vertical lcolor(black)mcolor(black) ///
@@ -377,7 +378,7 @@ coefplot
 ```
 ![image](https://mengke25.github.io/images/stata_memo/fig9.png)
 
-#### （6）画系数和置信区间
+##### （6）画系数和置信区间
 
 ``` stata
 twoway (scatter coef week) /// 
@@ -397,14 +398,14 @@ name("Coef_all_I", replace)
 ```
 
 
-#### （7）画直方图
+##### （7）画直方图
 ```
 hist year if year>=1400 & year<=2010, freq bin(200) ylabel(0(500)2500) xtitle("Year") xline(1950 1980,lw(thin)) ///
      text(1500 1950 "Year=1950", place(w)) text(2000 1980 "Year=1980", place(w)) 
 ```
 ![image](https://mengke25.github.io/images/stata_memo/fig10.png)
 
-#### （8）画桑基图
+##### （8）画桑基图
 ```stata
 cd $path\appdata
 use Data_games.dta,clear
@@ -445,7 +446,7 @@ graph save "Graph" "$path\output\sankey_D_0228.gph",replace
 ```
 ![image](https://mengke25.github.io/images/stata_memo/fig11.png)
 
-#### （9）分组看分布——hbox和vioplot
+##### （9）分组看分布——hbox和vioplot
 ```stata
 reghdfe lnexp i.hy2 ,noa vce(r)
 predict e
@@ -463,7 +464,7 @@ vioplot ex, over(hy2_name) horizontal name(myplot2) ///
    ylab(, angle(horiz))
 
 ```
-#### （10）分组看分布——hbox和vioplot
+##### （10）分组看分布——hbox和vioplot
 ```stata
 vioplot year if Affiliates == 0, ///
 over(N_iso3j) vertical subtitle("",size(small)) ytitle(Year) ///
@@ -480,7 +481,7 @@ subtitle("Affiliates",size(small)) //name("fig2")
 graph combine fig1 fig2 ,col(2) row(1) iscale(1) xsize(20) ysize(10)
 ```
 
-#### （11）堆叠的区域阴影增长趋势
+##### （11）堆叠的区域阴影增长趋势
 ```stata
 tw (rarea tv v1 year,fcolor(gs5)) /// 
    (rarea v1 xx year,fcolor(gs10)) , /// 
@@ -493,7 +494,7 @@ tw (rarea tv v1 year,fcolor(gs5)) ///
    name(fig1_2,replace) 
 ```
 
-#### （12）气泡图
+##### （12）气泡图
 ```stata
 twoway(scatter mv T_gap_05_00 [fweight=N] if BEC == 0&T_gap_05_00!=0&N !=0,msymbol(Oh) mc(ebblue%40)) ///
 (scatter mv T_gap_05_00 [fweight=N] if BEC == 4&T_gap_05_00!=0&N !=0,msymbol(Oh) mc(orange_red%40)) ///
@@ -503,9 +504,9 @@ twoway(scatter mv T_gap_05_00 [fweight=N] if BEC == 0&T_gap_05_00!=0&N !=0,msymb
 ![image](https://mengke25.github.io/images/stata_memo/fig12.png)
 
 
-### 2. 处理数据
+#### 2. 处理数据
 
-#### （1）拓展expand数据
+##### （1）拓展expand数据
 
 | freq | count |   value   |
 | :--: | :---: | :-------: |
@@ -524,7 +525,7 @@ expandcl freq,gen(freq_count) cluster(count)
 drop freq_count
 ```
 
-#### （2）时间数据
+##### （2）时间数据
 
 ``` stata
 gen R= mdy(month_r,day_r,year_r)
@@ -542,7 +543,7 @@ gen period_kb= date(date_u,"YMD")-date(date_kb,"YMD")
 
 ```
 
-#### （3）常见函数
+##### （3）常见函数
 
 ```stata
 int(x) //取整，不论后面的小数是什么，只取小数点前的数值
@@ -563,7 +564,7 @@ bysort x(y): gen z = y[1] //按照x分组，分组后按照y排序，生成一�
 
 ```
 
-#### （4）缩尾处理
+##### （4）缩尾处理
 
 ```stata
 foreach v of var DexpoAS4- DlnexpoWD2{
@@ -601,25 +602,25 @@ r(sd)          //standard deviation
 
 ```
 
-#### （5）创建文件夹
+##### （5）创建文件夹
 
 ```stata
 efolder, cd(D:\stata15\hxs\连享会007)
 efolder, cd(D:\stata15\hxs\连享会007) sub(侯新烁 连玉君 007小组1号成员 007小组2号成员)
 ```
 
-#### （6）bysort的替代方案
+##### （6）bysort的替代方案
 ```stata
 *展示根据highzupu50（族谱）和year分组后的变量drqianfen(死亡率)均值；
 collapse (mean) drqianfen, by(highzupu50 year)
 ```
 
-#### （7）定义无缺失的样本
+##### （7）定义无缺失的样本
 ```stata
 g rsample = !mi(avggrain_fyr) & !mi(nograin_fyr) & !mi(urban_fyr)& !mi(dis_bj_fyr) & !mi(dis_pc_fyr) & !mi(migrants_fyr)& !mi(rice_fyr) & !mi(minor_fyr) & !mi(edu_fyr)
 ```
 
-#### （8）定义Dummy的新替代式（时间range）
+##### （8）定义Dummy的新替代式（时间range）
 ```stata
 *如果yob满足1825≤yob≤1899则pre取值为1,否则pre取值为0。mid、post生成过程类似。
 gen pre = inrange(yob, 1825, 1899)
@@ -628,29 +629,29 @@ gen post = inrange(yob, 1920, 1960)
 ```
 
 
-#### （9）快速替换
+##### （9）快速替换
 ```stata
 recode treatyear (1969 = 1) (1979 = 2) (1989 = 3) (1999 = 4) (2009 = 5)
 ```
 
 
 
-### 3. 处理字符
+#### 3. 处理字符
 
-#### （1）替换字符
+##### （1）替换字符
 
 ```stata
 replace 候选人姓名=subinstr( 候选人姓名, " ", "",. )
 ```
 
-#### （2）捕捉字符中的某些特征
+##### （2）捕捉字符中的某些特征
 
 ```stata
 keep if strmatch(city, "*山东*")
 gen temp = 1 if strmatch(reporteriso3, "A*")
 ```
 
-#### （3）提取字符，检索特定字符
+##### （3）提取字符，检索特定字符
 
 ```stata
 //从enddate字符1开始取，取4个字符赋给year
@@ -661,15 +662,15 @@ gen y = strpos(s1, s2) != 0
 
 ```
 
-### 4. 输出结果
+#### 4. 输出结果
 
-#### （1）常规输出
+##### （1）常规输出
 
 ```stata
 outreg2 using "E:\mfg\outreg\r2", word append addtext(CountryFE, YES,YearFE, YES)
 ```
 
-#### （2）iv回归输出第一阶段
+##### （2）iv回归输出第一阶段
 
 ```stata
 eststo: xtivreg p_a_w (DexpoCN4_w=dexpo44) /// 
@@ -683,7 +684,7 @@ eststo: xtivreg p_a_w (DexpoCN4_w=dexpo44) ///
  outreg2 using "table3", word replace addtext(CityFE, YES,YearFE, YES) keep(dexpo44)  
 ```
 
-#### （3）变量描述性统计
+##### （3）变量描述性统计
 ```stata
 *列出inv等变量的样本数、均值、标准差、最小值和最大值。
 tabstat inv loginv log_levies ///
@@ -697,7 +698,7 @@ tabstat inv loginv log_levies ///
 logout,save(summary) word replace:tabstat lnActiveUsers lnDownloads per_mws lnGDP0 lngdp0 lnpopu_RD0 lnper_ind30 lnpopu_ind30 lnpopu_ict0,s(N mean sd min max) f(%12.3f) c(s)
 ```
 
-#### （4）est store以及esttab输出结果
+##### （4）est store以及esttab输出结果
 ```
 
 reghdfe Y1 did ,a(i.city_code i.t#i.ison_j)  vce(r)
@@ -717,7 +718,7 @@ esttab fit1 fit2 fit3 fit4, mtitle("收入" "收入" "下载量" "下载量") b(
 ```
 
 
-### 5.矩阵保存结果
+#### 5.矩阵保存结果
 ```stata
 mat T1 = J(3,3,.)
 
@@ -744,7 +745,7 @@ svmat T1
 
 
 
-### 6.导入数据（全字符串）
+#### 6.导入数据（全字符串）
 ```
 forv i = 2000/2003{
 	cd E:\Data\EPS工企海关匹配库\origindata
@@ -756,7 +757,7 @@ forv i = 2000/2003{
 
 
 
-### 7.循环
+#### 7.循环
 
 ```stata
 clear all
@@ -860,7 +861,7 @@ kdensity value10
 ```
 
 
-### 8.循环数字-标注“文字”
+#### 8.循环数字-标注“文字”
 ```stata
 cd $path_EPS_data
 use temp_ybmy_nodest.dta,clear
@@ -911,7 +912,7 @@ graph export "$path_output\hy`i'_`gamma'.png", as(png) name("Graph") replace
 }
 ```
 
-### 9.拟合选项
+#### 9.拟合选项
 
 |    fit情况     |
 |---------------------------------------------------------------------------|
@@ -929,7 +930,7 @@ graph export "$path_output\hy`i'_`gamma'.png", as(png) name("Graph") replace
 
 
 
-### 10.工具变量第一阶段
+#### 10.工具变量第一阶段
 不可识别统计量是Klei-Paap
 弱识别统计量是Cragg-Donald
 工具变量外生是Hansen-J
@@ -939,7 +940,7 @@ graph export "$path_output\hy`i'_`gamma'.png", as(png) name("Graph") replace
 
 
 
-### 11.国民经济行业分类
+#### 11.国民经济行业分类
 ```{stata}
 // 大类代码reshape后加labe
 label var Nfirm_ind1 "农、林、牧、渔业"
@@ -967,7 +968,7 @@ label var Nfirm_ind20 "国际组织"
 
 
 
-### 12.egen 函数
+#### 12.egen 函数
 
 | 函数     | 用法                                                         | 释义                                                         |
 | -------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
