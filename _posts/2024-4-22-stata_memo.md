@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Stata备忘录"
+title: "【Stata】Stata备忘录"
 date:   2024-4-22
 tags: [code,stata]
 comments: true
