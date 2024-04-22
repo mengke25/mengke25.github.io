@@ -30,6 +30,7 @@ graphregion(color(white)) ///
 title(服务业) ///
 note("abcdefg")
 ```
+![image](https://mengke25.github.io/images/stata_memo/fig1.png)
 
 ```stata
 tw (connect value1819 season , /// 
@@ -74,6 +75,10 @@ note("数据源自：app annie")
 graph save "Graph" "$path\output\playdata_1_percent_and_value_of_Chinese_Apps_Export.gph",replace
 ```
 
+![image](https://mengke25.github.io/images/stata_memo/fig2.png)
+
+
+
 
 ```stata
 use hs_adj_year_PQV_2000_2015.dta,clear
@@ -108,6 +113,9 @@ coefplot
   ;
 #d cr
 ```
+
+![image](https://mengke25.github.io/images/stata_memo/fig3.png)
+
 #### 主题设定
 ```
 set scheme s2color    //  默认绘图主题
@@ -147,7 +155,6 @@ set scheme tufte, perm
 
 
 ##### 节点样式  eg: msymbol(O) mlcolor(gs5) mfcolor(gs12)
-
 | symbolstyle       | Synonym(if any) | Description                |
 |-------------------|-----------------|----------------------------|
 | circle            | O               | solid                      |
@@ -233,6 +240,7 @@ graph bar cn_wzje_80 cn_wzje_81 if sec=="纸张、印刷", over(sec) bargap(-30)
 #delimit cr
 
 ```
+![image](https://mengke25.github.io/images/stata_memo/fig4.png)
 
 ```stata
 graph bar (mean) percent1 (mean) percent1 , over(SNA) ///
@@ -281,6 +289,8 @@ ytitle("11-15时段的增速") ///
 xtitle("07-11时段的增速")
 ```
 
+![image](https://mengke25.github.io/images/stata_memo/fig5.png)
+
 ```stata
 graph twoway (scatter c_AS c_WD, mlabel(cic03)  ) (lfit c_AS c_WD) , ///
 title("东盟增速放缓 vs 世界增速放缓")  ///
@@ -289,7 +299,7 @@ xtitle("世界") ///
 legend(ring(0) pos(5) order(2 "拟合")) ///
 graphregion(color(white))
 ```
-
+![image](https://mengke25.github.io/images/stata_memo/fig6.png)
 ```stata
 tw (scatter percent1 percent2 if develop_IMF == 1 ,mlab(iso_ded) mlabsize(vsmall) ms(oh)) /// 
 (scatter percent1 percent2 if develop_IMF == 0 , mlabsize(vsmall) mc(red) ms(oh)) ///
@@ -308,6 +318,7 @@ bgshade ks, shaders(uu9)  ///
    title("新冠疫情冲击下企业平均收入变化趋势"))
 
 ```
+![image](https://mengke25.github.io/images/stata_memo/fig7.png)
 
 #### （5）coefplot
 
@@ -320,7 +331,7 @@ coefplot,  levels(90) vertical lcolor(black)mcolor(black) ///
   title("(B)企业缴税的平行趋势检验") ///
  xlabel(0"." 1"2019s2" 2"2019s3" 3"2019s4" 4"2020s1" 5"2020s2" 6"2020s3" 7"2020s4") 
 ```
-
+![image](https://mengke25.github.io/images/stata_memo/fig8.png)
 ```stata
 reghdfe lnQ i.Year if elec == 1,a(i.citycode) vce(r)
 est store elec_Q_1 
@@ -344,6 +355,7 @@ addplot(line @b @at,lp(dash) lwidth(*0.5)) ///
 legend(label(1 "半导体电子元件相关企业进口数量") label(2 "非半导体电子元件相关企业进口数量") ) 
 ```
 
+
 ```stata
 #d ;
 coefplot 
@@ -360,7 +372,7 @@ coefplot
   ;
 #d cr
 ```
-
+![image](https://mengke25.github.io/images/stata_memo/fig9.png)
 
 #### （6）画系数和置信区间
 
@@ -387,6 +399,7 @@ name("Coef_all_I", replace)
 hist year if year>=1400 & year<=2010, freq bin(200) ylabel(0(500)2500) xtitle("Year") xline(1950 1980,lw(thin)) ///
      text(1500 1950 "Year=1950", place(w)) text(2000 1980 "Year=1980", place(w)) 
 ```
+![image](https://mengke25.github.io/images/stata_memo/fig10.png)
 
 #### （8）画桑基图
 ```stata
@@ -427,7 +440,7 @@ title("地级市层面Apps出海流向（按下载量）",color(black) size(*0.8
 graph save "Graph" "$path\output\sankey_D_0228.gph",replace
 
 ```
-
+![image](https://mengke25.github.io/images/stata_memo/fig11.png)
 
 #### （9）分组看分布——hbox和vioplot
 ```stata
@@ -477,6 +490,14 @@ tw (rarea tv v1 year,fcolor(gs5)) ///
    name(fig1_2,replace) 
 ```
 
+#### （12）气泡图
+```stata
+twoway(scatter mv T_gap_05_00 [fweight=N] if BEC == 0&T_gap_05_00!=0&N !=0,msymbol(Oh) mc(ebblue%40)) ///
+(scatter mv T_gap_05_00 [fweight=N] if BEC == 4&T_gap_05_00!=0&N !=0,msymbol(Oh) mc(orange_red%40)) ///
+(scatter mv T_gap_05_00 [fweight=N] if BEC == 2&T_gap_05_00!=0&N !=0,msymbol(Oh) mc(green%20)) ///
+, legend(label(1 "非资本品") label(2 "equipment") label(3 "accessories") ) 
+```
+![image](https://mengke25.github.io/images/stata_memo/fig12.png)
 
 
 ### 2. 处理数据
