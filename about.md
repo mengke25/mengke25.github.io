@@ -37,6 +37,10 @@ mengke25，UIBE经管类博士生在读。
 
 allenmeng97@gmail.com
 
+## 打赏渠道
+
+![image](https://mengke25.github.io/images/dashang.jpg)
+
 
 ## 其他信息： 
 
