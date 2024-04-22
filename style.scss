@@ -20,10 +20,10 @@ html {
 }
 
 body {
+  transform: scale(0.8);
   font-family: $base-font;
   color: $base-color;
   line-height: 1.5em;
-  transform: scale(0.9);
 }
 
 .container {
@@ -48,7 +48,7 @@ h1, h2, h3, h5 {
 }
 
 h1 {
-  font-size: 30px;
+  font-size: 28px;
   a {
     color: inherit;
   }
