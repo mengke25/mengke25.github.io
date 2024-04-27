@@ -65,13 +65,14 @@ print(data_long)
 
 ```
 
+```
 1 Alice   Score    80      70
 1 Alice   Score    85      75
 2 Bob     Score    90      85
 2 Bob     Score    88      78
 3 Charlie Score    75      80
 3 Charlie Score    92      88
-
+```
 
 这里，pivot_longer 的参数包括：
 
@@ -148,7 +149,8 @@ print(data_long)
 
 ##### 4.**`names_pattern`**：实例
 假设你有以下数据框，其中的列名包含有关个体诊断、性别和年龄的信息，而你想要在转换时提取这些信息：
-```{R}
+
+```
 # 假设有以下数据框
 data <- data.frame(
   ID = c(1, 2, 3),
@@ -157,9 +159,10 @@ data <- data.frame(
   new_diagnosis_f014 = c(5, 8, 12)
 )
 ```
+
 使用 pivot_longer 函数，并结合 names_pattern 参数，可以进行如下转换：
 
-```{R}
+```
 library(dplyr)
 
 # 使用 names_pattern 提取诊断、性别和年龄信息
@@ -171,10 +174,11 @@ data_long <- data %>%
     values_to = "count"
   )
 
-# 查看转换后的数据
 print(data_long)
 ```
+
 这样，names_pattern = "new_?(.*)_(.)(.*)" 就会在转换过程中提取诊断、性别和年龄信息，得到如下的结果：
+
 ```
 # A tibble: 6 × 5
      ID Name     diagnosis gender   age   count
@@ -210,7 +214,7 @@ print(data_long)
 
 假设有以下数据框，其中包含个体的一些观测值：
 
-```R
+```
 # 假设有以下数据框
 data_long <- data.frame(
   ID = c(1, 2, 3, 1, 2, 3),
@@ -222,7 +226,7 @@ data_long <- data.frame(
 
 使用 `pivot_wider` 将数据从长格式转换为宽格式，以创建新的列：
 
-```{R}
+```
 library(dplyr)
 
 # 使用 pivot_wider 进行转换
@@ -263,7 +267,7 @@ reshape wide value, i(year)  j(treat)
 // `j(treat)`是shape后的尾缀
 
 
-```{R}
+```
 merged_temp <- merged_temp %>% 
   filter(!is.na(treat)) %>%
   pivot_wider(names_from = treat,
