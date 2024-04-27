@@ -106,7 +106,7 @@ names_sep：指定用于分割列名的字符，在这里是下划线 "_”。
 
 ##### 3.**`names_prefix`**：实例
 假设你有以下数据框，其中的列名以 "X_" 开头，而你想要在转换时去掉这个前缀：
-```{R}
+```
 # 假设有以下数据框
 data <- data.frame(
   ID = c(1, 2, 3),
@@ -117,7 +117,7 @@ data <- data.frame(
 ```
 使用 pivot_longer 函数，并结合 names_prefix 参数，可以进行如下转换：
 
-```{R}
+```
 library(dplyr)
 
 # 使用 names_prefix 删除 X_
