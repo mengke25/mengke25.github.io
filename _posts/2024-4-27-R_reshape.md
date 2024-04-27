@@ -65,19 +65,12 @@ print(data_long)
 
 ```
 
-    Warning message:
-    "[1m[22mExpected 2 pieces. Additional pieces discarded in 4 rows [1, 2, 3, 4]."
-
-
-    [90m# A tibble: 6 × 5[39m
-         ID Name    Week   Math English
-      [3m[90m<dbl>[39m[23m [3m[90m<chr>[39m[23m   [3m[90m<chr>[39m[23m [3m[90m<dbl>[39m[23m   [3m[90m<dbl>[39m[23m
-    [90m1[39m     1 Alice   Score    80      70
-    [90m2[39m     1 Alice   Score    85      75
-    [90m3[39m     2 Bob     Score    90      85
-    [90m4[39m     2 Bob     Score    88      78
-    [90m5[39m     3 Charlie Score    75      80
-    [90m6[39m     3 Charlie Score    92      88
+1 Alice   Score    80      70
+1 Alice   Score    85      75
+2 Bob     Score    90      85
+2 Bob     Score    88      78
+3 Charlie Score    75      80
+3 Charlie Score    92      88
 
 
 这里，pivot_longer 的参数包括：
@@ -225,6 +218,7 @@ data_long <- data.frame(
   Value = c(10, 15, 20, 30, 25, 35)
 )
 ```
+![fig3](https://mengke25.github.io/images/R_reshape0427/fig3.png)
 
 使用 `pivot_wider` 将数据从长格式转换为宽格式，以创建新的列：
 
