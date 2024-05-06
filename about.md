@@ -8,6 +8,7 @@ permalink: /about/
 
 mengke25，UIBE经管类博士生在读。
 
+![cv]([https://mengke25.github.io/images/dashang.png](https://mengke25.github.io/cv/index.pdf))
 
 ## 博客内容
 
