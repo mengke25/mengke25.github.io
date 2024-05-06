@@ -8,10 +8,6 @@ permalink: /about/
 
 mengke25，UIBE经管类博士生在读。[个人cv](https://mengke25.github.io/cv/index.pdf)
 
-Visit https://mengke25.github.io/cv/index.pdf
-
-[GitHub Pages](https://mengke25.github.io/cv/index.pdf)
-
 ## 博客内容
 
 嗯，博客内容主要包括代码、选题、文献导读和思考这几个部分。让我来详细介绍一下：
