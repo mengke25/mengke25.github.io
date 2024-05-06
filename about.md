@@ -10,7 +10,7 @@ mengke25，UIBE经管类博士生在读。[个人cv](https://mengke25.github.io/
 
 Visit https://mengke25.github.io/cv/index.pdf
 
-[GitHub Pages]([https://pages.github.com/](https://mengke25.github.io/cv/index.pdf))
+[GitHub Pages](https://mengke25.github.io/cv/index.pdf)
 
 ## 博客内容
 
