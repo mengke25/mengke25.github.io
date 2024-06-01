@@ -20,7 +20,7 @@ html {
 }
 
 body {
-  transform: scale(1.00);
+  transform: scale(0.96);
   font-family: $base-font;
   color: $base-color;
   line-height: 1.5em;
@@ -362,12 +362,12 @@ img {
   .site-avatar {
     margin:0 auto;
     display: block;
-    max-width: 100px;
-    max-height: 100px;
+    max-width: 150px;
+    max-height: 150px;
 
     @include mobile {
-      max-width: 60px;
-      max-height: 60px;
+      max-width: 90px;
+      max-height: 90px;
     }
 
     img {
