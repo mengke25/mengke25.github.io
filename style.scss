@@ -20,10 +20,9 @@ html {
 }
 
 body {
-  transform: scale(1.00);
   font-family: $base-font;
   color: $base-color;
-  line-height: 1.5em;
+  line-height: 1.7em;
 }
 
 .container {
@@ -48,7 +47,7 @@ h1, h2, h3, h5 {
 }
 
 h1 {
-  font-size: 28px;
+  font-size: 30px;
   a {
     color: inherit;
   }
@@ -362,17 +361,17 @@ img {
   .site-avatar {
     margin:0 auto;
     display: block;
-    max-width: 150px;
-    max-height: 150px;
+    max-width: 200px;
+    max-height: 200px;
 
     @include mobile {
-      max-width: 90px;
-      max-height: 90px;
+      max-width: 120px;
+      max-height: 120px;
     }
 
     img {
       display: inline-block;
-      border-radius: 1.5px;
+      border-radius: 2px;
     }
   }
 }
@@ -383,7 +382,7 @@ img {
   cursor: pointer;
   font-family: $base-font;
   font-weight: 700;
-  font-size: 24px;
+  font-size: 28px;
   letter-spacing: 1px;
 }
 
@@ -652,7 +651,7 @@ nav {
 
 // Footer
 .wrapper-footer-desktop {
-  margin-top: 30px;
+  margin-top: 50px;
   border-top: 1px solid $footer-border-color;
   background-color: $footer-background-color;
   position: absolute;
