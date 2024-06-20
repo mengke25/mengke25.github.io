@@ -1,0 +1,366 @@
+%%%% 原模板参考了https://www.wondercv.com/的模板
+\documentclass[11pt]{article}
+% disable indent globally
+\setlength{\parindent}{0pt}
+% some general improvements, defines the XeTeX logo
+\usepackage{xltxtra}
+\usepackage{bookmark}
+% use hyperlink for email and url
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\usepackage{url}
+
+\urlstyle{tt}
+\usepackage{multicol}
+\usepackage{xcolor}
+%%%% 统一一种颜色，偏蓝色，用于section下划线和fontawesome
+\definecolor{CVBlue}{RGB}{45, 77, 152} % 从校徽上取的师大蓝
+%%另一种师大蓝{RGB}{0,77,255}
+%%% \widthof[]{} 用于特殊对齐是用到
+\usepackage{calc}
+%%%% 利用tikz来定位照片和学校Logo
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+% loading fonts
+\usepackage{fontspec}
+\usepackage{setspace}
+\usepackage{xeCJK}
+\CJKsetecglue{} %% 取消中文与数字之间间隙
+%%%%% 字体需要自己下载安装，注意版权问题，这两种字体应该比较好看，英文Helvetica，中文方正兰亭黑，也是有多种版本，自己试试哪些好看。参考了https://www.wondercv.com/的模板
+%%%%% windows系统好像需要先安装字体，之后下面语句就够了
+%Main document font
+%\setmainfont[
+%  BoldFont = HelveticaNeueLTPro-Md.otf ,
+%]{HelveticaNeueLTPro-Roman.otf}
+%
+%\setCJKmainfont[
+%BoldFont=Pro_GB18030 DemiBold.otf,
+%]{Pro_GB18030.otf}
+%%%%% 字体需要自己下载安装，注意版权问题
+%%%%% linux系统只需要字体路径就行了，如下
+% % Main document font
+\setmainfont[
+Path = Font/,
+Extension = .otf ,
+BoldFont = HelveticaNeueLTPro-Md.otf ,
+]{HelveticaNeueLTPro-Roman.otf}
+
+%\setCJKmainfont[
+%Path = D:/Nutshell/我的坚果云/cv/Font,
+%Extension = .otf ,
+%BoldFont=ProGB18030 DemiBold.otf,
+%]{ProGB18030.otf}
+
+%%%%% 定义更漂亮的“C++”，参考https://tex.stackexchange.com/questions/4302/prettiest-way-to-typeset-c-cplusplus 
+%%%%% 貌似跟具体字体大小有关，需要调下参数，我测试感觉下面的比较好看
+\usepackage{relsize}
+\usepackage{xspace}
+\protected\def\Cpp{{C\nolinebreak[4]\hspace{-.05em}\raisebox{.28ex}{\relsize{-1}++}}\xspace} 
+% use fontawesome
+\usepackage{fontawesome}
+%\newfontfamily{\FA}{[FontAwesome.otf]}
+\usepackage[
+a4paper,
+left=1.2cm,
+right=1.2cm,
+top=1.5cm,
+bottom=1cm,
+nohead
+]{geometry}
+\renewcommand{\baselinestretch}{1.2} %定义行间距1.2
+\usepackage{titlesec}
+\usepackage{enumitem}
+\setlist{noitemsep} % removes spacing from items but leaves space around the whole list
+%\setlist{nosep} % removes all vertical spacing within and around the list
+\setlist[itemize]{topsep=0.25em, leftmargin=*}
+\setlist[enumerate]{topsep=0.25em, leftmargin=*}
+\titleformat{\section}         % Customise the \section command 
+{\large\bfseries\raggedright} % Make the \section headers large (\Large),
+% small capitals (\scshape) and left aligned (\raggedright)
+{}{0em}                      % Can be used to give a prefix to all sections, like 'Section ...'
+{}                           % Can be used to insert code before the heading
+[{\color{CVBlue}\titlerule}]                 % Inserts a horizontal line after the heading
+\titlespacing*{\section}{0cm}{*1.6}{*1.2}
+\usepackage{siunitx}
+\usepackage{amssymb}
+%\xeCJKsetup{CJKspace=true}
+%\xeCJKDeclareCharClass{CJK}{`0 -> `9}    % 设置 0-9 以 CJK 字体输出
+%\normalspacedchars{0,1,2,3,4,5,6,7,8,9} % 0-9 的字符类被还原
+
+
+\begin{document}
+	
+	\pagenumbering{gobble} % suppress displaying page number
+	%%%% 利用tikz来定位照片，部分招聘单位可能需要“以貌取人”
+	\begin{tikzpicture}[remember picture, overlay]
+		\node[anchor = north east] at ($(current page.north east)+(-1cm,-1.2cm)$) {\includegraphics[height=2.8cm]{img/avatar.jpg}};
+	\end{tikzpicture}%
+	%%%% 利用tikz来定位学校Logo，这里只在第一页显示，如果需要每页都有，可以考虑在页眉、页脚或者background中加入，不过简历也就一两页，无所谓了
+	\begin{tikzpicture}[remember picture, overlay]
+		\node[anchor = north west] at ($(current page.north west)+(0.2cm,-0.2cm)$) {\includegraphics[height=1.5cm]{img/uibe}};
+	\end{tikzpicture}%
+	
+	%%%% 利用tikz来定位页脚栏，电子版简历使用，黑白纸质打印效果可能并不好。这里只在第一页显示，如果需要每页都有，页脚或者background中加入。
+	%\begin{tikzpicture}[remember picture, overlay] 
+	%	\node[anchor = south,fill=CVBlue,draw=none,minimum width=\paperwidth,minimum height=1.5em,align=center,font=\footnotesize,text=white] at ($(current page.south)$) 
+	%	{\faGithubAlt \ \href{https://github.com/mengke25}{https://github.com/mengke25}\qquad
+		%		\faRssSquare \ \href{https://mengke25.github.io}{https://mengke25.github.io} };
+	%\end{tikzpicture}
+	
+	
+	%tikzpicture环境很敏感，注释周围的空格、空行都会引起水平距离或垂直距离的变化，
+	%
+	\centerline{\LARGE\bfseries{孟 \  \  克}}
+	
+	%\centerline{\normalsize{专业：国民经济学}}
+	%\centerline{\normalsize{专业：金融工程}}
+	
+	%\centerline{\normalsize{意向岗位：高中数学教师 \quad 专业：学科教学（数学）}}
+	
+	\centerline{\normalsize{
+			\faPhone \ 手机： 15620156580 \quad 
+			\faBirthdayCake \ 生日： 1997/10（27岁）  \quad 
+			\faEnvelopeO \ 邮箱： \href{mailto:uibemk@126.com}{uibemk@126.com}  
+			%\faExternalLink \ \href{https://mengke25.github.io/}{https://mengke25.github.io/} 
+	}}  
+	
+	\centerline{\normalsize{
+			\faBuilding \ 籍贯： 天津市静海区 \quad
+			\faGroup \ 政治面貌：中共党员 \quad \quad 
+			\faGithub \ 主页： \href{https://mengke25.github.io/}{mengke25.github.io} 
+			%\faGithub \ 主页： \href{https://mengke25.github.io/}{mengke25.github.io} 
+	}}  
+	
+	
+	%%最好用你的edu邮箱
+	
+	%\centerline{\normalsize{ 
+			%  \faExternalLink \ \href{https://leyudame.github.io}{https://leyudame.github.io} \quad
+			%  \faGithubAlt \ \href{https://github.com/leyudame}{https://github.com/leyudame}
+			%  }}
+	%  \vspace{1.5ex}
+	
+	\section{\makebox[\widthof{\faGraduationCap}][c]{\color{CVBlue}\faGraduationCap}\  教育背景}
+	
+	2022/09 - 2025/06 \quad \textbf{对外经济贸易大学}（211, 双一流建设高校）  \quad \quad 世界经济 \quad \quad \quad 经济学博士在读
+	%\qquad 博士研究生 \quad 世界经济，预计2025年6月毕业
+	
+	2020/09 - 2022/06 \quad \textbf{对外经济贸易大学}（211, 双一流建设高校）  \quad \quad 国民经济学 \quad \quad 硕博连读
+	%\qquad 硕士研究生 \quad 国民经济学（硕博连读）
+	
+	2016/09 - 2020/06 \quad \textbf{天津财经大学} \quad \quad  \quad \quad \quad \quad  \quad \quad  \quad \quad  \quad \quad  \quad \quad  \quad  金融工程 \quad \quad \quad  经济学学士学位
+	%\hfill 2017年9月 -- 2020年6月
+	%\qquad 本科 \quad 金融工程 \quad  中共党员、本科任党支部副书记、金融工程1601班班长
+	
+	\section{\makebox[\widthof{\faGraduationCap}][c]{\color{CVBlue}\faFileText}\ 学术经历}
+	\textbf{外文论文}
+	\begin{itemize}
+		\item 2024/05  \quad 
+		\textbf{Journal of International Economices} 外审：  \vspace{-5pt}
+		\begin{itemize}
+			\item  《Big Push to Export: Unintended Consequences of China's Domestic Regulation in a Digital Sector》
+		\end{itemize}
+		
+		\vspace{-2pt}
+		
+		\item 2023/11  \quad
+		\textbf{Journal of Economic Behavior and Organization }外审：  \vspace{-5pt}
+		\begin{itemize}
+			\item  《More likely to be persuaded: The Impact of Air Pollution on Decisions Making》
+		\end{itemize}
+	\end{itemize}
+	
+	\textbf{中文论文}
+	\begin{itemize}
+		\item 2024/06 \quad
+		\href{}{\textbf{《中国工业经济》(CSSCI)：} 《地方数据治理与数字内容出口》} [3作, 导1]
+		
+		\item 2024/05 \quad
+		\href{}{\textbf{《南开经济研究》(CSSCI) 终审：} 《数字化转型能否提升中国服务企业经营绩效？》}  [2作, 导1]
+		
+		\item 2024/01 \quad
+		\href{https://mengke25.github.io/files/paper/p2024a.pdf}{\textbf{《财贸经济》(CSSCI)：} 《外需疲软、出口受阻与中国制造业比重下滑》} [2作, 导1]
+		
+		\item 2022/12 \quad
+		\href{https://mengke25.github.io/files/paper/p2022b.pdf}{\textbf{《北京工商大学学报》(CSSCI)：}《自由贸易试验区设立能否促进外资利用结构优化》}  [2作, 导1]
+		
+		\item 2022/05 \quad
+		\href{https://mengke25.github.io/files/paper/p2022a.pdf}{\textbf{《中南财经政法大学学报》(CSSCI)：}《对外承包工程促进了装备制造业出口吗?》}  [2作, 导1]
+		
+		
+		\item 2021/10 \quad
+		\href{https://mengke25.github.io/files/paper/p2021a.pdf}{\textbf{《太平洋学报》(CSSCI)：}《美国拜登政府的数字贸易治理政策趋向及我国应对策略》}  [2作, 导1]
+		
+		\item 2018/04 \quad
+		\href{https://mengke25.github.io/files/paper/p2018a.pdf}{\textbf{《华北金融》：}《商业银行智能投顾模式探索——以摩羯智投为例》}  [2作]
+		
+		%\item \textbf{《》(CSSCI)：}《知识产权保护与数字内容出口——来自中国游戏App的证据》
+		%\item \textbf{《》(CSSCI)：}《数字化转型能否提升中国服务企业的经营绩效？》
+		%\item \textbf{《》(CSSCI)：}《中国地方知识产权治理对数字内容出口的影响》
+		%\item \textbf{《》(CSSCI)：}《地方数据治理与数字内容出口——基于政策文本分析的视角》
+	\end{itemize}
+	
+	\textbf{参会情况}
+	\begin{itemize}
+		\item 2023/10 \quad
+		\textbf{高水平对外开放与高质量发展学术研讨会}（西南财经大学国际商学院，中国工业经济杂志社）
+		%\vspace{-2pt}
+		\item 2022/12 \quad
+		\textbf{第二届香樟国际经济学论坛} \quad （湖南大学经济与贸易学院）
+	\end{itemize}
+	
+	\textbf{批示采纳}
+	\begin{itemize}
+		\item 2023/12 \quad
+		\textbf{海南省委深改办采纳、省级领导批示：}
+		\href{}{《我国自贸区（港）数据跨境流动试点制度创新研究》} 
+		
+		\item 2022/06 \quad
+		\textbf{北京市商务局采纳：}
+		\href{}{《北京市数字贸易统计实证研究》} 
+		
+		\item 2023/03 \quad
+		\textbf{北京市商务局采纳：}
+		\href{}{《北京跨境数据流动试点建设的基本层面及制度创新的核心抓手》} 
+		
+	\end{itemize}
+	
+	
+	
+	\section{\makebox[\widthof{\faGraduationCap}][c]{\color{CVBlue}\faGears}\ 项目经历}
+	
+	\textbf{主持项目}
+	\begin{itemize} %[parsep=0.5ex]
+		\item 2022/10 \quad \textbf{对外经济贸易大学研究生科研创新项目（2023）：}知识产权保护对数字内容出口的影响研究
+		\item 2021/10 \quad \textbf{对外经济贸易大学研究生科研创新项目（2022）：}新冠疫情对服务业企业经营绩效的影响研究
+	\end{itemize}
+
+	\textbf{参与项目}
+	\begin{itemize} %[parsep=0.5ex]
+		\item 2022/10 \quad \textbf{国家社科基金重点：}数字贸易规则“美式模板”的演进升级、扩展适用趋向及中国的应对研究 
+		\item 2021/10 \quad \textbf{国家社科基金重点项目：}美国“印太新经济框架”下的数字贸易规则塑造及应对研究
+		\item 2021/08 \quad \textbf{首都高端智库决策咨询项目：}发展数字经济和提升跨境数据流动开放度研究
+		\item 2022/08 \quad \textbf{首都高端智库决策咨询项目：}数字贸易测度方法及北京市试测度研究 
+		\item 2023/08 \quad \textbf{首都高端智库决策咨询项目：}北京跨境数据流动试点研究
+		\item 2022/09 \quad \textbf{成都天府软件园有限公司委托：}国家数字服务出口基地（成都）课题研究服务采购项目 
+		\item 2021/10 \quad \textbf{北京市朝阳区统计局委托：}朝阳区数字贸易统计实证研究 
+		\item 2021/09 \quad \textbf{北京市发改委委托：}推进数字贸易发展的规则研究
+		\item 2023/11 \quad \textbf{北京市经信局委托课题：}北京市对接数字经贸国际规则方向和策略研究
+	\end{itemize}
+	
+	
+	
+	
+	\section{\makebox[\widthof{\faGraduationCap}][c]{\color{CVBlue}\faBriefcase}\ 实习经历}
+	
+	\begin{itemize}
+		\item 2020/12 - 2021/04 \quad \quad \quad  \quad \quad \quad \textbf{中银国际证券} \quad \quad \quad  \quad \quad \quad 实习生(非银组-卖方行研) 
+		\vspace{-5pt}
+		\begin{itemize}
+			\item 完成日报、周报、月报及撰写研报等工作，参加中信、华泰、国君、招商、东方等多家证券公司的业绩发布并做会议纪要，完成上述5家公司的2020年年报点评；参与战略部课题，梳理港美券商业务发展历程
+		\end{itemize}
+		\vspace{-5pt}
+	\end{itemize}
+	
+	
+	\begin{itemize}
+		\item 2017/07 - 2017/09 \quad \quad \quad  \quad \quad \quad \textbf{国泰君安期货公司} \quad \quad \quad  \quad 实习生(天津营业部-日常)
+		\vspace{-5pt}
+		\begin{itemize}
+			\item 能够使用Wind，Bloomberg，实习期间利用Excel处理数据，构建并分析期货走势与RSI等技术指标。学习如何用财务指标研判不同行业公司的盈利、营运能力；阅读研报，学习写作要点
+		\end{itemize}
+		\vspace{-5pt}
+	\end{itemize}
+	
+	
+	
+	\section{\makebox[\widthof{\faGraduationCap}][c]{\color{CVBlue}\faTrophy}\ 获奖情况}
+	\begin{itemize}
+		
+		\item 奖学金类：校级奖学金（六次）、校级优秀学生党员、校级优秀学生团员（两次）、校级三好学生
+		\item 专业类： \vspace{-6pt}
+		
+		\begin{itemize} 
+			
+			
+			\item  全国大学生数学建模竞赛(CUMCM) \quad \textbf{全国二等奖(2018/09)、天津市一等奖(2017/09)} 
+			\vspace{-2pt}
+			\begin{itemize}
+				\item  基于遍历算法和多元非线性规划模型求解调度策略，优化了小车给数控机床运送物料的路径，求出单位时间内机床最多加工件数的最优解，并用遗传算法进行优化（2018年）
+				\vspace{-3pt}
+			\end{itemize}
+			
+			
+			\item  美国大学生数学建模竞赛(MCM/ICM) \quad \textbf{Honorable Mention奖(2019/02)}  
+			\vspace{-2pt}
+			\begin{itemize}
+				\item  利用模糊数学的思想进行聚类确定波多黎各灾后救援中心的地理位置，在以任务完成率最高为目标的非线性多元约束下使用禁忌搜索模算法优化了装箱问题
+				\vspace{-3pt}
+			\end{itemize}
+			
+			
+			\item  智盛杯全国大学生金融科技创新能力大赛 \quad \textbf{全国一等奖(2018/11)}  
+			\vspace{-2pt}
+			\item  港湾杯策略模拟交易大赛 \quad   \textbf{第十名(2019/03)}  \vspace{-2pt}
+		\end{itemize}
+		
+		\vspace{-2pt}		
+		%		\item 教学技能类： 未来教师素养大赛\textbf{一等奖}
+	\end{itemize}
+	
+	
+	
+	
+	
+	
+	%
+	%% increase linespacing [parsep=0.5ex]
+	%\begin{itemize}[parsep=0.5ex]
+	%  \item 编程语言: C == Python > \Cpp > Java
+	%  \item 平台: Linux
+	%  \item 开发: 英语六级，博士期间阅读了大量专业英文文献、开源项目英文文档等。
+	%\end{itemize}
+	%
+	
+	
+	
+	
+	\section{\makebox[\widthof{\faGraduationCap}][c]{\color{CVBlue}\faUsers}\ 学生工作}
+	\begin{itemize}
+		\item 2020/11 - 2021/11 \quad \quad \quad  国家对外开放研究院学生第二党支部组织委员		
+		\item 2019/09 - 2020/06 \quad \quad \quad  金融学院学生第三党支部副书记
+		\item 2016/11 - 2018/05 \quad \quad \quad  金融学院分团委秘书处干部
+		\item 2016/10 - 2020/06 \quad \quad \quad  金融学院金融工程1601班班长
+	\end{itemize}
+	
+	
+	
+	\section{\makebox[\widthof{\faGraduationCap}][c]{\color{CVBlue}\faWrench}\ 技能水平}
+	
+	\begin{itemize}
+		\item \textbf{英语水平}：英语四级512分，英语六级517分，可在工作中运用英语交流
+		
+		\item \textbf{编程水平}：R语言（精通）；Stata（精通）；Python（熟练）；Matlab（能在项目中运用）
+			\vspace{-3pt}
+			\begin{itemize}
+				\item  作为《贸易量化分析》课程助教，为硕博研究生讲解实证代码（1课时）
+				\item  在Github、CSDN博客上日常分享代码，总访问量近30000次
+				\item  能够熟练进行“数据可视化”，“爬虫”，“文本量化分析”，“词云图绘制”
+			\vspace{-3pt}
+			\end{itemize}
+		
+		\item \textbf{其他软件}：ArcGis（地图）；Visio / Draw.io（流程图）；Origin（数据可视化）；Markdown（排版）；\LaTeX{}（排版）
+		
+		%\item 其他技能：
+		
+	\end{itemize}
+	
+	%\section{\makebox[\widthof{\faGraduationCap}][c]{\color{CVBlue}\faTags}\ 其他}
+	% increase linespacing [parsep=0.5ex]
+	%爱好特长：唱，跳，RAP，篮球
+	
+	%%%% 如果多页简历，可以手动在适当位置插入 \newpage 或者 \clearpage 开始新一页
+	
+\end{document}
+
