@@ -12,7 +12,7 @@ navigation:
   - name: 我的博客
     url: /tags
 
-paginate: 30
+paginate: 15
 
 excerpt_separator: <!-- more -->
 
