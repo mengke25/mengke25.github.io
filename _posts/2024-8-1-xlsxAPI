@@ -7,17 +7,6 @@ comments: true
 author: mengke25
 ---
 
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
 
 
 用于在excel中调用chatGPT、Claude等AI，帮忙进行自然语言处理，并输出相应的内容。它是一个专门做dirty work的RA
