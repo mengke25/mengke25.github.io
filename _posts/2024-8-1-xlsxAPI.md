@@ -16,11 +16,14 @@ author: mengke25
 
 ### 0. 项目url
 
-欢迎star：[项目仓库](https://github.com/mengke25/proj_textOpenAI)  <br />
+欢迎star：[项目仓库](https://github.com/mengke25/proj_textOpenAI) ;  <br />
 
-GitHub主页：[github](https://github.com/mengke25); <br />
+GitHub主页：[github](https://github.com/mengke25) ; <br />
 
-请喝咖啡：[打赏页面（ ͡° ᴥ ͡° ʋ）](https://mengke25.github.io/about/)
+视频教程：[guide](https://b23.tv/QQ54Vux) ; <br />
+
+请喝咖啡：[打赏页面（ ͡° ᴥ ͡° ʋ）](https://mengke25.github.io/about/) <br />
+
 
 
 ### 1. project简介
