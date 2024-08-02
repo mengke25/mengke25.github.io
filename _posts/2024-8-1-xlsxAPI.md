@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【python】调用大模型API处理文本"
+title: "【python】调用大模型接口批量处理文本"
 date:   2024-8-1
 tags: [code, python]
 comments: true
