@@ -17,8 +17,11 @@ CSDN主页：[CSDN](https://blog.csdn.net/weixin_43168119?spm=1000.2115.3001.534
 
 
 ### 0. 项目url
-欢迎star：[项目仓库](https://github.com/mengke25/proj_textOpenAI)
+
+欢迎star：[项目仓库](https://github.com/mengke25/proj_textOpenAI)  <br />
+
 请喝咖啡：[打赏页面](https://mengke25.github.io/about/)
+
 
 ### 1. project简介
 
