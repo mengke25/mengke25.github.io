@@ -7,15 +7,11 @@ comments: true
 author: mengke25
 ---
 
-
-
-用于在excel中调用chatGPT、Claude等AI，帮忙进行自然语言处理，并输出相应的内容。它是一个专门做dirty work的RA
+用于在表格中调用chatGPT、Claude等AI，进行自然语言处理，并输出相应的内容。它是一个专门做dirty work的RA
 
 <!-- more -->
 
-
-author:  mengke25 <br />
-个人主页：[personal website](https://mengke25.github.io); <br />
+个人主页：[personal website](https://mengke25.github.io/tags); <br />
 GitHub主页：[github](https://github.com/mengke25); <br />
 CSDN主页：[CSDN](https://blog.csdn.net/weixin_43168119?spm=1000.2115.3001.5343); <br />
 
