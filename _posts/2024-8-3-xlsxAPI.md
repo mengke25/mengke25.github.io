@@ -17,7 +17,7 @@ author: mengke25
 
 项目教程：[guide video](https://b23.tv/QQ54Vux); <br />
 
-请喝咖啡：[(●'◡'●)](https://github.com/mengke25/mengke25.github.io/blob/main/images/dashang.png)
+请喝咖啡：[(●'◡'●)](https://mengke25.github.io/images/dashang.png)
 
 
 ## 1. project简介
