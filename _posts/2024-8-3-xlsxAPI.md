@@ -11,7 +11,11 @@ author: mengke25
 
 <!-- more -->
 
+## 0. project url
 
+项目主页：[personal website](https://github.com/mengke25/proj_textOpenAI); <br />
+项目教程：[guide video](https://b23.tv/QQ54Vux)
+请喝咖啡：[(●'◡'●)](https://github.com/mengke25/mengke25.github.io/blob/main/images/dashang.png)
 
 
 ## 1. project简介
@@ -48,7 +52,7 @@ AI会根据我们输入的文本，给出相应的处理结果，并输出到exc
 
 ### （1）将项目下载到本地
 
-![image](https://github.com/mengke25/proj_textOpenAI/blob/main/orig_file/s1.png)
+![fig1](https://mengke25.github.io/images/xlsxAPI/s1.png)
 
 或者在cmd中可直接clone
 
@@ -59,7 +63,7 @@ git clone https://github.com/mengke25/proj_textOpenAI.git
 
 比如在这里，我直接将项目整体放在了D盘中
 
-![image](https://github.com/mengke25/proj_textOpenAI/blob/main/orig_file/s2.png)
+![fig1](https://mengke25.github.io/images/xlsxAPI/s2.png)
 
 <br /> <br />
 
@@ -89,7 +93,7 @@ python -m pip install -r requirements.txt
 
 用编译器打开该项目的文件夹，此处我用vscode来演示
 
-![image](https://github.com/mengke25/proj_textOpenAI/blob/main/orig_file/s3.png)
+![fig1](https://mengke25.github.io/images/xlsxAPI/s3.png)
 
 打开文件夹后，请找到`config`路径下的`json`文件，以及`script`路径下的`main.py`
 
@@ -97,7 +101,7 @@ python -m pip install -r requirements.txt
 
 其中`config.json`中定义了宏变量，`main.py`则是主脚本
 
-![image](https://github.com/mengke25/proj_textOpenAI/blob/main/orig_file/s4.png)
+![fig1](https://mengke25.github.io/images/xlsxAPI/s4.png)
 
 至此，本地部署已完成。下面我来介绍该如何使用。
 
@@ -151,11 +155,11 @@ python -m pip install -r requirements.txt
 
 第二步，修改好配置文件后，运行`main.py`。
 
-![image](https://github.com/mengke25/proj_textOpenAI/blob/main/orig_file/s5.png)
+![fig1](https://mengke25.github.io/images/xlsxAPI/s5.png)
 
 等运行完，去`output`文件夹将`'****_AIextract.xlsx'`找出来，即可。再生成最终文件的同时，还会生成若干个子文件，用于备份。如果不需要的话，可以直接删掉。
 
-![image](https://github.com/mengke25/proj_textOpenAI/blob/main/orig_file/s6.png)
+![fig1](https://mengke25.github.io/images/xlsxAPI/s6.png)
 
 <br /> <br />
 
@@ -166,9 +170,9 @@ python -m pip install -r requirements.txt
 此时需要您去配置run config
 
 具体步骤如下
-![image](https://github.com/mengke25/proj_textOpenAI/blob/main/orig_file/s7.png)
-![image](https://github.com/mengke25/proj_textOpenAI/blob/main/orig_file/s8.png)
-![image](https://github.com/mengke25/proj_textOpenAI/blob/main/orig_file/s9.png)
+![fig1](https://mengke25.github.io/images/xlsxAPI/s7.png)
+![fig1](https://mengke25.github.io/images/xlsxAPI/s8.png)
+![fig1](https://mengke25.github.io/images/xlsxAPI/s9.png)
 
 至此，整个项目就已经部署好且已经完成运行。
 
