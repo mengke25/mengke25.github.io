@@ -14,7 +14,9 @@ author: mengke25
 ## 0. project url
 
 项目主页：[personal website](https://github.com/mengke25/proj_textOpenAI); <br />
-项目教程：[guide video](https://b23.tv/QQ54Vux)
+
+项目教程：[guide video](https://b23.tv/QQ54Vux); <br />
+
 请喝咖啡：[(●'◡'●)](https://github.com/mengke25/mengke25.github.io/blob/main/images/dashang.png)
 
 
