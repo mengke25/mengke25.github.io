@@ -13,7 +13,7 @@ author: mengke25
 
 ## 0. project url
 
-项目主页：[personal website](https://github.com/mengke25/proj_textOpenAI); <br />
+项目主页：[proj_textOpenAI](https://github.com/mengke25/proj_textOpenAI); <br />
 
 项目教程：[guide video](https://b23.tv/QQ54Vux); <br />
 
