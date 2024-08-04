@@ -7,7 +7,7 @@ comments: true
 author: mengke25
 ---
 
-用于在表格中调用chatGPT、Claude等AI，进行自然语言处理，并输出相应的内容。它是一个专门做dirty work的RA
+用于在python中调用open AI的API，处理xlsx表格中的自然语言文本。一个专门做dirty work的好帮手
 
 <!-- more -->
 
