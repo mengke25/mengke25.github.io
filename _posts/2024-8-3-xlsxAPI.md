@@ -15,7 +15,7 @@ author: mengke25
 
 * 项目主页：[proj_textOpenAI](https://github.com/mengke25/proj_textOpenAI); <br />
 
-* Github主页：[mengke25](https://github.com/mengke25); <br />
+* Github主页：[@mengke25](https://github.com/mengke25); <br />
 
 * 项目教程：[guide video](https://b23.tv/QQ54Vux); <br />
 
