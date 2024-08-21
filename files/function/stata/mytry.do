@@ -1,6 +1,7 @@
 clear
-set obs 1 
-gen x = 1
-gen y = 1
+set obs 10 
+gen x = _n
+gsort -x
+gen y = 2.5*_n
 corr y x
 clear
