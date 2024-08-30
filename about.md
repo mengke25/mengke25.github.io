@@ -6,7 +6,7 @@ permalink: /about/
 
 ## 个人简介
 
-mengke25，UIBE经管类博士生在读。[my CV](https://mengke25.github.io/cv/个人简历.md)
+mengke25，UIBE经管类博士生在读。[my CV](https://mengke25.github.io/cv/my_cv.html)
 
 ## 博客内容
 
