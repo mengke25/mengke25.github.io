@@ -1,0 +1,6 @@
+---------------------citycode_mutate.pkg----------------
+v 2.17 
+d `citycode_mutate` 根据字符串生成中国城市代码
+d Distribution-Date:   20240903
+f citycode_mutate.ado
+f citycode_mutate.sthlp

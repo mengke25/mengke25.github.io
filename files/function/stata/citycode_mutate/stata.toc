@@ -1,0 +1,8 @@
+---------------------stata.toc----------------
+v 1.00 
+v 1.00
+d Materials by 孟克
+d uibemk@126.com
+d https://mengke25.github.io/
+d 'citycode_mutate': `citycode_mutate` 输出企业名称后，会生成一个新的变量，用于捕捉企业所在城市的编码。
+p citycode_mutate
