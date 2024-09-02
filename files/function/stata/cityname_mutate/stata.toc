@@ -1,0 +1,8 @@
+---------------------stata.toc----------------
+v 1.00 
+v 1.00
+d Materials by 孟克
+d uibemk@126.com
+d https://mengke25.github.io/
+d 'cityname_mutate': `cityname_mutate` 输出城市代码，会生成一个新的变量，即为对应的城市名称
+p cityname_mutate
