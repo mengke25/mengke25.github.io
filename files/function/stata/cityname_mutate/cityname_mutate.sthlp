@@ -34,6 +34,6 @@
 {phang}
 {cmd:MengKe} China Institute for WTO studies, University of International Business and Economics, China.{break}
 E-mail: {browse "mailto:uibemk@126.com":uibemk@126.com}. {break}
-Blog: {browse "https://www.mengke25.github.io":mengke25.github.io} {break}
+Blog: {browse "https://mengke25.github.io":mengke25.github.io} {break}
 {p_end}
 
