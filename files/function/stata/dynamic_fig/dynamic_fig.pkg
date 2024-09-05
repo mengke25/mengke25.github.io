@@ -1,0 +1,6 @@
+---------------------dynamic_fig.pkg----------------
+v 2.17 
+d `dynamic_fig` A package for creating dynamic effectfigures in Stata
+d Distribution-Date:   20240903
+f dynamic_fig.ado
+f dynamic_fig.sthlp

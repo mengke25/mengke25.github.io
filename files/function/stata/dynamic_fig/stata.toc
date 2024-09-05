@@ -1,0 +1,8 @@
+---------------------stata.toc----------------
+v 1.00 
+v 1.00
+d Materials by 孟克
+d uibemk@126.com
+d https://mengke25.github.io/
+d 'dynamic_fig': `dynamic_fig` 一键查看dynamic effect，帮助进行event study，parallel test, casual inference, etc.
+p dynamic_fig
