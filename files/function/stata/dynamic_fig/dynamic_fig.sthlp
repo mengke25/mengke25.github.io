@@ -90,7 +90,7 @@ specifying key regression parameters and reference points.
 
 {phang2} *- Run example2 {p_end}
 {phang2}{inp:.} {stata "use https://mengke25.github.io/files/function/stata/dynamic_fig/dynamic_fig_sample.dta,clear": use sample.dta, clear }{p_end}
-{phang2}{inp:.} {stata "dynamic_fig,  y(lnv) treat(treat) time(t) ref(0) absorb(id year) cluster(id) level(90) condition(id >2 & year!= 2001)  ":  dynamic_fig,  y(lnv) treat(treat) time(t) ref(0) absorb(id year) cluster(id) level(90) condition(id >2 & year!= 2001)  }{p_end}
+{phang2}{inp:.} {stata "dynamic_fig, y(lnv) treat(treat) time(t) ref(0) absorb(id year) cluster(id) level(90) condition(id >2 &year!= 2001)":  dynamic_fig, y(lnv) treat(treat) time(t) ref(0) absorb(id year) cluster(id) level(90) condition(id >2 &year!= 2001)  }{p_end}
 
 
 {phang2} *- Run example3 {p_end}
