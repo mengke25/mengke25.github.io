@@ -41,6 +41,7 @@ program define dynamic_fig
 	
 	qui{
     // Summarize the year variable to find the range
+	cap ren _ty xjsktf29186
     su `time', d
     local s_y = r(min)
     local e_y = r(max)
@@ -334,6 +335,7 @@ program define dynamic_fig
 	restore
 	
 	cap drop _ty
+	cap ren xjsktf29186 _ty 
 	}
 	
 end
