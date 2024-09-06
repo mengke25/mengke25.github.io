@@ -147,8 +147,8 @@ program define dynamic_fig
 		
 		gen coef = string(abs(round(M1,0.01)))
 		replace coef = "0"+coef if strmatch(coef,".*") & M1 >=0 
-		replace coef = "-0"+coef if strmatch(coef,".*") & M1 <0
 		replace coef = "-"+coef if strmatch(coef,".*")==0 & M1 <0 
+		replace coef = "-0"+coef if strmatch(coef,".*") & M1 <0
 		replace coef ="" if M5 == `ref'
 		
 		gen sig_se = subinstr(se,"(","",.)
