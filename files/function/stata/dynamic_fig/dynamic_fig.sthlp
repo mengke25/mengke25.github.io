@@ -24,6 +24,7 @@
     {cmdab:ref}{cmd:(}{it:integer}{cmd:)}
     {cmdab:absorb}{cmd:(}{it:string}{cmd:)}
     {cmdab:cluster}{cmd:(}{it:varlist}{cmd:)}
+    {cmdab:treattype}{cmd:(}{it:string}{cmd:)}
     {cmdab:cov}{cmd:(}{it:string}{cmd:)}
     {cmdab:condition}{cmd:(}{it:string}{cmd:)}
     {cmdab:level}{cmd:(}{it:string}{cmd:)}
@@ -55,7 +56,7 @@ specifying key regression parameters and reference points.
 
 {p 4 8 2} {opt y(varlist)} (required) – The dependent variable.
 
-{p 4 8 2} {opt treat(varlist)} (required) – A binary (0/1) variable indicating treatment assignment.
+{p 4 8 2} {opt treat(varlist)} (required) – A variable indicating treatment assignment.
 
 {p 4 8 2} {opt time(varlist)} (required) – The time variable in the panel dataset.
 
@@ -64,6 +65,8 @@ specifying key regression parameters and reference points.
 {p 4 8 2} {opt absorb(string)} (required) – The fixed effects variables to be absorbed.
 
 {p 4 8 2} {opt cluster(varlist)} (required) – The clustering variable.
+
+{p 4 8 2} {opt treattype(string)} (optional) – type of treatment var, it can be {cmd:binary} or {cmd:intensity}.
 
 {p 4 8 2} {opt cov(string)} (optional) – Covariates to be included in the model.
 
