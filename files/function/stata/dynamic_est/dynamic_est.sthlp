@@ -31,7 +31,7 @@
     {cmdab:regtype}{cmd:(}{it:string}{cmd:)}
     ]
 
-{p 8 21 2}where {it:y}, {it:treat}, {it:time}, {it:ref}, {it:absorb}, {it:cluster} are required.
+{p 8 21 2}where {it:y}, {it:treat}, {it:time}, {it:ref} are required.
 
 
 
