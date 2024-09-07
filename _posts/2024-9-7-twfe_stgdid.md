@@ -98,14 +98,11 @@ twfe_stgdid Y did , id(id) time(cycle) ref(-1) f(5) l(4) absorb(id cycle) cluste
 
 其实整理这些命令，就是把自己平时用的多的一套流程封装起来。接下来我或许会写一个做panelmatch的命令，这个会相对麻烦一些，但也会更有意思，欢迎大家关注。
 
-___________
-
-<font size=5>**转载请注明出处：[@mengke25](mengke25.github.io)**</font> 
-
-<font size=5>**[请喝咖啡（打赏渠道）](https://mengke25.github.io/images/dashang.png)**</font>
-
-___________
-
+-----
+ **转载请注明出处**：[@mengke25](https://mengke25.github.io/dynamic_est/) 
+-----
+ **请喝咖啡**：[打赏渠道](https://mengke25.github.io/images/dashang.png)
+-----
 
 
 
