@@ -8,8 +8,6 @@ author: mengke25
 ---
 
 
-
-
 最早是我用来checkdata的，后来为了方便就写成了函数。现在我稍微完善了一下，封装成了stata外部命令，能够实现一句命令查看被解释变量变量在treat下的dynamic effect，希望能帮到大家。
 
 
@@ -109,11 +107,13 @@ absorb(id_cate#country_j year#country_j) cluster(country_j) regtype(ppml)
   * 不过，我写的另一个外部命令[（欢迎使用）twfe_stgdid](https://mengke25.github.io/twfe_stgdid/)可以直接对`staggered-spec`的数据进行分析。
 
 
----------------------------------------------
-转载请注明出处：[@mengke25](https://mengke25.github.io/dynamic_est/) <br />
-**欢迎白嫖，也欢迎酌情**[请喝咖啡](https://mengke25.github.io/images/dashang.png)
----------------------------------------------
+___________
 
+<font size=5>**转载请注明出处：[@mengke25](mengke25.github.io)**</font> 
+
+<font size=5>**[请喝咖啡（打赏渠道）](https://mengke25.github.io/images/dashang.png)**</font>
+
+___________
 
 
 
