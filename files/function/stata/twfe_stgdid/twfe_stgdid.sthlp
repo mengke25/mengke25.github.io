@@ -96,17 +96,17 @@ and given conditions.
 
 {phang2} *- Run example1 {p_end}
 {phang2}{inp:.} {stata "use https://mengke25.github.io/files/function/stata/twfe_stgdid/twfe_stgdid_sample.dta,clear": use sample.dta, clear }{p_end}
-{phang2}{inp:.} {stata "twfe_stgdid Y did , id(id) time(cycle) ":  twfe_stgdid Y DA , id(id) time(cycle) }{p_end}
+{phang2}{inp:.} {stata "twfe_stgdid Y did , id(id) time(cycle) ":  twfe_stgdid Y did , id(id) time(cycle) }{p_end}
 
 
 {phang2} *- Run example2 {p_end}
 {phang2}{inp:.} {stata "use https://mengke25.github.io/files/function/stata/twfe_stgdid/twfe_stgdid_sample.dta,clear": use sample.dta, clear }{p_end}
-{phang2}{inp:.} {stata "twfe_stgdid Y did , id(id) time(cycle) f(4) l(4) ref(-1) absorb(id cycle) level(90) cluster(id)":  twfe_stgdid Y DA , id(id) time(cycle) f(4) l(4) ref(-1) absorb(id cycle) level(90) cluster(id) }{p_end}
+{phang2}{inp:.} {stata "twfe_stgdid Y did , id(id) time(cycle) f(4) l(4) ref(-1) absorb(id cycle) level(90) cluster(id)":  twfe_stgdid Y did , id(id) time(cycle) f(4) l(4) ref(-1) absorb(id cycle) level(90) cluster(id) }{p_end}
 
 
 {phang2} *- Run example3 {p_end}
 {phang2}{inp:.} {stata "use https://mengke25.github.io/files/function/stata/twfe_stgdid/twfe_stgdid_sample.dta,clear": use sample.dta, clear }{p_end}
-{phang2}{inp:.} {stata "twfe_stgdid Y did , id(id) time(cycle) f(4) l(4) ref(-1) absorb(id cycle) level(90) cluster(id) panelview(True)  regtype(ppml) ":  twfe_stgdid Y DA , id(id) time(cycle) f(4) l(4) ref(-1) absorb(id cycle) level(90) cluster(id) panelview(True)  regtype(ppml) }{p_end}
+{phang2}{inp:.} {stata "twfe_stgdid Y did , id(id) time(cycle) f(4) l(4) ref(-1) absorb(id cycle) level(90) cluster(id) panelview(True)  regtype(ppml) ":  twfe_stgdid Y did , id(id) time(cycle) f(4) l(4) ref(-1) absorb(id cycle) level(90) cluster(id) panelview(True)  regtype(ppml) }{p_end}
 
 
 
