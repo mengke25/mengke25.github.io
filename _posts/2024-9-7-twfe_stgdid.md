@@ -7,7 +7,9 @@ comments: true
 author: mengke25
 ---
 
-仿照CSDID命令一键出实证结果、出图，我写了一个`twfe_stgdid`命令。基于双向固定效应模型（TWFE）一键式完成staggered-DID分析。TWFE估计did estimator时难以避免[负权重带来的问题（异质性处理效应）](https://www.nber.org/system/files/working_papers/w25904/w25904.pdf)。所以，非常惭愧地说，封装这个函数的意义就是帮助初步查看（可能并不严谨的）结果。虽然可能不太严谨，但查看TWFE的结果依然是有意义的（初步查看、或者与其他方法进行对比去对比），这个命令或许可以帮助大家省去一些功夫。
+仿照CSDID命令一键出实证结果、出图，我写了一个`twfe_stgdid`命令。基于双向固定效应模型（TWFE）一键式完成staggered-DID分析。TWFE估计did estimator时难以避免[负权重带来的问题（异质性处理效应）](https://www.nber.org/system/files/working_papers/w25904/w25904.pdf)。所以，非常惭愧地说，封装这个函数的意义就是帮助初步查看（可能并不严谨的）结果。虽然可能不太严谨，但查看TWFE的结果依然是有意义的（初步查看、或者与其他方法进行对比去对比）。
+
+总之，这个命令一方面或许可以帮助大家做staggeredDD时省去一些功夫，另外也是对我上一期分享`dynamic_est`命令的补充，具体见[dynamic_est](https://mengke25.github.io/dynamic_est/)文末。
 
 
 
@@ -96,13 +98,13 @@ twfe_stgdid Y did , id(id) time(cycle) ref(-1) f(5) l(4) absorb(id cycle) cluste
 
 其实整理这些命令，就是把自己平时用的多的一套流程封装起来。接下来我或许会写一个做panelmatch的命令，这个会相对麻烦一些，但也会更有意思，欢迎大家关注。
 
+___________
 
----------------------------------------------
-转载请注明出处：[@mengke25](https://mengke25.github.io/twfe_stgdid/) <br />
-**欢迎白嫖，也欢迎酌情**[请喝咖啡](https://mengke25.github.io/images/dashang.png)
----------------------------------------------
+<font size=5>**转载请注明出处：[@mengke25](mengke25.github.io)**</font> 
 
+<font size=5>**[请喝咖啡（打赏渠道）](https://mengke25.github.io/images/dashang.png)**</font>
 
+___________
 
 
 
