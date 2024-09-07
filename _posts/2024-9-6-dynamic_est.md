@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "【stata】自写命令分享`dynamic_est`，一键生成dynamic effect"
-date:   2024-9-7
+date:   2024-9-6
 tags: [code,stata]
 comments: true
 author: mengke25
