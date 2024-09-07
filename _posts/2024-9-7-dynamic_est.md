@@ -81,6 +81,12 @@ dynamic_est lnv , treat(treat) time(t) ref(-1)
 dynamic_est lnv , treat(treat_intens) time(year) ref(2009) absorb(id year) cluster(id) regtype(reg)
 ```
 
+
+### (3) 帮助文件
+
+![help](https://mengke25.github.io/images/dynamic_est/fig2.jpg)
+
+
 ## 5.写在最后
 
 需要补充说明的是，dynamic effect并不完全等同于`DID`中的平行趋势检验。
@@ -100,11 +106,14 @@ absorb(id_cate#country_j year#country_j) cluster(country_j) regtype(ppml)
 * 在standard-spec情形下，
   * 不能直接用`dynamic_est`去直接对`类似多时点`的数据进行分析。
   * 需要先对panel进行处理，例如像Sun Abraham、callaway santanna等（或者用panelmatch的方法）对panel进行重组，才能进行分析。
-  * 不过，我写的另一个外部命令[twfe_stgdid](https://mengke25.github.io/twfe_stgdid/)可以直接对`staggered-spec`的数据进行分析。
+  * 不过，我写的另一个外部命令[（欢迎使用）twfe_stgdid](https://mengke25.github.io/twfe_stgdid/)可以直接对`staggered-spec`的数据进行分析。
+
 
 ---------------------------------------------
-
+转载请注明出处：[@mengke25](https://mengke25.github.io/dynamic_est/) <br />
 **欢迎白嫖，也欢迎酌情**[请喝咖啡](https://mengke25.github.io/images/dashang.png)
+---------------------------------------------
+
 
 
 
