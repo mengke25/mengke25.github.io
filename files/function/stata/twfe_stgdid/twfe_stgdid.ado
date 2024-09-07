@@ -50,7 +50,7 @@ cap drop _ty
 cap drop f_*
 cap drop l_*
 
-bys `id' : egen _treatyear0  = min(`time') if `did' == 1
+bys `id' : egen _treatyear0  = min(`time') if `did' >0
 bys `id' : egen _treatyear = mean(_treatyear0)
 gen ty = (`time' - _treatyear) / `r'
 gen _ty = abs(ty)				// temp_t
