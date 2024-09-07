@@ -1,7 +1,18 @@
 cap program drop twfe_stgdid
 program define twfe_stgdid
+
 // Adjust the syntax to not require quotes around options
-    syntax, y(varlist) did(varlist) id(varlist) time(varlist) ref(integer) absorb(string) [condition(string)] [cluster(varlist)] [cov(string)] [level(string)] [panelview(string)] [r(string)] [figname(string)] [figtitle(string)] [figsubtitle(string)]  [regtype(string)]  [type(string)] [f(string)] [l(string)] [dispcoef(string)]
+    //syntax, y(varlist) did(varlist) id(varlist) time(varlist) ref(integer) absorb(string) [condition(string)] [cluster(varlist)] [cov(string)] [level(string)] [panelview(string)] [r(string)] [figname(string)] [figtitle(string)] [figsubtitle(string)]  [regtype(string)]  [type(string)] [f(string)] [l(string)] [dispcoef(string)]
+
+	syntax varlist(min=2 max=2) , id(varlist) time(varlist) ref(integer) absorb(string) ///
+    [condition(string)] [cluster(varlist)] [cov(string)] [level(string)] ///
+    [panelview(string)] [r(string)] [figname(string)] [figtitle(string)] ///
+    [figsubtitle(string)] [regtype(string)] [type(string)] [f(string)] [l(string)] ///
+    [dispcoef(string)]
+
+    // Assign the first variable in varlist to y and the second to did
+    local y : word 1 of `varlist'
+    local did : word 2 of `varlist'
 
 di "------------------------------------------------------------------------------------"
 preserve
@@ -31,10 +42,14 @@ global F `f'
 global L `l'
 cap drop _treatyear0 
 cap drop _rty
+cap drop ty
+cap drop _ty
+cap drop f_*
+cap drop l_*
+
 bys `id' : egen _treatyear0  = min(`time') if `did' == 1
 bys `id' : egen _treatyear = mean(_treatyear0)
 gen ty = (`time' - _treatyear) / `r'
-
 gen _ty = abs(ty)				// temp_t
 }
 *------------------------------------------------------------------------*
