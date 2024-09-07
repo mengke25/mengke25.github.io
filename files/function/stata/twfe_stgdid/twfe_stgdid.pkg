@@ -1,0 +1,6 @@
+---------------------twfe_stgdid.pkg----------------
+v 2.17 
+d `twfe_stgdid` A package for creating dynamic effectfigures in Stata
+d Distribution-Date:   20240907
+f twfe_stgdid.ado
+f twfe_stgdid.sthlp
