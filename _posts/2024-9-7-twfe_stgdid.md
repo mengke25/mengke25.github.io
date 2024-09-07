@@ -7,7 +7,9 @@ comments: true
 author: mengke25
 ---
 
-仿照CSDID命令一键出实证结果、出图，我写了一个`twfe_stgdid`命令。基于双向固定效应模型（TWFE）一键式完成staggered-DID分析。TWFE处理异质性处理效应有一定弊端，所以封装成函数一键出结果的意义就是省去无用功（免得再去费力不讨好^_^）。
+仿照CSDID命令一键出实证结果、出图，我写了一个`twfe_stgdid`命令。基于双向固定效应模型（TWFE）一键式完成staggered-DID分析。TWFE估计did estimator时难以避免[负权重带来的问题（异质性处理效应）](https://www.nber.org/system/files/working_papers/w25904/w25904.pdf)。所以，非常惭愧地说，封装这个函数的意义就是帮助初步查看（可能并不严谨的）结果。虽然可能不太严谨，但查看TWFE的结果依然是有意义的（初步查看、或者与其他方法进行对比去对比），这个命令或许可以帮助大家省去一些功夫。
+
+
 
 
 <!-- more -->
