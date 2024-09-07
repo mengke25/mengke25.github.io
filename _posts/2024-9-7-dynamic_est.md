@@ -19,6 +19,8 @@ author: mengke25
 
 `dynamic_est` 是一个用于可视化双向固定效应模型（Two-Way Fixed Effects, TWFE）动态效应的工具。它特别适用于事件研究（event study）或双重差分（Difference-in-Differences, DID）分析。通过一句命令即可展示动态效应，帮助用户更好地理解在某变量的作用下，随时间变化其对结果变量的影响。
 
+在输出的图像中，为了让结果更加直观，我加入了各期的系数、标准误，也标注了显著性
+
 ![fig1](https://mengke25.github.io/images/dynamic_est/fig1.png)
 
 
