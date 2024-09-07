@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【stata】自写命令分享，一键生成dynamic effect"
+title: "【stata】自写命令分享`dynamic_est`，一键生成dynamic effect"
 date:   2024-9-7
 tags: [code,stata]
 comments: true
