@@ -107,13 +107,11 @@ absorb(id_cate#country_j year#country_j) cluster(country_j) regtype(ppml)
   * 不过，我写的另一个外部命令[（欢迎使用）twfe_stgdid](https://mengke25.github.io/twfe_stgdid/)可以直接对`staggered-spec`的数据进行分析。
 
 
-___________
-
-<font size=5>**转载请注明出处：[@mengke25](mengke25.github.io)**</font> 
-
-<font size=5>**[请喝咖啡（打赏渠道）](https://mengke25.github.io/images/dashang.png)**</font>
-
-___________
+-----
+ **转载请注明出处**：[@mengke25](https://mengke25.github.io/dynamic_est/) 
+-----
+ **请喝咖啡**：[打赏渠道](https://mengke25.github.io/images/dashang.png)
+-----
 
 
 
