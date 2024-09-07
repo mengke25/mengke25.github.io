@@ -1,0 +1,6 @@
+---------------------dynamic_est.pkg----------------
+v 2.17 
+d `dynamic_est` A package for creating dynamic effectfigures in Stata
+d Distribution-Date:   20240903
+f dynamic_est.ado
+f dynamic_est.sthlp
