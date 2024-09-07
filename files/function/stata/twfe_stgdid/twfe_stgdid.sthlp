@@ -16,7 +16,7 @@
 {title:Syntax}
 
 {p 8 21 2}
-{cmd:twfe_stgdid Y did} 
+{cmd:twfe_stgdid Y did [if] } 
 [{cmd:,}
     {cmdab:id}{cmd:(}{it:varlist}{cmd:)}
     {cmdab:time}{cmd:(}{it:varlist}{cmd:)}
