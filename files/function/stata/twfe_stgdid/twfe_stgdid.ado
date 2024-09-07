@@ -2,14 +2,12 @@ cap program drop twfe_stgdid
 program define twfe_stgdid
 
 // Adjust the syntax to not require quotes around options
-    //syntax, y(varlist) did(varlist) id(varlist) time(varlist) ref(integer) absorb(string) [condition(string)] [cluster(varlist)] [cov(string)] [level(string)] [panelview(string)] [r(string)] [figname(string)] [figtitle(string)] [figsubtitle(string)]  [regtype(string)]  [type(string)] [f(string)] [l(string)] [dispcoef(string)]
-
-	syntax varlist(min=2 max=2) , id(varlist) time(varlist) ref(integer) absorb(string) ///
-    [condition(string)] [cluster(varlist)] [cov(string)] [level(string)] ///
+    syntax varlist(min=2 max=2) [if] , id(varlist) time(varlist) ref(integer) [absorb(string)] ///
+    [cluster(varlist)] [cov(string)] [level(string)] ///
     [panelview(string)] [r(string)] [figname(string)] [figtitle(string)] ///
     [figsubtitle(string)] [regtype(string)] [type(string)] [f(string)] [l(string)] ///
     [dispcoef(string)]
-
+	
     // Assign the first variable in varlist to y and the second to did
     local y : word 1 of `varlist'
     local did : word 2 of `varlist'
@@ -101,11 +99,7 @@ if `ref' < 0{
 	global refperiod "f_`ref2'"
 }
 di "------------------------------------------------------------------------------------"
-*------------------------------------------------------------------------*
-// condition 选项
-if "`condition'" != ""{
-	local condition = "if " + "`condition'"
-}
+
 *------------------------------------------------------------------------*
 // 是否查看面板选项
 if "`panelview'" == ""{
@@ -124,11 +118,15 @@ if "`type'" == "simple"{
 		di "INPUT Y: `y'"
 		di "INPUT COV: `cov'"
 		di "INPUT absorb: `absorb'"
-		di "INPUT Condition: `condition'"
 		di "INPUT Cluster: no-cluster, Robust"
 		di "method `regtype'hdfe"
 		di "------------------------------------------------------------------------------------"
-		`regtype'hdfe `y' `did' `cov' `condition', absorb(`absorb') cluster(`cluster') 
+		if "`absorb'" != ""{
+		`regtype'hdfe `y' `did' `cov' `if', absorb(`absorb') cluster(`cluster') 
+		}
+		if "`absorb'" == ""{
+		`regtype'hdfe `y' `did' `cov' `if', noa cluster(`cluster') 
+		}
 	}
 	
 	if "`cluster'" == ""{
@@ -136,11 +134,15 @@ if "`type'" == "simple"{
 		di "INPUT Y: `y'"
 		di "INPUT COV: `cov'"
 		di "INPUT absorb: `absorb'"
-		di "INPUT Condition: `condition'"
 		di "INPUT Cluster: `cluster'"
 		di "method `regtype'hdfe"
 		di "------------------------------------------------------------------------------------"
-		`regtype'hdfe `y' `did' `cov' `condition', absorb(`absorb') vce(r)
+		if "`absorb'" != ""{
+		`regtype'hdfe `y' `did' `cov' `if', absorb(`absorb') vce(r)
+		}
+		if "`absorb'" == ""{
+		`regtype'hdfe `y' `did' `cov' `if', noa vce(r)
+		}
 	}
 }
 
@@ -162,11 +164,15 @@ if "`cluster'" != ""{
 	di "INPUT Y: `y'"
 	di "INPUT COV: `cov'"
 	di "INPUT absorb: `absorb'"
-	di "INPUT Condition: `condition'"
 	di "INPUT Cluster: `cluster'"
 	di "method `regtype'hdfe"
 	di "------------------------------------------------------------------------------------"
-	local full_cmd "`regtype'hdfe `y' `f_seq' `l_seq', absorb(`absorb') cluster(`cluster')"
+	if "`absorb'" != ""{
+	local full_cmd "`regtype'hdfe `y' `f_seq' `l_seq' `if', absorb(`absorb') cluster(`cluster')"
+	}
+	if "`absorb'" == ""{
+	local full_cmd "`regtype'hdfe `y' `f_seq' `l_seq' `if', noa cluster(`cluster')"
+	}
 	display "`full_cmd'"
 	`full_cmd'
 }
@@ -176,11 +182,15 @@ if "`cluster'" == ""{
 	di "INPUT Y: `y'"
 	di "INPUT COV: `cov'"
 	di "INPUT absorb: `absorb'"
-	di "INPUT Condition: `condition'"
 	di "INPUT Cluster: `cluster'"
 	di "method `regtype'hdfe"
 	di "------------------------------------------------------------------------------------"
-	local full_cmd "`regtype'hdfe `y' `f_seq' `l_seq', absorb(`absorb') vce(r)"
+	if "`absorb'" != ""{
+	local full_cmd "`regtype'hdfe `y' `f_seq' `l_seq' `if', absorb(`absorb') vce(r)"
+	}
+	if "`absorb'" == ""{
+	local full_cmd "`regtype'hdfe `y' `f_seq' `l_seq' `if',noa vce(r)"
+	}
 	display "`full_cmd'"
 	`full_cmd'
 }
@@ -294,3 +304,4 @@ tw (rcap M3 M4 M5, lp(solid) lc(gs4)) ///
 }
 restore
 end
+
