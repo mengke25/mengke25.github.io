@@ -2,7 +2,7 @@ cap program drop twfe_stgdid
 program define twfe_stgdid
 
 // Adjust the syntax to not require quotes around options
-    syntax varlist(min=2 max=2) [if] , id(varlist) time(varlist) ref(integer) [absorb(string)] ///
+    syntax varlist(min=2 max=2) [if] , id(varlist) time(varlist) [ref(string)] [absorb(string)] ///
     [cluster(varlist)] [cov(string)] [level(string)] ///
     [panelview(string)] [r(string)] [figname(string)] [figtitle(string)] ///
     [figsubtitle(string)] [regtype(string)] [type(string)] [f(string)] [l(string)] ///
@@ -15,6 +15,11 @@ program define twfe_stgdid
 di "------------------------------------------------------------------------------------"
 preserve
 *------------------------------------------------------------------------*
+// check ref
+if "`ref'" == ""{
+	local ref = "-1"
+	di "The option {ref} was not specified, defaulting to {-1}"
+}
 // check type: simple or event
 if "`type'" == ""{
 	local type = "event"
@@ -304,4 +309,3 @@ tw (rcap M3 M4 M5, lp(solid) lc(gs4)) ///
 }
 restore
 end
-
