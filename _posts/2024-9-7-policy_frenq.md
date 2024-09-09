@@ -157,7 +157,7 @@ git clone https://github.com/mengke25/policy_text_frenq.git
 ####   <a name='6-2-1'></a>方法1：直接安装
 最简单直接的方法，用`win+r`，键入cmd，打开命令行，输入以下命令：
 
-```cmd
+```
 pip install python-docx
 pip install pandas
 pip install numpy
