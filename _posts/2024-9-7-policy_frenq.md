@@ -144,12 +144,12 @@ _____________________
 
 ###   <a name='6-1'></a>（1）将项目下载到本地
 
-* 我发到群里或者拷给你们 $2333$
 * 可以去[项目地址](https://github.com/mengke25/policy_text_frenq)打包下载
 * 可以使用git clone命令下载：
 ```python
 git clone https://github.com/mengke25/policy_text_frenq.git
 ```
+* 或者邮箱私信我
 
 
 ###  <a name='6-2'></a>（2）安装依赖
