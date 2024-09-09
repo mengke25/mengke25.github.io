@@ -2,7 +2,7 @@
 layout: post
 title: "【python】爬取WITS贸易数据"
 date:   2024-9-8
-tags: [code,stata]
+tags: [code,python]
 comments: true
 author: mengke25
 ---
