@@ -23,9 +23,9 @@ World Integrated Trade Solution (WITS) 是由世界银行、联合国贸易和�
 
 ## 2.项目地址
 
-[项目仓库](https://github.com/mengke25/wits_crawler)
+[WITS爬虫项目仓库地址](https://github.com/mengke25/wits_crawler)
 
-先分享了单一脚本。为了提高爬取速度，建议并行运行多个cmd。
+先分享单一脚本。为了提高爬取速度，建议并行运行多个cmd。
 
 具体如何部署，我后面再慢慢在本贴整理，如有紧急问题可私信我
 
