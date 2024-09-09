@@ -16,7 +16,7 @@ ____
 
 #### (1) Under Review / In Progress
 
-{Foreign language... , Chinese language...}
+{......}
 
 #### (2)已发表/录用
 
