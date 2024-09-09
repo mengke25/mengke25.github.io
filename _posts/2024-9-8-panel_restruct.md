@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【stata】panel-patch面板数据重构思路"
+title: "【stata】panel-match面板数据重构思路"
 date:   2024-9-8
 tags: [code,stata]
 comments: true
@@ -16,7 +16,7 @@ author: mengke25
 <!-- more -->
 
 
-
+**Content**
 
 <!-- vscode-markdown-toc -->
 * [1.面板数据的生成](#1)
