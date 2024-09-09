@@ -509,7 +509,7 @@ end
 需要补充说明的是，dynamic effect并不完全等同于`DID`中的平行趋势检验。
 上文所谓的standard-spec和staggered-spec是为了区分数据的范式
 
-* 在standard-spec情形下，`time`是自然时间，此时dynamic effect结果可以被看做平行趋势检验结果。在这种情况下，以下两组代码等价：
+* 在standard-spec情形下，`time`是自然时间，此时dynamic effect结果可以被看做平行趋势检验结果。例如，在这种情况下，以下两组代码等价：
 ```
 ppmlhdfe Active i(2016/2019).year#i1.Tr_cate if year>=2015 , /// 
 a(id_cate#country_j year#country_j) cluster(country_j) 
@@ -522,8 +522,9 @@ absorb(id_cate#country_j year#country_j) cluster(country_j) regtype(ppml)
 
 * 在standard-spec情形下，
   * 不能直接用`dynamic_est`去直接对`类似多时点`的数据进行分析。
-  * 需要先对panel进行处理，例如像Sun Abraham、callaway santanna等（或者用panelmatch的方法）对panel进行重组，才能进行分析。
-  * 不过，我写的另一个外部命令[（欢迎使用）twfe_stgdid](https://mengke25.github.io/twfe_stgdid/)可以直接对`staggered-spec`的数据进行分析。
+  * 需要先对panel进行处理，例如像Sun Abraham、callaway santanna等（或者用panelmatch的方法）对panel进行重构成，才能进行分析。
+  * 关于panel-data的重构，我也po出了[对panel data restruct的思考以及相关的代码](https://mengke25.github.io/panel_restruct/)
+  * 此外，我写的另一个外部命令[（欢迎使用）twfe_stgdid](https://mengke25.github.io/twfe_stgdid/)可以直接对`staggered-spec`的数据进行分析。
 
 
 
