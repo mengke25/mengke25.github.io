@@ -6,9 +6,9 @@ ____
 
 ### 0. Education
 
-2022/09 - 2025/06	University of International Business and Economics (UIBE)	World Economy	Ph.D. in Economics
+2022/09 - 2025/06	University of International Business and Economics (UIBE)	World Economy	Ph.D. Candidate
 
-2020/09 - 2022/06	University of International Business and Economics (UIBE)	National Economics	Ph.D. Candidate
+2020/09 - 2022/06	University of International Business and Economics (UIBE)	National Economics	MSc-to-PhD
 
 2016/09 - 2020/06	Tianjin University of Finance and Economics	Financial Engineering	Bachelor’s Degree in Economics
 
@@ -18,21 +18,22 @@ ____
 
 {Foreign language... , Chinese language...}
 
-#### (2) Published / Accepted
+#### (2)已发表/录用
 
-2024/06		[Local Data Governance and Digital Content Export](https://mengke25.github.io/files/paper/p2024b.pdf)	**China Industrial Economics**
+2024/06		[地方数据治理与数字内容出口](https://mengke25.github.io/files/paper/p2024b.pdf)					中国工业经济
 
-2024/05		Can Digital Transformation Improve the Performance of Chinese Service Enterprises?	**Nankai Economic Research** (Final review)
+2024/05		数字化转型能否提升中国服务企业经营绩效				南开经济研究终审
 
-2024/01		[Weak External Demand, Export Obstacles, and the Decline of China's Manufacturing Sector](https://mengke25.github.io/files/paper/p2024a.pdf)	**Finance & Trade Economics**
+2024/01		[外需疲软、出口受阻与中国制造业比重下滑](https://mengke25.github.io/files/paper/p2024a.pdf)				财贸经济
 
-2022/12		[Can the Establishment of Free Trade Zones Promote the Optimization of Foreign Investment Structures?](https://mengke25.github.io/files/paper/p2022b.pdf)		**Journal of Beijing Technology and Business University**
+2022/12		[自由贸易试验区设立能否促进外资利用结构优化](https://mengke25.github.io/files/paper/p2022b.pdf)			北京工商大学学报
 
-2022/05		[Has Foreign Contracting Projects Promoted Exports of Equipment Manufacturing?](https://mengke25.github.io/files/paper/p2022a.pdf)		**Journal of Zhongnan University of Economics and Law**
+2022/05		[对外承包工程促进了装备制造业出口吗](https://mengke25.github.io/files/paper/p2022a.pdf)				中南财经政法大学学报
 
-2021/10		[Biden Administration’s Digital Trade Governance Policy Trends and China's Response](https://mengke25.github.io/files/paper/p2021a.pdf)	**Pacific Journal**
+2021/10		[美国拜登政府的数字贸易治理政策趋向及我国应对策略](https://mengke25.github.io/files/paper/p2021a.pdf)		太平洋学报
 
-2018/04		[Exploring the Intelligent Investment Advisory Model of Commercial Banks: A Case Study of "Moji AI"]()		**North China Finance**
+2018/04		[商业银行智能投顾模式探索——以摩羯智投为例](https://mengke25.github.io/files/paper/p2018a.pdf)			华北金融
+
 
 ### 2. Academic Conferences
 
