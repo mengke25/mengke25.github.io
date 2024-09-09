@@ -11,10 +11,30 @@ author: mengke25
 
 <!-- more -->
 
+<!-- vscode-markdown-toc -->
+* 1. [1.citycode_mutate](#citycode_mutate)
+	* 1.1. [(1) 命令用法](#1)
+	* 1.2. [(2) 安装方法](#2)
+	* 1.3. [(3) 示例](#3)
+	* 1.4. [(4) 帮助文件](#4)
+* 2. [2.cityname_mutate](#cityname_mutate)
+	* 2.1. [(1) 命令用法](#1-1)
+	* 2.2. [(2) 安装方法](#2-1)
+	* 2.3. [(3) 示例](#3-1)
+	* 2.4. [(4) 帮助文件](#4-1)
 
-## 1.citycode_mutate
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
 
-### (1) 命令用法
+
+
+
+##  1. <a name='citycode_mutate'></a>1.citycode_mutate
+
+###  1.1. <a name='1'></a>(1) 命令用法
 
 `citycode_mutate`命令用于识别字符串中可能存在的城市信息，并生成城市代码。
 
@@ -23,12 +43,12 @@ author: mengke25
 citycode_mutate var(string)
 ```
 
-### (2) 安装方法
+###  1.2. <a name='2'></a>(2) 安装方法
 ```
 net install citycode_mutate, from("https://mengke25.github.io/files/function/stata/citycode_mutate") replace
 ```
 
-### (3) 示例
+###  1.3. <a name='3'></a>(3) 示例
 
 ```
 citycode_mutate firm
@@ -37,15 +57,15 @@ citycode_mutate firm
 ![fig1](https://mengke25.github.io/images/citycode_mutate/fig1.png)
 
 
-### (4) 帮助文件
+###  1.4. <a name='4'></a>(4) 帮助文件
 
 ![fig2](https://mengke25.github.io/images/citycode_mutate/fig2.png)
 
 
 
-## 2.cityname_mutate
+##  2. <a name='cityname_mutate'></a>2.cityname_mutate
 
-### (1) 命令用法
+###  2.1. <a name='1-1'></a>(1) 命令用法
 
 `cityname_mutate`命令可将城市代码转换成统一的城市名
 
@@ -55,12 +75,12 @@ cityname_mutate var(numeric)
 ```
 
 
-### (2) 安装方法
+###  2.2. <a name='2-1'></a>(2) 安装方法
 ```
 net install cityname_mutate, from("https://mengke25.github.io/files/function/stata/cityname_mutate") replace
 ```
 
-### (3) 示例
+###  2.3. <a name='3-1'></a>(3) 示例
 
 ```
 cityname_mutate citycode
@@ -69,30 +89,16 @@ cityname_mutate citycode
 ![fig3](https://mengke25.github.io/images/citycode_mutate/fig3.png)
 
 
-### (4) 帮助文件
+###  2.4. <a name='4-1'></a>(4) 帮助文件
 
 
 ![fig4](https://mengke25.github.io/images/citycode_mutate/fig4.png)
 
 
 
+##  3. <a name='mengke25https:mengke25.github.io'></a>**转载请注明出处**：[@mengke25](https://mengke25.github.io/) 
 
-## **转载请注明出处**：[@mengke25](https://mengke25.github.io/) 
-
-## **请喝咖啡**：[打赏渠道](https://mengke25.github.io/images/dashang.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
+##  4. <a name='https:mengke25.github.ioimagesdashang.png'></a>**请喝咖啡**：[打赏渠道](https://mengke25.github.io/images/dashang.png)
 
 
 
