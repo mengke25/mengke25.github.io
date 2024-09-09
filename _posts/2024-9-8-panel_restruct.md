@@ -25,6 +25,7 @@ _____________________
 	* [(3) general setting](#1-3)
 * [2.面板数据重构命令](#2)
 * [3.使用示例](#3)
+* [4.panel_restruct源码分享](#4)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -137,6 +138,31 @@ panel_restruct, id(id) time(year) did(did_estimator) pre(2) post(2)
 * pre：希望生成的事前期数
 * post：希望生成的事后期数
 
+
+##  <a name='3'></a>3.使用示例
+
+先调用`panel_gen`，生成特定spec的面板数据，
+
+```
+panel_gen, type(general)
+```
+
+
+然后调用`panel_restruct`，进行重构。
+```
+panel_restruct, id(id) time(t) did(estimator) pre(2) post(2)
+```
+
+至此，面板重构完成，输入数据为`general setting`，如左图所示
+
+输出数据即重构后的数据如右图所示，已经将左图data打散，并将符合条件的`treatment group` 和 `control group`进行了组合
+
+![fig4](https://mengke25.github.io/images/panel_restruct/fig4.png)
+
+
+
+
+##  <a name='4'></a>4.panel_restruct源码分享
 
 ```stata
 cap program drop panel_restruct
@@ -269,29 +295,9 @@ end
 
 
 
-##  <a name='3'></a>3.使用示例
-
-先调用`panel_gen`，生成特定spec的面板数据，
-
-```
-panel_gen, type(general)
-```
 
 
-然后调用`panel_restruct`，进行重构。
-```
-panel_restruct, id(id) time(t) did(estimator) pre(2) post(2)
-```
+##  <a name='mengke25https:mengke25.github.io'></a>**转载请注明出处**：[@mengke25](https://mengke25.github.io/) 
 
-至此，面板重构完成，输入数据为`general setting`，如左图所示
-
-输出数据即重构后的数据如右图所示，已经将左图data打散，并将符合条件的`treatment group` 和 `control group`进行了组合
-
-![fig4](https://mengke25.github.io/images/panel_restruct/fig4.png)
-
-
-
-##  4. <a name='mengke25https:mengke25.github.io'></a>**转载请注明出处**：[@mengke25](https://mengke25.github.io/) 
-
-##  5. <a name='https:mengke25.github.ioimagesdashang.png'></a>**请喝咖啡**：[打赏渠道](https://mengke25.github.io/images/dashang.png)
+##  <a name='https:mengke25.github.ioimagesdashang.png'></a>**请喝咖啡**：[打赏渠道](https://mengke25.github.io/images/dashang.png)
 
