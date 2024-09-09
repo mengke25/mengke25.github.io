@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【stata】panel-patch面板数据重构"
+title: "【stata】panel-patch面板数据重构思路"
 date:   2024-9-8
 tags: [code,stata]
 comments: true
@@ -267,6 +267,10 @@ panel_restruct, id(id) time(t) did(estimator) pre(2) post(2)
 ![fig4](https://mengke25.github.io/images/panel_restruct/fig4.png)
 
 
+
+## **转载请注明出处**：[@mengke25](https://mengke25.github.io/) 
+
+## **请喝咖啡**：[打赏渠道](https://mengke25.github.io/images/dashang.png)
 
 
 
