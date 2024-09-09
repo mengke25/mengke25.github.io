@@ -48,7 +48,7 @@ _____________________
 
 ###   <a name='2-1'></a>(1) 主要选项
 ```
-dynamic_est {outcome_var} , treat({varlist}) time{varlist}) ref({numeric}) 
+dynamic_est {outcome_var} , treat({varlist}) time({varlist}) ref({numeric}) 
 ```
 
 `dynamic_est` 需要以下四个必需变量：
