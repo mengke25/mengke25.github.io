@@ -124,7 +124,11 @@ panel_gen, type(general)
 
 根据`panel_gen`命令生成的面板数据，我们可以用`panel_restruct`命令进行重构。
 
-下面是我定义的`panel_restruct`函数，能够针对`staggered-setting`和`general-setting`两种类型的数据一键进行重构。
+下面是我写的`panel_restruct`函数用法，该命令能够针对`staggered-setting`和`general-setting`两种类型的数据一键进行重构。
+
+```
+panel_restruct, id(id) time(year) did(did_estimator) pre(2) post(2)
+```
 
 只需要定义四个参数
 * id：panel id变量
