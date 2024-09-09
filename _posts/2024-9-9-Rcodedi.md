@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【R】R语言常用函数汇总（持续更新）"
+title: "【R语言】R语言常用函数汇总（持续更新）"
 date:   2024-9-9
 tags: [code,R]
 comments: true
