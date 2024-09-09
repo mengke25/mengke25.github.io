@@ -47,6 +47,10 @@ _____________________
 ##  <a name='2'></a>2.命令选项
 
 ###   <a name='2-1'></a>(1) 主要选项
+```
+dynamic_est {outcome_var} , treat({varlist}) time{varlist}) ref({numeric}) 
+```
+
 `dynamic_est` 需要以下四个必需变量：
 * `y`: 结果变量（outcome variable），即你想要观察的因变量。
 * `treat`: 分组变量
