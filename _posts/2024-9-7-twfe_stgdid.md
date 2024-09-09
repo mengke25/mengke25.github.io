@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【stata】自写命令分享`twfe_stgdid`，一键完成staggered-DID"
+title: "【stata】自写命令分享twfe_stgdid，一键完成staggered-DID"
 date:   2024-9-7
 tags: [code, stata]
 comments: true
