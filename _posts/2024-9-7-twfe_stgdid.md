@@ -12,9 +12,11 @@ author: mengke25
 总之，这个命令一方面或许可以帮助大家做staggeredDD时省去一些功夫，另外也是对我上一期分享`dynamic_est`命令的补充，具体见[dynamic_est](https://mengke25.github.io/dynamic_est/)文末。
 
 
-
-
 <!-- more -->
+
+
+
+___________________
 
 **Content**
 <!-- vscode-markdown-toc -->
