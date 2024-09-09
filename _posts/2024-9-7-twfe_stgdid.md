@@ -26,8 +26,8 @@ ___________________
 	* [(2) 其他选项](#2-2)
 * [3.安装方法](#3)
 * [4.示例](#4)
-* [5.源码分享](#5)
-* [6.写在最后](#6)
+* [5.写在最后](#5)
+* [6.源码分享](#6)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -110,7 +110,18 @@ twfe_stgdid Y did , id(id) time(cycle) ref(-1) f(5) l(4) absorb(id cycle) cluste
 
 ![help](https://mengke25.github.io/images/twfe_stgdid/fig2.jpg)
 
-##  <a name='5'></a>5.源码分享
+
+
+##  <a name='5'></a>5.写在最后
+
+在我上次发布的[dynamic_est命令](https://mengke25.github.io/dynamic_est/)时，在文末说明其不能直接对`类似多时点`的数据进行分析。
+
+这样来看，`twfe_stgdid`在某种程度上也算是对`dynamic_est`的一种补充
+
+其实整理这些命令，就是把自己平时用的多的一套流程封装起来。接下来我或许会写一个做panelmatch的命令，这个会相对麻烦一些，但也会更有意思，欢迎大家关注。
+
+
+##  <a name='6'></a>6.源码分享
 
 ```
 cap program drop twfe_stgdid
@@ -425,16 +436,6 @@ tw (rcap M3 M4 M5, lp(solid) lc(gs4)) ///
 restore
 end
 ```
-
-
-
-##  <a name='6'></a>6.写在最后
-
-在我上次发布的[dynamic_est命令](https://mengke25.github.io/dynamic_est/)时，在文末说明其不能直接对`类似多时点`的数据进行分析。
-
-这样来看，`twfe_stgdid`在某种程度上也算是对`dynamic_est`的一种补充
-
-其实整理这些命令，就是把自己平时用的多的一套流程封装起来。接下来我或许会写一个做panelmatch的命令，这个会相对麻烦一些，但也会更有意思，欢迎大家关注。
 
 ##  <a name='mengke25https:mengke25.github.io'></a>**转载请注明出处**：[@mengke25](https://mengke25.github.io/) 
 
