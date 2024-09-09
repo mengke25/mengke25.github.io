@@ -2,7 +2,7 @@
 layout: post
 title: "【python】政策文本关键词词频量化"
 date:   2024-9-7
-tags: [code,stata]
+tags: [code,python]
 comments: true
 author: mengke25
 ---
