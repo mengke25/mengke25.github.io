@@ -9,11 +9,33 @@ author: mengke25
 
 
 最早是我用来checkdata的，后来为了方便就写成了函数。现在我稍微完善了一下，封装成了stata外部命令，能够实现一句命令查看被解释变量变量在treat下的dynamic effect，希望能帮到大家。
-
-
 <!-- more -->
 
-## 1. 命令简介
+
+
+<!-- vscode-markdown-toc -->
+* [1. 命令简介](#1)
+* [2.使用方法](#2)
+	* [(1) 主要选项](#2-1)
+	* [(2) 其他选项](#2-2)
+* [3.安装方法](#3)
+* [4.示例](#4)
+	* [(1) 基本用法](#4-1)
+	* [(2) 进阶用法](#4-2)
+	* [(3) 帮助文件](#4-3)
+* [5.源码分享](#5)
+* [6.写在最后](#6)
+
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+
+
+##  <a name='1'></a>1. 命令简介
 
 `dynamic_est` 是一个用于可视化动态效应（dynamic effect）的工具。它特别适用于事件研究（event study）或双重差分（Difference-in-Differences, DID）分析。通过一句命令即可展示动态效应，帮助用户更好地理解在某变量的作用下，随时间变化其对结果变量的影响。
 
@@ -22,9 +44,9 @@ author: mengke25
 ![fig1](https://mengke25.github.io/images/dynamic_est/fig1.png)
 
 
-## 2.使用方法
+##  <a name='2'></a>2.使用方法
 
-### (1) 主要选项
+###   <a name='2-1'></a>(1) 主要选项
 `dynamic_est` 需要以下四个必需变量：
 * `y`: 结果变量（outcome variable），即你想要观察的因变量。
 * `treat`: 分组变量
@@ -36,7 +58,7 @@ author: mengke25
 * `ref`: 基期选择，数值型，如{2006} 或 {-1}，用于定义参考时期。
 
 
-### (2) 其他选项
+###   <a name='2-2'></a>(2) 其他选项
 
 除了以上的必需变量，dynamic_est 还支持以下可选参数：
 * absorb(string): 可吸收的固定效应或控制变量
@@ -49,7 +71,7 @@ author: mengke25
 * figsubtitle(string): 图形的副标题
 
 
-## 3.安装方法
+##   <a name='3'></a>3.安装方法
 
 ```
 net install dynamic_est, from("https://mengke25.github.io/files/function/stata/dynamic_est") replace
@@ -62,31 +84,31 @@ uibemk@126.com
 
 
 
-## 4.示例
+##   <a name='4'></a>4.示例
 
-### (1) 基本用法
-#### standard-spec.
+###  <a name='4-1'></a>(1) 基本用法
+####   <a name='standard-spec.'></a>standard-spec.
 ```    
 dynamic_est lnv , treat(treat) time(year) ref(2009) 
 ```
 
-#### staggered-spec.
+####  <a name='staggered-spec.'></a>staggered-spec.
 ```
 dynamic_est lnv , treat(treat) time(t) ref(-1) 
 ```
 
-### (2) 进阶用法
+###   <a name='4-2'></a>(2) 进阶用法
 ```
 dynamic_est lnv , treat(treat_intens) time(year) ref(2009) absorb(id year) cluster(id) regtype(reg)
 ```
 
 
-### (3) 帮助文件
+###   <a name='4-3'></a>(3) 帮助文件
 
 ![help](https://mengke25.github.io/images/dynamic_est/fig2.jpg)
 
 
-## 5.源码分享
+##  <a name='5'></a>5.源码分享
 
 ```
 cap program drop dynamic_est
@@ -482,7 +504,7 @@ end
 
 
 
-## 6.写在最后
+##  <a name='6'></a>6.写在最后
 
 需要补充说明的是，dynamic effect并不完全等同于`DID`中的平行趋势检验。
 上文所谓的standard-spec和staggered-spec是为了区分数据的范式
@@ -507,9 +529,9 @@ absorb(id_cate#country_j year#country_j) cluster(country_j) regtype(ppml)
 
 
 
-## **转载请注明出处**：[@mengke25](https://mengke25.github.io/) 
+##   <a name='mengke25https:mengke25.github.io'></a>**转载请注明出处**：[@mengke25](https://mengke25.github.io/) 
 
-## **请喝咖啡**：[打赏渠道](https://mengke25.github.io/images/dashang.png)
+##  <a name='https:mengke25.github.ioimagesdashang.png'></a>**请喝咖啡**：[打赏渠道](https://mengke25.github.io/images/dashang.png)
 
 
 
