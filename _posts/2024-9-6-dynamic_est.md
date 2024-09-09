@@ -11,7 +11,7 @@ author: mengke25
 最早是我用来checkdata的，后来为了方便就写成了函数。现在我稍微完善了一下，封装成了stata外部命令，能够实现一句命令查看被解释变量变量在treat下的dynamic effect，希望能帮到大家。
 <!-- more -->
 
-
+_____________________
 **Content**
 <!-- vscode-markdown-toc -->
 * [1. 命令简介](#1)
