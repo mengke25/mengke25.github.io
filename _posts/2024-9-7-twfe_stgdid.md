@@ -16,7 +16,25 @@ author: mengke25
 
 <!-- more -->
 
-## 1. 命令简介
+**Content**
+<!-- vscode-markdown-toc -->
+* [1.命令简介](#1)
+* [2.命令选项](#2)
+	* [(1) 主要选项](#2-1)
+	* [(2) 其他选项](#2-2)
+* [3.安装方法](#3)
+* [4.示例](#4)
+* [5.源码分享](#5)
+* [6.写在最后](#6)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+
+##  <a name='1'></a>1. 命令简介
 
 `twfe_stgdid` 是一个用于staggered-DID分析的高效工具，基于TWFE模型，可以一键式完成分析并展示平行趋势检验结果，有助于用户快速理解在处理变量影响下结果变量的变化情况。
 
@@ -24,9 +42,9 @@ author: mengke25
 ![fig1](https://mengke25.github.io/images/twfe_stgdid/fig1.png)
 
 
-## 2.使用方法
+##  <a name='2'></a>2.命令选项
 
-### (1) 主要选项
+###  <a name='2-1'></a>(1) 主要选项
 `twfe_stgdid` 需要以下三个必需变量：
 * `Y`: 结果变量（因变量）
 * `did`: 双重差分估计变量（DID estimator）
@@ -35,7 +53,7 @@ author: mengke25
 * `time`: 自然时间变量
 
 
-### (2) 其他选项
+###  <a name='2-2'></a>(2) 其他选项
 
 * `ref`: 基准时期，默认为-1
 * `f`: 选择预处理期数量，默认是全部预处理期
@@ -54,7 +72,7 @@ author: mengke25
 * `dispcoef`: 是否显示平行趋势检验中的系数，默认为True
 
 
-## 3.安装方法
+##  <a name='3'></a>3.安装方法
 
 ```
 net install twfe_stgdid, from("https://mengke25.github.io/files/function/stata/twfe_stgdid") replace
@@ -66,7 +84,9 @@ uibemk@126.com
 allenmeng97@gmail.com
 
 
-## 4.示例
+##  <a name='4'></a>4.示例
+
+* 命令用法
 
 ```
 use "$path/twfe_stgdid/twfe_stgdid_sample.dta",clear 
@@ -84,11 +104,11 @@ twfe_stgdid Y did , id(id) time(cycle) f(5) l(4)
 twfe_stgdid Y did , id(id) time(cycle) ref(-1) f(5) l(4) absorb(id cycle) cluster(id) regtype(ppml) figsubtitle("staggered-DID")
 ```
 
-### (3) 帮助文件
+* 帮助文件：
 
 ![help](https://mengke25.github.io/images/twfe_stgdid/fig2.jpg)
 
-## 5.源码分享
+##  <a name='5'></a>5.源码分享
 
 ```
 cap program drop twfe_stgdid
@@ -406,19 +426,17 @@ end
 
 
 
-## 6.写在最后
+##  <a name='6'></a>6.写在最后
 
 在我上次发布的[dynamic_est命令](https://mengke25.github.io/dynamic_est/)时，在文末说明其不能直接对`类似多时点`的数据进行分析。
-
 
 这样来看，`twfe_stgdid`在某种程度上也算是对`dynamic_est`的一种补充
 
 其实整理这些命令，就是把自己平时用的多的一套流程封装起来。接下来我或许会写一个做panelmatch的命令，这个会相对麻烦一些，但也会更有意思，欢迎大家关注。
 
-## **转载请注明出处**：[@mengke25](https://mengke25.github.io/) 
+##  <a name='mengke25https:mengke25.github.io'></a>**转载请注明出处**：[@mengke25](https://mengke25.github.io/) 
 
-## **请喝咖啡**：[打赏渠道](https://mengke25.github.io/images/dashang.png)
-
+##  <a name='https:mengke25.github.ioimagesdashang.png'></a>**请喝咖啡**：[打赏渠道](https://mengke25.github.io/images/dashang.png)
 
 
 
