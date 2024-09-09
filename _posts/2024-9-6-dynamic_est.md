@@ -509,7 +509,7 @@ end
 需要补充说明的是，dynamic effect并不完全等同于`DID`中的平行趋势检验。
 上文所谓的standard-spec和staggered-spec是为了区分数据的范式
 
-* 在standard-spec情形下，`time`是自然时间，此时dynamic effect结果可以被看做平行趋势检验结果。在这种请跨国下，以下两组代码等价：
+* 在standard-spec情形下，`time`是自然时间，此时dynamic effect结果可以被看做平行趋势检验结果。在这种情况下，以下两组代码等价：
 ```
 ppmlhdfe Active i(2016/2019).year#i1.Tr_cate if year>=2015 , /// 
 a(id_cate#country_j year#country_j) cluster(country_j) 
