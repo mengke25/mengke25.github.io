@@ -15,7 +15,7 @@ author: mengke25
 
 <!-- vscode-markdown-toc -->
 * [1. 命令简介](#1)
-* [2.使用方法](#2)
+* [2.命令选项](#2)
 	* [(1) 主要选项](#2-1)
 	* [(2) 其他选项](#2-2)
 * [3.安装方法](#3)
@@ -44,7 +44,7 @@ author: mengke25
 ![fig1](https://mengke25.github.io/images/dynamic_est/fig1.png)
 
 
-##  <a name='2'></a>2.使用方法
+##  <a name='2'></a>2.命令选项
 
 ###   <a name='2-1'></a>(1) 主要选项
 `dynamic_est` 需要以下四个必需变量：
