@@ -15,7 +15,26 @@ author: mengke25
 
 <!-- more -->
 
-## 1.面板数据的生成
+
+
+
+<!-- vscode-markdown-toc -->
+* [1.面板数据的生成](#1)
+	* [(1) standard setting](#1-1)
+	* [(2) staggered setting](#1-2)
+	* [(3) general setting](#1-3)
+* [2.面板数据重构命令](#2)
+* [3.使用示例](#3)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+
+
+##   <a name='1'></a>1.面板数据的生成
 
 首先，我写了一个函数，用于生成三种类型的面板数据：`standard setting`,`staggered setting`以及`general setting`。
 
@@ -82,26 +101,26 @@ end
 
 在定义上述函数之后，即可通过以下命令生成相应面板
 
-### (1) standard setting
+###   <a name='1-1'></a>(1) standard setting
 ```
 panel_gen, type(standard)
 ```
 ![fig1](https://mengke25.github.io/images/panel_restruct/fig1.png)
 
-### (2) staggered setting
+###   <a name='1-2'></a>(2) staggered setting
 ```
 panel_gen, type(staggered)
 ```
 ![fig2](https://mengke25.github.io/images/panel_restruct/fig2.png)
 
-### (3) general setting
+###  <a name='1-3'></a>(3) general setting
 ```
 panel_gen, type(general)
 ```
 ![fig3](https://mengke25.github.io/images/panel_restruct/fig3.png)
 
 
-## 2.面板数据重构命令
+##   <a name='2'></a>2.面板数据重构命令
 
 根据`panel_gen`命令生成的面板数据，我们可以用`panel_restruct`命令进行重构。
 
@@ -246,7 +265,7 @@ end
 
 
 
-## 3.使用示例
+##  <a name='3'></a>3.使用示例
 
 先调用`panel_gen`，生成特定spec的面板数据，
 
@@ -268,9 +287,7 @@ panel_restruct, id(id) time(t) did(estimator) pre(2) post(2)
 
 
 
-## **转载请注明出处**：[@mengke25](https://mengke25.github.io/) 
+##  4. <a name='mengke25https:mengke25.github.io'></a>**转载请注明出处**：[@mengke25](https://mengke25.github.io/) 
 
-## **请喝咖啡**：[打赏渠道](https://mengke25.github.io/images/dashang.png)
-
-
+##  5. <a name='https:mengke25.github.ioimagesdashang.png'></a>**请喝咖啡**：[打赏渠道](https://mengke25.github.io/images/dashang.png)
 
