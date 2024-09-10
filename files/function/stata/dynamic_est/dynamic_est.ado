@@ -1,6 +1,13 @@
 
+
+*! Meng Ke, allenmeng97@gmail.com, 2024-9-10
+*! 1.1 2024.09.10
+
+
 cap program drop dynamic_est
 program define dynamic_est
+	
+	version 8
 
     // Adjust the syntax to not require quotes around options
     syntax varlist(min=1 max=1) [if],  /// 
@@ -15,6 +22,8 @@ program define dynamic_est
 	
 	// default options
 	di "------------------------------------------------------------------------------------"
+	di "reghdfe required"
+
 	di "Option warning:"
 	
 	if "`regtype'" == ""{
