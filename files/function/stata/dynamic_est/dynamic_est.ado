@@ -7,7 +7,7 @@
 cap program drop dynamic_est
 program define dynamic_est
 	
-	version 8
+	version 10
 
     // Adjust the syntax to not require quotes around options
     syntax varlist(min=1 max=1) [if],  /// 
