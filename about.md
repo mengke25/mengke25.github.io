@@ -27,7 +27,8 @@ allenmeng97@gmail.com；uibemk@126.com
 
 ## 打赏渠道
 
-![image](https://mengke25.github.io/images/dashang.png)
+<img src="https://mengke25.github.io/images/dashang.png" style="width: 52%; height: auto;">
+
 
 ## 其他信息： 
 
