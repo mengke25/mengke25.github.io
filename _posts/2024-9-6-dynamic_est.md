@@ -77,7 +77,7 @@ dynamic_est {outcome_var} , treat({varlist}) time({varlist}) ref({numeric})
 
 ##   <a name='3'></a>3.安装方法
 
-现已上传ssc
+已上传ssc
 ```
 ssc install dynamic_est,replace 
 ```
@@ -86,7 +86,7 @@ ssc install dynamic_est,replace
 ```
 net install dynamic_est, from("https://mengke25.github.io/files/function/stata/dynamic_est") replace
 ```
-如果安装失败，可通过邮件向我索取。因为是自用命令，可能还有很多不完善的地方，所以先暂时上传到了个人的repositories中，如果大家有什么建议或者问题，欢迎私信我！
+如果安装失败，可通过邮件向我索取。因为是自用命令，可能还有很多不完善的地方，如果有什么建议或者问题，欢迎私信我
 
 allenmeng97@gmail.com
 
