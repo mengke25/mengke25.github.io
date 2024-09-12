@@ -77,6 +77,12 @@ dynamic_est {outcome_var} , treat({varlist}) time({varlist}) ref({numeric})
 
 ##   <a name='3'></a>3.安装方法
 
+现已上传ssc
+```
+ssc install dynamic_est,replace 
+```
+
+或者从我的仓库中获取
 ```
 net install dynamic_est, from("https://mengke25.github.io/files/function/stata/dynamic_est") replace
 ```
