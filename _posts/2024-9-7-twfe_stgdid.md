@@ -437,6 +437,34 @@ restore
 end
 ```
 
+```
+clear
+set obs 100
+egen id = repeat() ,v(1/10)
+sort id
+egen year = repeat(), v(2011/2020)
+
+gen treat = 1 if id <= 4
+gen did = 1 if id == 1 & year >= 2014
+replace  did = 1 if id == 2 & year >= 2016
+replace  did = 1 if id == 3 & year >= 2017
+replace  did = 1 if id == 4 & year >= 2018
+replace did = 0 if did == .
+panelview did ,i(id) t(year) type(treat) name(panel,replace )
+
+gen v = id * (year - 2000 + 3*uniform() ) * 5 + did * 20
+gen lnv = ln(v)
+tw connect lnv year ,by(id) name(lngdp,replace )
+
+reghdfe lnv did ,a(id year)
+twfe_stgdid lnv did, id(id) time(year) absorb(id year)
+
+twfe_stgdid lnv did, id(id) time(year) absorb(id year) type(simple)
+
+twfe_stgdid lnv did, id(id) time(year) absorb(id year) type(simple)
+```
+
+
 ##  <a name='mengke25https:mengke25.github.io'></a>**转载请注明出处**：[@mengke25](https://mengke25.github.io/) 
 
 ##  <a name='https:mengke25.github.ioimagesdashang.png'></a>**请喝咖啡**：[打赏渠道](https://mengke25.github.io/images/dashang.png)
