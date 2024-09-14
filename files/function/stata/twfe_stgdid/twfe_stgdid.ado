@@ -173,10 +173,10 @@ if "`cluster'" != ""{
 	di "method `regtype'hdfe"
 	di "------------------------------------------------------------------------------------"
 	if "`absorb'" != ""{
-	local full_cmd "`regtype'hdfe `y' `f_seq' `l_seq' `if', absorb(`absorb') cluster(`cluster')"
+	local full_cmd "`regtype'hdfe `y' `f_seq' `l_seq' `cov' `if', absorb(`absorb') cluster(`cluster')"
 	}
 	if "`absorb'" == ""{
-	local full_cmd "`regtype'hdfe `y' `f_seq' `l_seq' `if', noa cluster(`cluster')"
+	local full_cmd "`regtype'hdfe `y' `f_seq' `l_seq' `cov' `if', noa cluster(`cluster')"
 	}
 	display "`full_cmd'"
 	`full_cmd'
@@ -191,10 +191,10 @@ if "`cluster'" == ""{
 	di "method `regtype'hdfe"
 	di "------------------------------------------------------------------------------------"
 	if "`absorb'" != ""{
-	local full_cmd "`regtype'hdfe `y' `f_seq' `l_seq' `if', absorb(`absorb') vce(r)"
+	local full_cmd "`regtype'hdfe `y' `f_seq' `l_seq' `cov'  `if', absorb(`absorb') vce(r)"
 	}
 	if "`absorb'" == ""{
-	local full_cmd "`regtype'hdfe `y' `f_seq' `l_seq' `if',noa vce(r)"
+	local full_cmd "`regtype'hdfe `y' `f_seq' `l_seq' `cov'  `if',noa vce(r)"
 	}
 	display "`full_cmd'"
 	`full_cmd'
