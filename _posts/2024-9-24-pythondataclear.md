@@ -1,3 +1,16 @@
+---
+layout: post
+title: "【python】python数据处理命令（stata等价命令）"
+date:   2024-9-24
+tags: [code,python]
+comments: true
+author: mengke25
+---
+
+一个对照表，帮助熟悉stata的你快速上手pandas、numpy
+
+
+<!-- more -->
 
 #### 1.一般运算
 
