@@ -63,10 +63,13 @@ df['x'] = df['y'] % 3
 ```
 
 * `向上或向下取整`
+
 ```python
 # gen x = floor(y)
 df['x'] = np.floor(df['y'])
+```
 
+```python
 # gen x = ceil(y)
 df['x'] = np.ceil(df['y'])
 ```
@@ -161,3 +164,66 @@ df['htype'] = df.groupby('h1')['id'].transform('count')
 ```python
 df['double_x'] = df.groupby('h1')['x'].transform(lambda x: x * 2)
 ```
+
+
+
+
+#### 5.去重与重整
+
+* `去重（duplicates）`
+
+```python
+# duplicates drop id year,force 
+df.drop_duplicates(subset=['id', 'year'], keep=False, inplace=True)
+```
+
+* `重整（reshape）`
+
+长变宽
+```python
+# reshape wide v, i(id) j(year)
+df_wide = df.pivot(index='id', columns='year', values='v').reset_index()
+df_wide.columns = ['id'] + [f'v_{year}' for year in df_wide.columns[1:]]
+```
+
+
+宽变长
+```python
+# reshape long v, i(id) j(year)
+df_long = pd.melt(df_wide, id_vars=['id'], var_name='year', value_name='v')
+df_long['year'] = df_long['year'].str.extract('(\d+)').astype(int)  # 提取年份
+```
+
+
+
+
+#### 6.匹配与合并
+
+* `匹配（merge）`
+
+```python
+# merge m:1 id year using abc.dta
+df_using = pd.read_excel("abc.xlsx")
+df_merged = pd.merge(df, df_using, on=['id', 'year'], how='left')
+```
+
+``` python
+# how='right'：相当于 merge 1:m，如果你想保留 "using" 文件中的所有行。
+# how='inner'：只保留两个 DataFrame 中都有匹配键的行，相当于 Stata 中的 merge 1:1。
+# how='outer'：保留两个 DataFrame 中的所有行，相当于 merge 中的 full join。
+```
+
+* `合并（append）`
+
+
+
+#### 7.循环
+
+
+
+
+
+
+
+
+
