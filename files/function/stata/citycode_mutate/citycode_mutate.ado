@@ -381,5 +381,7 @@ replace citycode = 429004 if strmatch(`varlist', "*仙桃*")
 replace citycode = 220581 if strmatch(`varlist', "*梅河口*")
 replace citycode = 610100 if strmatch(`varlist', "*西咸新区*")
 replace citycode = 429006 if strmatch(`varlist', "*天门*")
+replace citycode = 110000 if strmatch(`varlist', "*北京朝阳*")
+replace citycode = 110000 if strmatch(`varlist', "*北京市朝阳*")
 }
 end
