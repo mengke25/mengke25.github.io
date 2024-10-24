@@ -7,7 +7,7 @@ comments: true
 author: mengke25
 ---
 
-一个对照表，帮助熟悉stata的你快速上手pandas、numpy
+一个对照表，帮助熟悉快速上手pandas、numpy
 
 
 <!-- more -->
