@@ -26,7 +26,7 @@ SSRN working paper: [More Likely to Be Persuaded: The Impact of Air Pollution on
 SSRN working paper: [Big Push to Export: Unintended Consequences of China's Domestic Regulations in Digital Game Sector](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4848977)
 
 
-#### (3) papers
+#### (3) papers already published
 
 2024/06		[地方数据治理与数字内容出口](https://mengke25.github.io/files/paper/p2024b.pdf)					中国工业经济
 
