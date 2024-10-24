@@ -1,6 +1,7 @@
 ## Mengke
 
 Email: uibemk@126.com ; allenmeng97@gmail.com
+Academic Pages: [google scholar](https://scholar.google.com/citations?user=DwfX9eAAAAAJ&hl=en&oi=ao)
 
 ____
 
@@ -18,7 +19,14 @@ ____
 
 {......}
 
-#### (2)已发表/录用
+#### (2) working paper
+
+SSRN working paper: [More Likely to Be Persuaded: The Impact of Air Pollution on Decisions Making](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4672383)
+
+SSRN working paper: [Big Push to Export: Unintended Consequences of China's Domestic Regulations in Digital Game Sector](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4848977)
+
+
+#### (3)paper
 
 2024/06		[地方数据治理与数字内容出口](https://mengke25.github.io/files/paper/p2024b.pdf)					中国工业经济
 
@@ -63,7 +71,7 @@ ____
 
 * Responsible for futures trading strategy within the team. Based on historical data, engaged in cross-commodity and cross-term arbitrage, achieving a 1.2% excess return during the competition.
 
-### 8. Personal Skills
+### 4. Personal Skills
 
 Programming Skills: R, Stata, Python, Matlab
 
