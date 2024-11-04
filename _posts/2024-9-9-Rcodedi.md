@@ -155,6 +155,8 @@ modelsummary(models,
 model5 <- feols(y ~  x*as.factor(year)  | id + year ,data = df)
 summary(model5, cluster = "id")
 
+model_results <- tidy(model5, conf.int = TRUE) ## 类似于regsave
+
 ggcoefstats(model5,
             exclude.intercept = TRUE,
             exclude = "x", 
