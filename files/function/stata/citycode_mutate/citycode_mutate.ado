@@ -8,6 +8,8 @@ cap drop citycode
 gen citycode = .
 
 // 使用 strmatch 根据城市名更新 citycode
+replace citycode = 542500 if strmatch(`varlist', "*阿里*")
+replace citycode = 513300 if strmatch(`varlist', "*甘孜*")
 replace citycode = 110000 if strmatch(`varlist', "*北京*")
 replace citycode = 120000 if strmatch(`varlist', "*天津*")
 replace citycode = 130100 if strmatch(`varlist', "*石家庄*")
