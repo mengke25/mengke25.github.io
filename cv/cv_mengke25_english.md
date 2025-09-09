@@ -7,17 +7,15 @@ ____
 
 ### 0. Education
 
-2022/09 - 2025/06	University of International Business and Economics (UIBE)	World Economy	Ph.D. Candidate
+2022/09 - 2025/06	University of International Business and Economics (UIBE)	World Economy	Ph.D.
 
 2020/09 - 2022/06	University of International Business and Economics (UIBE)	National Economics	MSc-to-PhD
-
-2016/09 - 2020/06	Tianjin University of Finance and Economics	Financial Engineering	Bachelor’s Degree in Economics
 
 ### 1. Academic Papers
 
 #### (1) Under Review / In Progress
 
-{......}
+
 
 #### (2) working papers
 
@@ -28,9 +26,9 @@ SSRN working paper: [Big Push to Export: Unintended Consequences of China's Dome
 
 #### (3) papers already published
 
-2024/06		[地方数据治理与数字内容出口](https://mengke25.github.io/files/paper/p2024b.pdf)					中国工业经济
+2025/08		[地方知识产权治理对数字内容出口的影响](https://mengke25.github.io/files/paper/p2025a.pdf)					世界经济
 
-2024/05		数字化转型能否提升中国服务企业经营绩效				南开经济研究终审
+2024/06		[地方数据治理与数字内容出口](https://mengke25.github.io/files/paper/p2024b.pdf)					中国工业经济
 
 2024/01		[外需疲软、出口受阻与中国制造业比重下滑](https://mengke25.github.io/files/paper/p2024a.pdf)				财贸经济
 
@@ -79,3 +77,4 @@ Programming Skills: R, Stata, Python, Matlab
 * Project 2 - Web scraping: Scraped bilateral HS6 trade data from the World Bank Trade Database (WITS) and scraped articles from CNKI 【[Repo 1](https://github.com/mengke25/wits_crawler) [Repo 2](https://github.com/mengke25/cnkiLRspider)】
 * Project 3 - Empirical Analysis & Visualization: Proficient in causal inference methods such as DID, Bartik IV, and skilled in data visualization 【[Project Repository](https://github.com/mengke25)】
 * Project 4 - Writing Stata external commands: Identified city code names; One-click dynamic_effect; One-click staggered-DID 【[City Recognition](https://www.xiaohongshu.com/explore/66d5fc0f000000001f01724d?xsec_token=AB4wCYFvOcil5gjJTKKpbZ8yMy9dI19EqRog2iqRCYbfY=&xsec_source=pc_user) [dynamic_est](https://mengke25.github.io/dynamic_est/) [twfe_stgdid](https://mengke25.github.io/twfe_stgdid/)】
+
