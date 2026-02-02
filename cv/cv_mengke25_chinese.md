@@ -10,8 +10,6 @@ ____
 
 2020/09 - 2022/06	对外经济贸易大学	国民经济学	硕博连读
 
-2016/09 - 2020/06	天津财经大学		金融工程	经济学学士学位
-
 ### 1.学术论文
 
 #### (1)在研/在投
@@ -70,4 +68,5 @@ ____
 * 项目2 网页爬取：爬取世行贸易数据库(WITS) 双边HS6贸易数据；爬取知网文献 【[项目仓库1](https://github.com/mengke25/wits_crawler) [项目仓库2](https://github.com/mengke25/cnkiLRspider)】
 * 项目3 实证与可视化：掌握DID、Bartik IV等因果推断方法，可熟练进行数据可视化 【[项目仓库](https://github.com/mengke25)】
 * 项目4 撰写stata外部命令：识别城市代码名称；一键dynamic_effect；一键staggered-DID【[城市识别](https://www.xiaohongshu.com/explore/66d5fc0f000000001f01724d?xsec_token=AB4wCYFvOcil5gjJTKKpbZ8yMy9dI19EqRog2iqRCYbfY=&xsec_source=pc_user) [dynamic_est](https://mengke25.github.io/dynamic_est/) [twfe_stgdid](https://mengke25.github.io/twfe_stgdid/)】
+
 
