@@ -395,7 +395,7 @@ footer {
     <span class="brand-title">宏观研究 · Global Macro</span>
   </div>
   <div class="topbar-right">
-    <span class="timestamp" id="ts">2026-04-23 17:01</span>
+    <span class="timestamp" id="ts">2026-04-23 17:10</span>
     <button class="btn-download" onclick="downloadDocx()">保存为 Word</button>
   </div>
 </header>
@@ -412,8 +412,8 @@ footer {
   <main>
     <div class="article-header">
       <div class="source-tag">Bloomberg Surveillance</div>
-      <h1 class="article-title">【国信宏观】海外宏观动态</h1>
-      <div class="article-meta">Generated 2026-04-23 17:01 &nbsp;·&nbsp; 国信证券宏观研究</div>
+      <h1 class="article-title">【国信宏观】海外宏观动态（2026-04-22）</h1>
+      <div class="article-meta">Generated 2026-04-23 17:10 &nbsp;·&nbsp; 国信证券宏观研究</div>
     </div>
 
     <article class="md-body" id="content">
@@ -1561,7 +1561,7 @@ async function downloadDocx() {
     const url    = URL.createObjectURL(buffer);
     const a      = document.createElement('a');
     a.href       = url;
-    a.download   = 'BBG_Surveillance_国信宏观_' + new Date().toISOString().slice(0,10) + '.docx';
+    a.download   = '海外观点_国信宏观_' + new Date().toISOString().slice(0,10) + '.docx';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
