@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="基本面因子回测 · 研究地图（静态公开页）：因子清单与能力说明，只讲方法与结构，不含数据文件与收益数值。" />
+    <title>基本面因子回测 · 研究地图</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#overview">跳到正文</a>
+
+    <header class="hero">
+      <p class="eyebrow">基本面因子回测 · 研究地图</p>
+      <h1>基本面因子回测研究地图</h1>
+      <p class="lede">
+        一张面向 A 股基本面因子回测的研究地图：六类因子族、真实能力矩阵，以及
+        “本地便携应用”与“GitHub Pages 公开页”的边界。本页为静态公开页，
+        只讲方法论与结构——给出因子清单与能力说明，<b>不含数据文件，不含任何收益数值</b>；
+        完整组合（累计交叉、任意 N 等）与实际结果均在本地便携应用中。
+      </p>
+      <p class="stamp">最后更新：2026-08-02</p>
+    </header>
+
+    <nav class="route" aria-label="阅读路线">
+      <ol>
+        <li><a href="#overview">① 研究地图总览</a></li>
+        <li><a href="#families">② 六类因子族</a></li>
+        <li><a href="#matrix">③ 真实能力矩阵</a></li>
+        <li><a href="#scope">④ 本地便携应用 vs GitHub Pages</a></li>
+        <li><a href="#defs">⑤ 关键定义</a></li>
+      </ol>
+    </nav>
+
+    <main class="wrap">
+      <section id="overview" class="card">
+        <h2>① 研究地图总览</h2>
+        <p>
+          这张地图把一次完整的基本面因子回测拆成可读的五站：
+          因子如何归类（六类）、系统能做到哪一步（能力矩阵）、
+          哪些能力只在本地、哪些可以公开（边界），以及贯穿全程的若干关键定义。
+        </p>
+        <ul class="bullets">
+          <li><b>六类因子族</b>：条件筛选 / ROE / 盈利景气 / 长江红利核心 / 现金流 / 分红，合计 88 个因子（11 / 9 / 12 / 28 / 16 / 12）。</li>
+          <li><b>真实能力矩阵</b>：逐族标注单因子、组合 / 交叉、任意 N、人工核验的支持程度。</li>
+          <li><b>边界清晰</b>：公开页只讲方法与结构；完整组合与收益数值只在本地便携应用中产出。</li>
+        </ul>
+      </section>
+
+      <section id="families" class="card">
+        <h2>② 六类因子族</h2>
+        <p class="muted">下方为本项目的六类因子族与每族因子个数（仅清单与计数，不含任何收益数值）。</p>
+        <div class="grid families">
+          <article class="fam">
+            <div class="fam__head">
+              <span class="fam__idx">01</span>
+              <span class="fam__en">Conditions</span>
+            </div>
+            <h3 class="fam__name">条件筛选</h3>
+            <p class="fam__count">11</p>
+            <p class="fam__desc">用于界定样本与可投性的条件类因子：行业、市值、上市状态、ST、停牌等筛选条件。</p>
+          </article>
+          <article class="fam">
+            <div class="fam__head">
+              <span class="fam__idx">02</span>
+              <span class="fam__en">ROE</span>
+            </div>
+            <h3 class="fam__name">ROE</h3>
+            <p class="fam__count">9</p>
+            <p class="fam__desc">围绕净资产收益率 ROE 的因子族：ROE 水平、稳定性与杜邦分解等口径。</p>
+          </article>
+          <article class="fam">
+            <div class="fam__head">
+              <span class="fam__idx">03</span>
+              <span class="fam__en">Earnings Momentum</span>
+            </div>
+            <h3 class="fam__name">盈利景气</h3>
+            <p class="fam__count">12</p>
+            <p class="fam__desc">刻画盈利与景气度的因子：营收 / 利润增速及景气边际变化等口径。</p>
+          </article>
+          <article class="fam">
+            <div class="fam__head">
+              <span class="fam__idx">04</span>
+              <span class="fam__en">Dividend Core</span>
+            </div>
+            <h3 class="fam__name">长江红利核心</h3>
+            <p class="fam__count">28</p>
+            <p class="fam__desc">对标长江红利指数口径的红利核心因子：股息率、连续分红、分红稳定性等口径。</p>
+          </article>
+          <article class="fam">
+            <div class="fam__head">
+              <span class="fam__idx">05</span>
+              <span class="fam__en">Cash Flow</span>
+            </div>
+            <h3 class="fam__name">现金流</h3>
+            <p class="fam__count">16</p>
+            <p class="fam__desc">现金流类因子：经营性现金流及衍生口径、自由现金流、现金流质量等。</p>
+          </article>
+          <article class="fam">
+            <div class="fam__head">
+              <span class="fam__idx">06</span>
+              <span class="fam__en">Dividend Payout</span>
+            </div>
+            <h3 class="fam__name">分红</h3>
+            <p class="fam__count">12</p>
+            <p class="fam__desc">分红行为类因子：分红率、分红频次、分红意愿与力度等口径。</p>
+          </article>
+        </div>
+        <p class="totals">六类合计：<b>88</b> 个基本面因子（11 / 9 / 12 / 28 / 16 / 12）。</p>
+      </section>
+
+      <section id="matrix" class="card">
+        <h2>③ 真实能力矩阵</h2>
+        <p class="muted">逐族说明各因子族在回测系统中支持到哪一步：单因子、组合 / 交叉、任意 N 与人工核验。完整组合与收益数值在本地便携应用中产出。</p>
+        <div class="table-wrap">
+          <table class="matrix">
+            <thead>
+              <tr>
+                <th>因子族</th>
+                <th>单因子</th>
+                <th>组合 / 交叉</th>
+                <th>任意 N</th>
+                <th>人工核验</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">01 条件筛选</th>
+                <td><span class="tag on">有</span></td>
+                <td><span class="tag on">两因子</span></td>
+                <td><span class="tag off">未提供</span></td>
+                <td><span class="tag off">未提供</span></td>
+              </tr>
+              <tr>
+                <th scope="row">02 ROE</th>
+                <td><span class="tag on">有</span></td>
+                <td><span class="tag on">累计交叉</span></td>
+                <td><span class="tag on">有</span></td>
+                <td><span class="tag on">有</span></td>
+              </tr>
+              <tr>
+                <th scope="row">03 盈利景气</th>
+                <td><span class="tag on">有</span></td>
+                <td><span class="tag on">累计交叉</span></td>
+                <td><span class="tag on">有</span></td>
+                <td><span class="tag on">有</span></td>
+              </tr>
+              <tr>
+                <th scope="row">04 长江红利核心</th>
+                <td><span class="tag on">有</span></td>
+                <td><span class="tag on">累计交叉</span></td>
+                <td><span class="tag on">有</span></td>
+                <td><span class="tag on">有</span></td>
+              </tr>
+              <tr>
+                <th scope="row">05 现金流</th>
+                <td><span class="tag on">有</span></td>
+                <td><span class="tag on">两因子</span></td>
+                <td><span class="tag off">未提供</span></td>
+                <td><span class="tag off">未提供</span></td>
+              </tr>
+              <tr>
+                <th scope="row">06 分红</th>
+                <td><span class="tag on">有</span></td>
+                <td><span class="tag on">两因子</span></td>
+                <td><span class="tag off">未提供</span></td>
+                <td><span class="tag off">未提供</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="muted">口径说明：「两因子」指任选两个因子做交集筛选；「累计交叉」指可逐层累计叠加的多因子交叉；「任意 N」指任意数量因子组合；「人工核验」指对结果的人工复核。条件筛选、现金流、分红仅支持到两因子；ROE、盈利景气、长江红利核心支持累计交叉、任意 N 与人工核验。</p>
+      </section>
+
+      <section id="scope" class="card">
+        <h2>④ 本地便携应用 vs GitHub Pages</h2>
+        <p class="muted">明确边界：完整组合与实际结果只在本地产出，公开页只讲方法与结构。</p>
+        <div class="grid duo">
+          <article class="pane pane--local">
+            <h3>本地便携应用</h3>
+            <ul>
+              <li>完整回测引擎：PIT 对齐、下一交易日执行、万得全A 股票池与基准。</li>
+              <li>支持累计交叉、任意 N 组合，并产出年内最大回撤、月级市场状态分层等实际结果。</li>
+              <li>使用本地数据：因子库 <code>curated.sqlite</code>、收益序列 <code>returns.blob</code>。</li>
+              <li>含完整收益与风险数值；运行于本地，非公开部署。</li>
+            </ul>
+          </article>
+          <article class="pane pane--pages">
+            <h3>GitHub Pages 公开页（本页）</h3>
+            <ul>
+              <li>静态研究地图，公开可访问、可分享。</li>
+              <li>仅方法说明与因子清单 / 计数，以及能力矩阵的结构标注。</li>
+              <li>不含数据文件，不含任何收益数值。</li>
+              <li>公开安全：可在公开仓库托管。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="defs" class="card">
+        <h2>⑤ 关键定义</h2>
+        <p class="muted">贯穿回测全程的若干关键术语（仅概念定义，不含数值）。</p>
+        <dl class="defs">
+          <div>
+            <dt>PIT（Point-in-Time）</dt>
+            <dd>因子值严格按其在历史时点“当时可得”的状态取用，避免用未来才披露的信息解释过去的收益，即规避“未来函数”。</dd>
+          </div>
+          <div>
+            <dt>下一交易日</dt>
+            <dd>信号在 T 日（当前交易日）生成，回测在 T+1 下一交易日按既定规则执行，确保结果具备可执行性。</dd>
+          </div>
+          <div>
+            <dt>万得全A</dt>
+            <dd>作为回测基准与可投股票池口径，覆盖 A 股全市场，用于收益比较与样本界定。</dd>
+          </div>
+          <div>
+            <dt>年内最大回撤</dt>
+            <dd>以自然年为窗口衡量的最大回撤，刻画当年从峰值到谷底的最坏回撤幅度。</dd>
+          </div>
+          <div>
+            <dt>月级市场状态</dt>
+            <dd>按月聚合判定的市场状态（如牛市 / 熊市 / 震荡），用于在不同环境下分层评估因子表现。</dd>
+          </div>
+        </dl>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <p>
+        基本面因子回测 · 研究地图（静态公开页）。本页仅描述方法论、因子清单与系统能力结构，
+        不含数据文件，不含任何收益或风险数值。完整组合与实际结果在本地便携应用中产出。
+      </p>
+      <p class="stamp">2026-08-02</p>
+    </footer>
+  </body>
+</html>

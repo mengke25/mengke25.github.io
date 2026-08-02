@@ -1,0 +1,309 @@
+/* 基本面因子回测 · 研究地图（静态公开页）
+   唯一资源引用即本文件本身（<link href="./styles.css">）。
+   无脚本、无 iframe、无任何外部 http(s) 链接。
+   配色纪律：海军蓝 + 单一蓝色 accent + 灰白；不使用紫/绿/橙/青分类色，无渐变、无动画。
+   移动端：页面不横向溢出，仅能力矩阵在自己的 .table-wrap 内横向滚动。 */
+
+:root {
+  --ink: #16202b;        /* 海军蓝：正文与标题 */
+  --slate: #4a5a6b;      /* 深灰蓝：副文 */
+  --muted: #6b7a8a;      /* 灰：辅助文字 */
+  --line: #e4e9f0;       /* 浅灰：分隔线 */
+  --bg: #f4f6f9;         /* 灰白：页面底色 */
+  --card: #ffffff;       /* 白：卡片 */
+  --accent: #1f6feb;     /* 唯一蓝色 accent */
+  --accent-weak: #eaf1fd;/* 浅蓝：accent 底色 */
+  --neutral: #eef1f5;    /* 灰白：中性 / 未提供标签底色 */
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 8px 24px rgba(16, 24, 40, 0.05);
+  --maxw: 1040px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* 防止任何元素撑出视口；clip 不会把另一轴变成 auto，安全。 */
+html {
+  max-width: 100%;
+  overflow-x: clip;
+}
+body {
+  margin: 0;
+  max-width: 100%;
+  overflow-x: clip;
+  overflow-wrap: anywhere;
+  font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.skip {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+.skip:focus { left: 12px; top: 12px; z-index: 10; }
+
+/* ---------- Hero ---------- */
+.hero {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 56px 24px 28px;
+}
+.eyebrow {
+  margin: 0 0 10px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+.hero h1 {
+  margin: 0 0 16px;
+  font-size: clamp(24px, 5vw, 40px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+.lede {
+  margin: 0 0 14px;
+  max-width: 760px;
+  font-size: 17px;
+  color: var(--slate);
+}
+.lede b { color: var(--ink); }
+.stamp {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ---------- Reading route（手机多行换行，不裁切） ---------- */
+.route {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 8px 24px 24px;
+}
+.route ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.route li { min-width: 0; }
+.route a {
+  display: inline-block;
+  max-width: 100%;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  color: var(--slate);
+  text-decoration: none;
+  font-size: 14px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.route a:hover { border-color: var(--accent); color: var(--accent); }
+.route a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ---------- Layout ---------- */
+.wrap {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 24px 48px;
+  display: grid;
+  gap: 22px;
+}
+.card {
+  min-width: 0;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px;
+  overflow-wrap: anywhere;
+}
+.card > h2 {
+  margin: 0 0 12px;
+  font-size: 21px;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+.card > p { margin: 0 0 12px; color: var(--slate); min-width: 0; }
+.muted { color: var(--muted) !important; font-size: 14px; }
+.bullets { margin: 8px 0 0; padding-left: 20px; color: var(--slate); }
+.bullets li { margin-bottom: 6px; min-width: 0; }
+.bullets b { color: var(--ink); }
+
+/* ---------- Families grid（单色：无顶线、无分类色） ---------- */
+.grid.families {
+  display: grid;
+  /* min(100%, Xpx) 保证窄屏下最小宽度退化为容器宽度，永不溢出 */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 16px;
+  margin-top: 8px;
+}
+.fam {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 18px 16px;
+  background: #fbfcfe;
+  overflow-wrap: anywhere;
+}
+.fam__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.fam__idx {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+.fam__en {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  overflow-wrap: anywhere;
+}
+.fam__name {
+  margin: 2px 0 4px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.fam__count {
+  margin: 2px 0;
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--accent);   /* 单一 accent 蓝，不再按族着色 */
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.fam__desc { margin: 6px 0 0; font-size: 13.5px; color: var(--slate); }
+.totals { margin: 18px 0 0; font-size: 14px; color: var(--muted); overflow-wrap: anywhere; }
+.totals b { color: var(--ink); font-size: 16px; }
+
+/* ---------- Matrix table（唯一允许横向滚动的容器） ---------- */
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 6px;
+}
+.matrix {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  min-width: 560px;
+}
+.matrix th, .matrix td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+.matrix thead th {
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  border-bottom: 2px solid var(--line);
+  white-space: nowrap;
+}
+.matrix tbody th { font-weight: 600; color: var(--ink); white-space: nowrap; }
+.matrix tbody tr:last-child td,
+.matrix tbody tr:last-child th { border-bottom: 0; }
+.matrix tbody tr:hover { background: #fafbfc; }
+
+/* 标签：on=蓝（有），off=灰（未提供）；不使用红/绿 */
+.tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.tag.on  { color: var(--accent); background: var(--accent-weak); }
+.tag.off { color: var(--muted); background: var(--neutral); }
+
+/* ---------- Local vs Pages ---------- */
+.grid.duo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 16px;
+  margin-top: 6px;
+}
+.pane {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  overflow-wrap: anywhere;
+}
+.pane h3 { margin: 0 0 10px; font-size: 16px; overflow-wrap: anywhere; }
+.pane ul { margin: 0; padding-left: 18px; color: var(--slate); }
+.pane li { margin-bottom: 8px; font-size: 14px; min-width: 0; }
+.pane code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12.5px;
+  background: var(--neutral);
+  padding: 1px 6px;
+  border-radius: 5px;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.pane--local { background: var(--accent-weak); border-color: #d4e3fb; }
+.pane--local h3 { color: var(--accent); }
+.pane--pages { background: #fafbfc; }
+
+/* ---------- Definitions ---------- */
+.defs { margin: 6px 0 0; display: grid; gap: 14px; }
+.defs > div {
+  min-width: 0;
+  border-left: 3px solid var(--line);
+  padding: 2px 0 2px 14px;
+}
+.defs dt { font-weight: 700; margin-bottom: 2px; overflow-wrap: anywhere; }
+.defs dd { margin: 0; color: var(--slate); font-size: 14.5px; overflow-wrap: anywhere; }
+
+/* ---------- Footer ---------- */
+.foot {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 8px 24px 56px;
+  color: var(--muted);
+  font-size: 13px;
+  border-top: 1px solid var(--line);
+  overflow-wrap: anywhere;
+}
+.foot p { margin: 8px 0; min-width: 0; }
+.foot .stamp { text-align: left; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .hero { padding: 40px 20px 20px; }
+  .route { padding: 8px 20px 20px; }
+  .wrap { padding: 0 20px 40px; }
+  .card { padding: 22px 18px; }
+  .foot { padding: 8px 20px 40px; }
+  .fam__count { font-size: 34px; }
+  .lede { font-size: 16px; }
+}
