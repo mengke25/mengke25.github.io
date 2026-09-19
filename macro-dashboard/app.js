@@ -1,9 +1,9 @@
-import {esc,renderChart,csvData,palette} from './charts.js';
-import {mergeSourcePages} from './workspace-sync.js';
-import {createHierarchyUI} from './hierarchy.js';
-import {createInitialWorkspace} from './initial-workspace.js';
-import {createStaticApi} from './static-api.js';
-import {migrateAiTradeWorkspace} from './workspace-migrations.js';
+import {esc,renderChart,csvData,palette} from './charts.js?v=3cf3f395f0b8d807';
+import {mergeSourcePages} from './workspace-sync.js?v=3cf3f395f0b8d807';
+import {createHierarchyUI} from './hierarchy.js?v=3cf3f395f0b8d807';
+import {createInitialWorkspace} from './initial-workspace.js?v=3cf3f395f0b8d807';
+import {createStaticApi} from './static-api.js?v=3cf3f395f0b8d807';
+import {migrateAiTradeWorkspace} from './workspace-migrations.js?v=3cf3f395f0b8d807';
 const staticMode=document.documentElement.dataset.mode==='static';
 const staticApi=staticMode?createStaticApi():null;
 const sourceViewTitle=staticMode?'数据来源':'数据源管理';
