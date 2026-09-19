@@ -28,10 +28,12 @@ export function hierarchyAnalytics(catalog,series,treeId,selectedMonth=null,flow
    const valid=leafCodes.filter(code=>value(byCode.get(code)?.series?.[flow]?.[measure]?.raw,month)!==null).length;
    const knownMismatch=!!(info.unit&&rootInfo.unit&&info.unit!==rootInfo.unit),sameKnownUnit=!!(info.unit&&info.unit===rootInfo.unit);
    const sourceAmountBasis=measure==='amount'&&rootInfo.basis==='source_cached_parent';
-   const share=vals.raw!==null&&denominator!==null&&denominator!==0&&!knownMismatch&&(sameKnownUnit||sourceAmountBasis)?vals.raw/denominator:null;
+   const withinRootScope=leafCodes.every(code=>(rootInfo.leafCodes||[]).includes(code));
+   const share=vals.raw!==null&&denominator!==null&&denominator!==0&&withinRootScope&&!knownMismatch&&(sameKnownUnit||sourceAmountBasis)?vals.raw/denominator:null;
    const {raw,...derived}=vals;
-   metrics[measure]={value:raw,...derived,unit:info.unit,share:finite(share)?share:null,shareLabel:sourceAmountBasis&&!rootInfo.unit?'按原表金额汇总口径（单位未注明）':'占已覆盖HS8篮子（非官方HS4全量）',coverage:`覆盖篮子 ${valid}/${leafCodes.length} 项有值`,warnings:info.warnings};
-   if(node.code===tree.rootCode)denominators[measure]=Object.fromEntries(['value','unit','coverage','warnings'].map(key=>[key,metrics[measure][key]]));
+   metrics[measure]={value:raw,...derived,unit:info.unit,share:finite(share)?share:null,shareLabel:rootInfo.basis==='covered_quantity_subset'?'占芯片数量篮子（不含零件，非官方HS4全量）':sourceAmountBasis&&!rootInfo.unit?'按原表金额汇总口径（单位未注明）':'占已覆盖HS8篮子（非官方HS4全量）',coverage:`覆盖篮子 ${valid}/${leafCodes.length} 项有值`,warnings:info.warnings};
+   if(info.scopeLabel)Object.assign(metrics[measure],{scopeLabel:info.scopeLabel,excludedLeafCodes:info.excludedLeafCodes});
+   if(node.code===tree.rootCode)denominators[measure]=Object.fromEntries(['value','unit','coverage','warnings',...(info.scopeLabel?['scopeLabel','excludedLeafCodes']:[])].map(key=>[key,metrics[measure][key]]));
   }
   return{...Object.fromEntries(['code','parentCode','level','name','evidence','warnings'].map(key=>[key,node[key]])),series:node.series[flow],metrics};
  });

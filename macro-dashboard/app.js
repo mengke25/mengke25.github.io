@@ -1,9 +1,9 @@
-import {esc,renderChart,csvData,palette} from './charts.js?v=dab0d9b679b74bae';
-import {mergeSourcePages} from './workspace-sync.js?v=dab0d9b679b74bae';
-import {createHierarchyUI} from './hierarchy.js?v=dab0d9b679b74bae';
-import {createInitialWorkspace} from './initial-workspace.js?v=dab0d9b679b74bae';
-import {createStaticApi} from './static-api.js?v=dab0d9b679b74bae';
-import {migrateAiTradeWorkspace} from './workspace-migrations.js?v=dab0d9b679b74bae';
+import {esc,renderChart,csvData,palette} from './charts.js?v=87884b9e68d0c570';
+import {mergeSourcePages} from './workspace-sync.js?v=87884b9e68d0c570';
+import {createHierarchyUI} from './hierarchy.js?v=87884b9e68d0c570';
+import {createInitialWorkspace} from './initial-workspace.js?v=87884b9e68d0c570';
+import {createStaticApi} from './static-api.js?v=87884b9e68d0c570';
+import {migrateAiTradeWorkspace} from './workspace-migrations.js?v=87884b9e68d0c570';
 const staticMode=document.documentElement.dataset.mode==='static';
 const staticApi=staticMode?createStaticApi():null;
 const sourceViewTitle=staticMode?'数据来源':'数据源管理';
@@ -41,7 +41,7 @@ async function ensureValues(cards){const ids=[...new Set(cards.flatMap(c=>c.seri
 function sourceText(c){const sources=[...new Set(c.series.map(s=>{const m=meta.get(s.indicatorId);return m?.sheet;}))].filter(Boolean);return sources.join(' / ')||'选择指标开始研究';}
 function cardMarkup(c,index,total){return `<article class="card ${c.width==='full'?'full':''}" data-card="${esc(c.id)}"><div class="card-header"><div><div class="card-title"><h3>${esc(c.title)}</h3></div><div class="card-subtitle">${types[c.type]||'时序折线'} <span>·</span> ${c.start||'全部历史'}${c.end?' — '+c.end:''}${c.type==='seasonal'?' · 最近 '+c.years+' 年':''}</div></div><div class="card-actions"><button data-action="up" title="上移" aria-label="上移图表" ${index===0?'disabled':''}>↑</button><button data-action="down" title="下移" aria-label="下移图表" ${index===total-1?'disabled':''}>↓</button><button data-action="edit">编辑</button><button data-action="more" title="图表操作" aria-label="图表操作">•••</button></div></div><div class="chart" id="chart-${esc(c.id)}"><div class="loading">正在读取观测值…</div></div><div class="chart-warning" hidden></div><div class="card-footer"><span title="${esc(sourceText(c))}">来源 · ${esc(sourceText(c)).slice(0,80)}</span><span><button data-action="csv">CSV</button><button data-action="png">PNG ↗</button></span></div></article>`;}
 async function render(){if(!workspace)return;const epoch=++renderEpoch,p=activePage();nav();$('#cards').hidden=view!=='dashboard';$('#sources').hidden=view!=='sources';$('#summary').hidden=view!=='dashboard';$('#page-more').hidden=view!=='dashboard';$('#add-card').hidden=staticMode&&view==='sources';$('#add-card').textContent=view==='sources'?'＋ 添加数据源':'＋ 添加图表';$('#page-title').textContent=view==='sources'?sourceViewTitle:p.name;$('#crumb').textContent=view==='sources'?sourceViewTitle:p.name;$('#page-meta').textContent=view==='sources'?(staticMode?'查看已发布工作簿快照、指标映射与数据口径':'管理本地工作簿，检查工作表映射与数据质量'):(staticMode?'公开网页快照 · 发布更新 ':'本地 Excel 数据 · 最近更新 ')+dateDisplay(catalog.updatedAt);if(view==='sources'){hierarchyUI.hide();$('#diy-heading').hidden=true;renderSources();return;}hierarchyUI.render();nav();summary();$('#diy-heading').hidden=false;$('#cards').innerHTML=p.cards.length?p.cards.map((c,i)=>cardMarkup(c,i,p.cards.length)).join(''):'<div class="empty card full">这个页面还没有图表。<br>从已有指标创建你的第一张研究图。<button class="primary" data-empty-add>＋ 添加图表</button></div>';try{await ensureValues(p.cards);if(epoch!==renderEpoch)return;for(const c of p.cards){if(epoch!==renderEpoch)return;await drawCard(c);}}catch(e){error(e.message);}}
-async function drawCard(c){const node=document.getElementById('chart-'+c.id);if(!node)return;try{const warnings=await renderChart(node,c,meta,values);const warning=node.nextElementSibling;warning.textContent=warnings.join('；');warning.hidden=!warnings.length;}catch(e){node.innerHTML='<div class="empty">图表无法绘制：'+esc(e.message)+'</div>';}}
+async function drawCard(c){const node=document.getElementById('chart-'+c.id);if(!node)return;try{const warnings=await renderChart(node,c,meta,values);const warning=node.closest('.card').querySelector('.chart-warning');warning.textContent=warnings.join('；');warning.hidden=!warnings.length;}catch(e){node.innerHTML='<div class="empty">图表无法绘制：'+esc(e.message)+'</div>';}}
 function download(text,name,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
 function modal(title,body,onReady){$('#modal-title').textContent=title;$('#modal-body').innerHTML=body;$('#modal').showModal();onReady?.();}
 $('#modal-close').onclick=()=>$('#modal').close();
