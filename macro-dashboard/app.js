@@ -1,9 +1,9 @@
-import {esc,renderChart,csvData,palette} from './charts.js?v=3cf3f395f0b8d807';
-import {mergeSourcePages} from './workspace-sync.js?v=3cf3f395f0b8d807';
-import {createHierarchyUI} from './hierarchy.js?v=3cf3f395f0b8d807';
-import {createInitialWorkspace} from './initial-workspace.js?v=3cf3f395f0b8d807';
-import {createStaticApi} from './static-api.js?v=3cf3f395f0b8d807';
-import {migrateAiTradeWorkspace} from './workspace-migrations.js?v=3cf3f395f0b8d807';
+import {esc,renderChart,csvData,palette} from './charts.js?v=dab0d9b679b74bae';
+import {mergeSourcePages} from './workspace-sync.js?v=dab0d9b679b74bae';
+import {createHierarchyUI} from './hierarchy.js?v=dab0d9b679b74bae';
+import {createInitialWorkspace} from './initial-workspace.js?v=dab0d9b679b74bae';
+import {createStaticApi} from './static-api.js?v=dab0d9b679b74bae';
+import {migrateAiTradeWorkspace} from './workspace-migrations.js?v=dab0d9b679b74bae';
 const staticMode=document.documentElement.dataset.mode==='static';
 const staticApi=staticMode?createStaticApi():null;
 const sourceViewTitle=staticMode?'数据来源':'数据源管理';
@@ -30,7 +30,13 @@ function defaults(){return createInitialWorkspace(catalog,{makeId:uid,makeCard:c
 
 function nav(){const current=activePage();$('#pages').innerHTML=workspace.pages.map(p=>`<button class="nav-button ${view==='dashboard'&&p.id===current?.id?'active':''}" data-page="${esc(p.id)}"><span>▦</span><span>${esc(p.name)}</span><span class="count">${p.cards.length}</span></button>`).join('');$('#sources-nav').classList.toggle('active',view==='sources');}
 function dateDisplay(value){if(!value)return'尚未更新';const d=new Date(value);return Number.isNaN(+d)?value:d.toLocaleString('zh-CN',{hour12:false});}
-function summary(){const ids=new Set(activePage()?.cards.flatMap(c=>c.series.map(s=>s.indicatorId))),selected=[...ids].map(id=>meta.get(id)).filter(Boolean),latest=selected.map(i=>i.end).sort().at(-1)||catalog.indicators.map(i=>i.end).sort().at(-1)||'—';$('#summary').innerHTML=[[staticMode?'发布数据源':'接入数据源',catalog.sources.length,staticMode?'份已发布快照':'份本地工作簿'],['已识别指标',catalog.indicators.length.toLocaleString(),'条时序'],['当前页面图表',activePage()?.cards.length||0,'张自定义图表'],['最近观测日期',latest,'']].map(([label,value,unit])=>`<div class="stat"><div class="stat-label">${label}<span>↗</span></div><strong${label==='最近观测日期'?' style="font-size:20px"':''}>${esc(value)}<small>${unit}</small></strong></div>`).join('');}
+function summary(){
+ const page=activePage(),sourceIds=new Set([page?.sourceId,page?.hierarchy?.sourceId,...(page?.hierarchy?.members||[]).map(member=>member.sourceId),...(page?.cards||[]).flatMap(c=>c.series.map(series=>meta.get(series.indicatorId)?.sourceId))].filter(Boolean));
+ const indicators=sourceIds.size?catalog.indicators.filter(i=>sourceIds.has(i.sourceId)):catalog.indicators;
+ const latest=indicators.map(i=>i.end).filter(date=>/^\d{4}-\d{2}-\d{2}$/.test(date||'')).sort().at(-1)||'—';
+ const sourceLabel=/* configured source */'海关总署';
+ $('#summary').innerHTML=[['最新数据',latest],['数据来源',sourceLabel]].map(([label,value])=>`<div class="summary-item"><span>${esc(label)}</span><strong>${esc(value)}</strong></div>`).join('');
+}
 async function ensureValues(cards){const ids=[...new Set(cards.flatMap(c=>c.series.map(s=>s.indicatorId)))].filter(id=>meta.has(id)&&!values.has(id));for(let index=0;index<ids.length;index+=40){const result=await api('series?ids='+encodeURIComponent(ids.slice(index,index+40).join(',')));Object.entries(result.series||{}).forEach(([id,data])=>values.set(id,data));}}
 function sourceText(c){const sources=[...new Set(c.series.map(s=>{const m=meta.get(s.indicatorId);return m?.sheet;}))].filter(Boolean);return sources.join(' / ')||'选择指标开始研究';}
 function cardMarkup(c,index,total){return `<article class="card ${c.width==='full'?'full':''}" data-card="${esc(c.id)}"><div class="card-header"><div><div class="card-title"><h3>${esc(c.title)}</h3></div><div class="card-subtitle">${types[c.type]||'时序折线'} <span>·</span> ${c.start||'全部历史'}${c.end?' — '+c.end:''}${c.type==='seasonal'?' · 最近 '+c.years+' 年':''}</div></div><div class="card-actions"><button data-action="up" title="上移" aria-label="上移图表" ${index===0?'disabled':''}>↑</button><button data-action="down" title="下移" aria-label="下移图表" ${index===total-1?'disabled':''}>↓</button><button data-action="edit">编辑</button><button data-action="more" title="图表操作" aria-label="图表操作">•••</button></div></div><div class="chart" id="chart-${esc(c.id)}"><div class="loading">正在读取观测值…</div></div><div class="chart-warning" hidden></div><div class="card-footer"><span title="${esc(sourceText(c))}">来源 · ${esc(sourceText(c)).slice(0,80)}</span><span><button data-action="csv">CSV</button><button data-action="png">PNG ↗</button></span></div></article>`;}

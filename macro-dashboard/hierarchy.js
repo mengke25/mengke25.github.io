@@ -1,4 +1,4 @@
-import {esc,formatNumber,renderChart} from './charts.js?v=3cf3f395f0b8d807';
+import {esc,formatNumber,renderChart} from './charts.js?v=dab0d9b679b74bae';
 
 const fieldLabels={raw:'当月原值',yoy:'当月同比',mom:'当月环比',ytd:'年内累计值',ytd_yoy:'累计同比'};
 const flowLabels={export:'出口',import:'进口'};

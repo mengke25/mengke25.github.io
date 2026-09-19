@@ -1,4 +1,4 @@
-import {prepareSeries,seasonality,alignScatter,formatNumber} from './transforms.js?v=3cf3f395f0b8d807';
+import {prepareSeries,seasonality,alignScatter,formatNumber} from './transforms.js?v=dab0d9b679b74bae';
 export const palette=['#004477','#D80C18','#9BCCFD','#C7D0D9','#E97132','#4EA72E'];
 export const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function processed(card,metadata,values){return card.series.map((setting,index)=>{const meta=metadata.get(setting.indicatorId);const raw=values.get(setting.indicatorId);const result=prepareSeries(raw?.points||[],{...setting,start:card.start,end:card.end});return {setting,meta,index,points:result.points,warnings:[...(raw?.warnings||[]),...(result.warnings||[]),...(!meta?['指标已不在当前目录中，请重新选择。']:[])],name:setting.label||meta?.name||'失效指标',percent:!!meta?.percent&&setting.transform==='raw',unit:setting.transform==='base100'?'基期=100':setting.transform==='zscore'?'标准差':setting.transform==='log'?'自然对数':meta?.unit||'单位未注明'};});}
