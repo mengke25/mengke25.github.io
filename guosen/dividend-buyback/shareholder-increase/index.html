@@ -1,42 +1,44 @@
 <!doctype html>
-<html lang="zh-CN"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>6大门槛因子 · 股东增持被套策略</title>
-<link rel="stylesheet" href="./style.css?v=six-gates-1">
-<script defer src="./vendor/plotly.min.js?v=daily4-20261105-zerofee"></script><script defer src="./app.js?v=six-gates-2010-v2"></script>
-</head><body>
-<header><div class="shell"><div class="mast"><strong>6大门槛因子</strong><span id="interval">股东增持被套策略</span></div>
-<nav aria-label="研究模块"><button data-page="method" aria-current="page">方法及说明</button><button data-page="daily">每日股票池</button><button data-page="account">净值与资金</button><button data-page="compare">参数对比与筛选</button><button data-page="periods">年度与牛熊</button></nav></div></header>
-<main class="shell">
-<section id="method" class="method"><p class="eyebrow">研究出发点</p><h1>股东增持后被套，<br>跟随买入能否跑赢市场？</h1>
-<p class="intro">先选允许买入的股票，再看股东是否被套。六项门槛默认全选，也可以只选几项；勾选的条件必须同时满足。全不选时，仅按增持策略自身的规则交易。</p>
-<dl><dt>何时买入</dt><dd>实际增持股数占总股本 ≥ <b>m</b>，且收盘价低于股东成本、被套幅度 ≥ <b>n</b>。满足条件可买入，已有持仓可加仓。</dd>
-<dt>何时卖出</dt><dd>被套收窄至低于买入线，或持仓不再通过所选门槛，只持有、不加仓。收盘价回到或超过股东成本，下一可成交开盘卖出。</dd>
-<dt>资金去哪</dt><dd>将可用现金（包括卖出回款）等分给仍可买入的股票；没有可买标的就留现金，不借钱、不加杠杆。回测不计买卖费用。</dd>
-<dt>面板看什么</dt><dd>选交易日看股票名称、代码、股东成本和操作信号；可分别核对开盘成交、收盘持仓，以及账户净值与万得全A。</dd></dl>
-<button class="primary" data-page="daily">查看每日股票池 →</button></section>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>6大门槛因子 · 股东增持被套策略</title><link rel="stylesheet" href="./style.css?v=hold1">
+<script defer src="./vendor/plotly.min.js"></script><script defer src="./app.js?v=hold1"></script></head><body>
+<header><div class="shell"><div class="mast"><strong>6大门槛因子</strong><span id="interval">股东增持被套 · 固定持有期</span></div>
+<nav aria-label="研究模块"><button data-page="method" aria-current="page">方法及说明</button><button data-page="daily">每日股票池</button><button data-page="account">净值与资金</button><button data-page="compare">持有期对比</button><button data-page="periods">年度与牛熊</button></nav></div></header>
+<main class="shell"><section id="method" class="method"><p class="eyebrow">股东增持被套策略</p><h1>股东买入后被套，<br>跟随买入，持有到期。</h1>
+<p class="intro">看股东和管理层实际买了多少、股价比他们的成本低了多少，再比较不同持有期的收益。</p>
+<dl><dt>怎么买</dt><dd>同公司、同次披露的股东与管理层实际增持合计达到所选比例，被套程度落在所选区间，并通过勾选的门槛，就进入候选池。用已知信息筛选，下一开盘能成交才买。</dd>
+<dt>怎么卖</dt><dd>买入后持有所选的 1—24 个自然月，到期卖出。股价提前解套也不提前卖；同一笔披露只建仓一次，持仓期间不加仓。到期不能成交，等到下一可卖开盘。</dd>
+<dt>怎么分配</dt><dd>本金固定 100 万元。可用现金等额买入当日可成交的新标的，没有就留现金。不借钱，不计买卖费用。</dd>
+<dt>怎么选择</dt><dd>三个下拉框选增持比例、被套区间和持有月数。六项门槛默认只选“历史非 ST”和“净利润非负”；还可以剔除指定被套程度或指定股票。</dd>
+<dt>看什么</dt><dd>每天有哪些股票可买、被套多少；实际买卖、持仓到期日；账户净值及相对万得全A的收益；1—24 个月持有期的并列对比。</dd></dl>
+<button class="primary" data-page="daily">设置参数，查看股票池 →</button></section>
 <div id="workspace" hidden>
-<fieldset id="gates"><legend>6大门槛因子</legend><div class="gate-choices">
-<label><input type="checkbox" value="1" checked>流动性</label><label><input type="checkbox" value="2" checked>股权质押</label><label><input type="checkbox" value="4" checked>商誉</label><label><input type="checkbox" value="8" checked>净利润</label><label><input type="checkbox" value="16" checked>历史非 ST</label><label><input type="checkbox" value="32" checked>ROE</label>
-</div><div class="gate-run"><button id="generate" class="primary" disabled>生成回测</button><span id="applied" aria-live="polite"></span></div></fieldset>
-<div class="toolbar" id="parameters"><label>增持比例至少（m）<select id="ratio"></select></label><label>被套幅度至少（n）<select id="bin"></select></label>
-<div id="date-controls"><label>查看交易日<input type="date" id="date"></label><div class="buttons"><button id="prev">上一交易日</button><button id="next">下一交易日</button><button id="latest">最新</button></div></div></div>
-<p id="status" role="status" aria-live="polite"></p><div id="error" role="alert" hidden><span></span> <button id="retry">重试</button></div>
+<div class="toolbar" id="parameters"><label>合计增持比例至少<select id="ratio"></select></label><label>被套区间<select id="band"></select></label><label>固定持有期<select id="months"></select></label></div>
+<fieldset id="gates"><legend>6大门槛因子 · 可独立勾选</legend><div class="gate-choices">
+<label><input type="checkbox" value="16" checked>历史非 ST</label><label><input type="checkbox" value="8" checked>净利润非负</label><label><input type="checkbox" value="1">流动性</label><label><input type="checkbox" value="2">股权质押</label><label><input type="checkbox" value="4">商誉</label><label><input type="checkbox" value="32">ROE</label></div>
+<p class="hint">所选条件须同时满足；全不选则不额外叠加这六项门槛。沿用因子终端当时可用的历史快照。</p>
+<div class="toolbar inline"><label>额外剔除被套程度<select id="exclude-op"><option value="off">不剔除</option><option value="gt">大于 &gt;</option><option value="ge">大于等于 ≥</option><option value="lt">小于 &lt;</option><option value="le">小于等于 ≤</option></select></label><label>被套程度（%）<input id="exclude-cut" type="number" min="0" max="100" step="1" value="90" disabled></label></div>
+<div class="toolbar inline"><label>指定剔除股票<input id="exclude-stock" type="search" list="stock-options" placeholder="输入名称或完整代码" autocomplete="off"><datalist id="stock-options"></datalist></label><button id="add-stock" disabled>加入剔除</button><button id="clear-stocks" disabled>清空剔除</button></div><p id="stock-error" role="alert"></p><div id="excluded-list" aria-label="已剔除股票"></div>
+<div class="gate-run"><button id="generate" class="primary" disabled>生成回测</button><span id="draft-note" aria-live="polite"></span></div></fieldset>
+<p id="status" role="status" aria-live="polite">正在加载研究输入…</p><p id="error" role="alert" hidden></p>
+<p class="note" id="applied"></p>
 <div id="content" hidden>
-<section id="daily" hidden><p class="eyebrow" id="day-stamp"></p><h1>每日股票池</h1><p class="note" id="pool-note"></p>
-<div class="stats" id="day-stats" aria-label="所选交易日收盘概况"></div>
-<div class="section-title"><h2>收盘信号名单</h2><button id="export-signals">下载当日信号 CSV</button></div>
-<div class="toolbar inline"><label>显示范围<select id="action"><option value="">全部操作</option><option>可买</option><option>可加仓</option><option>只持有</option><option>解套待卖</option></select></label><label>股票名称或代码<input type="search" id="stock-search" placeholder="搜索当日名单"></label><span class="hint" id="signal-count"></span></div>
-<div id="signal-table"></div>
-<div class="section-title"><h2>当日开盘执行</h2><button id="export-execs">下载当日执行 CSV</button></div><p class="note">按开盘执行日列示回测成交与未成交尝试。模拟允许分数股，不设 100 股或最小金额限制，不代表实盘可下单。</p><div id="exec-table"></div>
-<div class="section-title"><h2>当日收盘持仓</h2><button id="export-holdings">下载当日持仓 CSV</button></div><p class="note" id="position-note"></p><div id="holding-table"></div></section>
-<section id="account" hidden><p class="eyebrow">独立资金账户 · 每日收盘估值</p><h1>净值与资金</h1><p class="note" id="base-note">期初全部持有现金，不计买卖费用；策略和万得全A使用同一基期。</p>
-<div class="stats" id="account-stats"></div><div class="section-title"><h2>策略与万得全A</h2><button id="export-nav">下载每日账户 CSV</button></div><div id="nav-chart" class="chart"></div>
-<h2>资金分布</h2><div id="capital-chart" class="chart"></div></section>
-<section id="compare" hidden><p class="eyebrow">全样本 · 各参数独立账户</p><h1>参数对比与筛选</h1><p class="note">按实际买入笔数和回撤筛选；点击任一组合查看当日名单。相邻参数可能包含相同股票。</p>
-<div class="toolbar inline"><label>排序指标<select id="rank-by"><option value="total_return">累计收益</option><option value="annual_return">年化收益</option><option value="max_drawdown">最大回撤（小优先）</option></select></label><label>最少买入笔数<input type="number" min="0" step="1" value="0" id="min-buys"></label><label>最大回撤幅度上限（%）<input type="number" min="0" max="100" placeholder="不限" id="max-dd"></label><button id="export-compare">下载筛选结果 CSV</button></div><p class="hint" id="rank-count"></p><div id="compare-table"></div></section>
-<section id="periods" hidden><p class="eyebrow">当前参数 · 收盘净值归因</p><h1>年度与牛熊表现</h1><h2>分年度收益与回撤</h2><div id="years-table"></div><h2>按市场环境拆分</h2><p class="note">牛熊标签仅用于事后归因，不用于当日交易。各环境可能包含多段不连续时期。</p><div id="regimes-table"></div></section>
+<section id="daily" hidden><div class="section-title"><h1>每日股票池</h1><div id="date-controls"><label>查看交易日 <input type="date" id="date"></label><div class="buttons"><button id="prev">上一交易日</button><button id="next">下一交易日</button><button id="latest">最新</button><button id="first-buy">首次买入日</button></div></div></div>
+<div class="stats" id="day-stats"></div>
+<div class="section-title"><h2>收盘可买候选池</h2><button id="export-pool">下载股票池 CSV</button></div><p class="note">按当日收盘条件筛选，供下一开盘尝试。已持有或已使用的披露不再列为可买；有名单不代表账户有可用现金。</p><div id="pool-table"></div>
+<div class="section-title"><h2>当日开盘买卖</h2><button id="export-trades">下载全部成交 CSV</button></div><div id="trade-table"></div><div id="blocked-table"></div>
+<div class="section-title"><h2>收盘持仓与到期日</h2><button id="export-holdings">下载持仓 CSV</button></div><p class="note">持仓按买入时的披露成本展示被套程度。无当日报价时按最后有效收盘估值；这不等于已核实停牌。</p><div id="holding-table"></div></section>
+<section id="account" hidden><p class="eyebrow">固定本金 · 零交易费用</p><h1>净值与资金</h1><p id="base-note" class="note"></p><div class="stats" id="account-stats"></div><div class="section-title"><h2>策略、全选门槛对照与万得全A</h2><button id="export-nav">下载每日账户 CSV</button></div><div id="nav-chart" class="chart"></div><h2>现金与股票市值</h2><div id="capital-chart" class="chart"></div></section>
+<section id="compare" hidden><h1>1—24 个月持有期对比</h1><p class="note">只改变持有月份，其余采用“当前结果”的参数、门槛和剔除名单。每一行都是独立的 100 万元账户，不是个股收益的简单平均。</p><div class="buttons"><button id="compare-run" class="primary">计算全部持有期</button><button id="export-compare" disabled>下载对比 CSV</button></div><p id="compare-status" role="status"></p><div id="compare-chart" class="chart" hidden></div><div id="compare-table"></div></section>
+<section id="periods" hidden><h1>年度与牛熊表现</h1><h2>分年度</h2><div id="years-table"></div><h2>市场环境</h2><p class="note">沿用原终端的事后牛熊标签，仅用于归因、不参与买卖；“未划分”保留原样。非连续时段按各日收益复合。</p><div id="regime-table"></div></section>
 </div>
-<details id="method-details"><summary>查看交易口径、数据限制与适用范围</summary><p>股东成本按同公司同次披露的实际增持股数加权计算，不是策略账户的买入成本。被套幅度＝1－收盘价÷股东成本。门槛按展示舍入前的数值判断，表格百分比仅供显示。这里只衡量相对公告成本的价格差，不代表股东今天仍持有该笔股票，也不代表其真实盈亏。</p><div id="published-rules"></div><p>缺报价不等同于已核实停牌。历史样本及事后筛选结果不代表未来表现。</p></details>
-</div></main><footer class="shell">股东增持事件研究 · 每日资金账户 · 非投资建议</footer>
-</body></html>
+<details><summary>数据口径与限制</summary>
+<p>增持比例＝同公司同次披露、去重后的股东与管理层实际增持股数÷对应总股本。不把增持计划当成交，不跨公告日累计。股东成本是实际增持股数加权价格，不是账户买入价，也不能证明这些股东至今仍持有。</p>
+<p>被套程度＝max(0，1－收盘价÷股东成本)。0% 包含股价不低于成本的情况；0—10% 为大于 0%、不超过 10%，其他档位同理。比较前舍入至百分数的小数点后十位，避免浮点边界误差。增持下拉框为至少 1%—10%，每档 0.5%。</p>
+<p>交易日公告从当日收盘起使用，非交易日公告从下个开盘前使用；以当时已知且达到增持比例的最新披露为候选参考。开盘只用上一交易日真实收盘判断被套条件，历史门槛也只使用当时可得的快照。</p>
+<p>本版按固定月份卖出，不再采用“解套即卖”。同一公司最多一笔持仓，同次披露只买一次；新披露可在旧持仓卖出后形成新机会。到期按自然月计算，月末无同日则取该月末，顺延至可成交开盘。门槛与额外剔除只限制建仓，不提前清仓。期末未卖出按市值保留。</p>
+<p>采用此前确认的不复权价格，未补充分红、送转、拆并股的收益与成本调整，因此长期持有结果不等于含分红总回报，除权也可能影响被套判断。涨跌停按既有板块规则近似，无完整历史交易状态；允许分数股、零费用、无滑点，不等于实盘收益。</p>
+<p>默认两项：历史非 ST 读取当期快照的 ST 标记；净利润非负要求近四季净利润合计 ≥0。其他四项：流动性剔除此前 92 个自然日日均成交额末尾 20%；质押比例不超过 80%（缺失不通过）；非金融股剔除商誉/净资产 >80% 或商誉/总资产 >20%（沿用源表正分母、缺商誉按零和金融豁免规则）；ROE 要求 15%≤近四季净利润/当前报表净资产&lt;60%，净资产须为正。</p>
+<p>门槛使用沿用的历史重构快照，并非每天重新计算财务数据。取消 ST 勾选不会恢复底层清洗已按名称/ST 代理排除的记录。原质押筛选存在百分比单位不一致，但本批非缺失值最大为 78.74%，不影响这批通过名单；这里保留原项目结果。缺成本、重叠累计及不一致股本口径等已隔离，不用估算数据填充。</p>
+<p>累计超额＝策略累计收益－万得全A累计收益；年化收益按每年 244 个交易日计算。全选门槛对照仅把六项改为全选，其他设置相同。历史参数对比不代表样本外有效。</p>
+</details></div></main><footer class="shell">股东增持事件研究 · 固定持有期 · 非投资建议</footer></body></html>

@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "publication": "fixed-hold-v1-20261105",
+  "source": {
+    "snapshot_sha256": "e2944536d89d2a22570d211bba6fcccff7ce6cb830b73afaf5f667cbcc01ebcb",
+    "gate_sha256": "cff728a3d44db501515b8799834efeb4fcdeb8d9883e36ec0097805886991a01",
+    "engine_source_sha256": "42d0fe493a0c1ba897e66b8b52398c0b1ffaface4401c1546e60e2066f88566c",
+    "manifest_sha256": "5b6dd1689a3e4d9c588e9c4f6ac23a5fdf126150444fca4b72591fe2a55a9a34",
+    "events": 1831,
+    "stocks": 914
+  },
+  "python_cases": 18,
+  "daily_rows": 73278,
+  "browser": {
+    "passed": true,
+    "first_buy": "2011-09-30",
+    "console_errors": [],
+    "default_checked": [
+      "历史非 ST",
+      "净利润非负"
+    ],
+    "dropdown_sizes": [
+      19,
+      11,
+      24
+    ],
+    "holding_comparison_rows": 24,
+    "nav_points": 4072
+  },
+  "files": {
+    "app.js": {
+      "sha256": "b592141cb72e5caee2390a7363e430dcc4473eb386405310b64718f313eeb3a8",
+      "bytes": 15414
+    },
+    "core.js": {
+      "sha256": "42d0fe493a0c1ba897e66b8b52398c0b1ffaface4401c1546e60e2066f88566c",
+      "bytes": 7926
+    },
+    "index.html": {
+      "sha256": "c4d91eca72906a9b8fa0cf23e87f89e9de39ad23ece448245259d09fda4e7b8a",
+      "bytes": 9734
+    },
+    "manifest.json": {
+      "sha256": "5b6dd1689a3e4d9c588e9c4f6ac23a5fdf126150444fca4b72591fe2a55a9a34",
+      "bytes": 1448
+    },
+    "style.css": {
+      "sha256": "a1bf1381858e1c1ad91eb01be3cb6533a80a98364f8e604c729ba7e724da690a",
+      "bytes": 5949
+    },
+    "worker.js": {
+      "sha256": "0e37407c7c86f453036516b63fc15abd2107ecfda5898eeb67e8c561a99f1a53",
+      "bytes": 2307
+    },
+    "inputs/meta.json.gz": {
+      "sha256": "3f88b588e32ea1542e74c34b91dbce4698b2c996150e57ba3188a9593af756c6",
+      "bytes": 135065
+    },
+    "inputs/quotes_0000.json.gz": {
+      "sha256": "a0a0753c880559c9eb05c45714f5af147b3b8192640251571620c1dce4b4e84b",
+      "bytes": 1168481
+    },
+    "inputs/quotes_0150.json.gz": {
+      "sha256": "d638de49affd7249df0d1cb39a8119c0731a8b5207761c069f3922b4cefc8ccf",
+      "bytes": 1230324
+    },
+    "inputs/quotes_0300.json.gz": {
+      "sha256": "9d4166dc5988b29f8590ad49c69cbc36517c37dc23d580c647b4398b3d7ac893",
+      "bytes": 1148888
+    },
+    "inputs/quotes_0450.json.gz": {
+      "sha256": "4065f3da31dafbcea77cbc1a7df96dbfc5eadecf4c581874af5e0c8a676ae58f",
+      "bytes": 1079539
+    },
+    "inputs/quotes_0600.json.gz": {
+      "sha256": "4888fb316572a27730d19fea8a050d858e31da2b9be72a756db86cb01b259732",
+      "bytes": 1095162
+    },
+    "inputs/quotes_0750.json.gz": {
+      "sha256": "a24880718b265e62f2d87aef8d4782bc23e8725702aecfe3c631219a8dcdfc83",
+      "bytes": 897167
+    },
+    "inputs/quotes_0900.json.gz": {
+      "sha256": "2161e3b43dcc4395dfbd756c0a883ef4b786c9ab439e209e3bc91d2b5a2ea8ac",
+      "bytes": 39669
+    },
+    "vendor/plotly.min.js": {
+      "sha256": "6ceddd4bac82a64f5a2b8814a4d10bb4288379262f1989caee3148e7c3509c72",
+      "bytes": 4838098
+    }
+  }
+}
