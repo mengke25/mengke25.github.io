@@ -1,21 +1,24 @@
 <!doctype html>
 <html lang="zh-CN"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>股东增持被套策略 · 每日研究面板</title>
-<link rel="stylesheet" href="./style.css?v=daily4-20261105-zerofee">
-<script defer src="./vendor/plotly.min.js?v=daily4-20261105-zerofee"></script><script defer src="./app.js?v=daily4-20261105-zerofee"></script>
+<title>6大门槛因子 · 股东增持被套策略</title>
+<link rel="stylesheet" href="./style.css?v=six-gates-1">
+<script defer src="./vendor/plotly.min.js?v=daily4-20261105-zerofee"></script><script defer src="./app.js?v=six-gates-1"></script>
 </head><body>
-<header><div class="shell"><div class="mast"><strong>股东增持被套策略</strong><span id="interval">每日研究面板</span></div>
+<header><div class="shell"><div class="mast"><strong>6大门槛因子</strong><span id="interval">股东增持被套策略</span></div>
 <nav aria-label="研究模块"><button data-page="method" aria-current="page">方法及说明</button><button data-page="daily">每日股票池</button><button data-page="account">净值与资金</button><button data-page="compare">参数对比与筛选</button><button data-page="periods">年度与牛熊</button></nav></div></header>
 <main class="shell">
 <section id="method" class="method"><p class="eyebrow">研究出发点</p><h1>股东增持后被套，<br>跟随买入能否跑赢市场？</h1>
-<p class="intro">从已公告的真实增持出发，每天用股东的加权增持成本与收盘价比较，寻找低于股东成本的股票。</p>
+<p class="intro">先选允许买入的股票，再看股东是否被套。六项门槛默认全选，也可以只选几项；勾选的条件必须同时满足。全不选时，仅按增持策略自身的规则交易。</p>
 <dl><dt>何时买入</dt><dd>实际增持股数占总股本 ≥ <b>m</b>，且收盘价低于股东成本、被套幅度 ≥ <b>n</b>。满足条件可买入，已有持仓可加仓。</dd>
-<dt>何时卖出</dt><dd>被套收窄至低于门槛，只持有、不加仓。收盘价回到或超过股东成本，下一可成交开盘卖出。</dd>
+<dt>何时卖出</dt><dd>被套收窄至低于买入线，或持仓不再通过所选门槛，只持有、不加仓。收盘价回到或超过股东成本，下一可成交开盘卖出。</dd>
 <dt>资金去哪</dt><dd>将可用现金（包括卖出回款）等分给仍可买入的股票；没有可买标的就留现金，不借钱、不加杠杆。回测不计买卖费用。</dd>
 <dt>面板看什么</dt><dd>选交易日看股票名称、代码、股东成本和操作信号；可分别核对开盘成交、收盘持仓，以及账户净值与万得全A。</dd></dl>
 <button class="primary" data-page="daily">查看每日股票池 →</button></section>
 <div id="workspace" hidden>
+<fieldset id="gates"><legend>6大门槛因子</legend><div class="gate-choices">
+<label><input type="checkbox" value="1" checked>流动性</label><label><input type="checkbox" value="2" checked>股权质押</label><label><input type="checkbox" value="4" checked>商誉</label><label><input type="checkbox" value="8" checked>净利润</label><label><input type="checkbox" value="16" checked>历史非 ST</label><label><input type="checkbox" value="32" checked>ROE</label>
+</div><div class="gate-run"><button id="generate" class="primary" disabled>生成回测</button><span id="applied" aria-live="polite"></span></div></fieldset>
 <div class="toolbar" id="parameters"><label>增持比例至少（m）<select id="ratio"></select></label><label>被套幅度至少（n）<select id="bin"></select></label>
 <div id="date-controls"><label>查看交易日<input type="date" id="date"></label><div class="buttons"><button id="prev">上一交易日</button><button id="next">下一交易日</button><button id="latest">最新</button></div></div></div>
 <p id="status" role="status" aria-live="polite"></p><div id="error" role="alert" hidden><span></span> <button id="retry">重试</button></div>
