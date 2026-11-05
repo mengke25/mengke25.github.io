@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>股权激励首次实施公告策略</title><meta name="description" content="首次实施公告后买入，比较1至12个月持有期的净值、万得全A超额及每日交易。"><link rel="stylesheet" href="style.css"><script defer src="vendor/plotly.min.js"></script><script defer src="app.js"></script></head>
+<body><link rel="stylesheet" href="overrides.css"><header><div class="shell"><div class="mast"><strong>股权激励首次实施公告策略</strong><span id="cutoff">正在读取数据日期</span></div><nav aria-label="策略页面"><button data-tab="method" aria-current="page">方法说明</button><button data-tab="pool">股票池与交易</button><button data-tab="nav">净值与资金</button><button data-tab="compare">持有期对比</button><button data-tab="year">年度与牛熊</button></nav></div></header>
+<main class="shell">
+ <section id="method" class="method">
+  <p class="eyebrow">股权激励事件研究</p><h1>激励开始实施后，<br>买入并持有多久？</h1>
+  <p class="intro">观察股权激励进入实施阶段后，股票的后续表现。以原表的“首次实施公告日”为信号，不把预案、最新公告日或全部激励完成混为一谈。</p>
+  <dl><dt>出发点</dt><dd>激励计划进入实施阶段后，公司与员工的利益联系是否对应更好的股价表现？用所有可用历史事件检验，不预设结论。</dd>
+  <dt>怎么买卖</dt><dd>首次实施公告后的第一个市场交易日开盘尝试买入，涨停、缺价或其他条件不通过就跳过。持有 1—12 个自然月，到期后可成交时卖出。已持有同一股票，不重复加仓或延长期限。</dd>
+  <dt>调什么</dt><dd>选择持有月份、激励工具、回测起止日和每笔目标仓位。默认持有 3 个月，每笔目标仓位 5%，勾选历史非 ST。100 万元固定本金，卖出后资金可再用，同日资金不足就等额缩小新仓，交易费用为 0。</dd>
+  <dt>看什么</dt><dd>每日有哪些公告触发买入、哪些没买及原因、实际持仓与到期日；再看净值、相对万得全A的收益，以及 12 个持有期、各年度和不同市场阶段的结果。</dd></dl>
+  <p class="note">使用不复权行情，不计现金分红与送转调整，结果不等同总回报。牛熊划分用于事后统计，不参与选股。历史 ST 和涨跌停为近似判断。</p>
+  <button class="primary" id="start-view">查看回测与股票池</button>
+  <details><summary>数据范围与去重口径</summary><div id="audit-summary"></div><p>原始两份 Excel 完整保存在本地。以一览表的首次实施公告日期构造事件，实施明细仅作辅助核查。不按当前“实施/终止/全部完成”状态筛历史样本。同公司、同预案日、同激励工具识别方案，日期冲突隔离；同公司同一实施公告日合并买入事件。</p><p>数量、授予价格、企业属性等可能被事后修改，因此不拿当前值做历史筛选。工具分类沿用原表方案分类。该数据是本次导出样本，未证明全市场零遗漏。</p></details>
+ </section>
+ <section id="workspace" hidden>
+  <form id="params" class="toolbar">
+   <label>持有期<select id="months"></select></label><label>激励工具<select id="tool"></select></label><label>每笔目标仓位<select id="weight"><option value="2">2%</option><option value="5" selected>5%</option><option value="10">10%</option><option value="20">20%</option></select></label>
+   <label>开始交易日<input id="from" type="date" required></label><label>结束交易日<input id="to" type="date" required></label>
+   <label class="check"><span><input type="checkbox" id="nonST" checked> 历史非 ST</span></label><button type="submit" class="primary" id="generate">生成回测</button>
+  </form>
+  <p id="draft" class="hint" hidden>参数已修改。点击“生成回测”后更新结果；下方仍为上一次结果。</p><p id="status" role="status"></p><p id="error" role="alert" hidden></p><p id="applied" class="hint"></p>
+  <div id="results" hidden>
+   <dl class="stats" id="metrics"></dl>
+   <section id="pool" class="view" hidden>
+    <div id="date-controls"><label>查看交易日 <input type="date" id="day"></label><button id="prev" aria-label="前一交易日">前一日</button><button id="next" aria-label="后一交易日">后一日</button><button id="next-event">下一有事件日</button><button id="export-pool">下载当日股票池 CSV</button></div>
+    <h2>当天公告信号股票池</h2><p class="note">这里列出在所选交易日首次尝试买入的事件，不是未来名单。没有事件的日期为空；已买入的股票继续显示在持仓表中。</p><div id="pool-table"></div>
+    <h2>当日收盘持仓</h2><div id="hold-table"></div>
+    <div class="section-title"><h2>当天实际买卖</h2><button id="export-trades">下载全部买卖 CSV</button></div><div id="trade-table"></div>
+    <h2>没有成交的原因</h2><div id="skip-table"></div>
+   </section>
+   <section id="nav" class="view" hidden><div class="section-title"><h2>策略与万得全A净值</h2><button id="export-nav">下载每日净值 CSV</button></div><p class="note">回测起点前一交易日设为 1。现金留在账户，收益为 0；不复权收益不含分红送转，停牌或缺价持仓沿用最近真实收盘估值。</p><div class="chart" id="nav-chart"></div><h2>相对净值</h2><p class="hint">策略净值 ÷ 万得全A净值，起点为 1；高于 1 表示跑赢。累计超额指标为两者累计收益之差。</p><div class="chart" id="relative-chart"></div><h2>现金与股票市值</h2><div class="chart" id="cash-chart"></div></section>
+   <section id="compare" class="view" hidden><div class="section-title"><h2>1—12 个月持有期对比</h2><button class="primary" id="compare-run">计算全部持有期</button><button id="export-compare" disabled>下载对比 CSV</button></div><p class="note">各持有期使用同样的其他参数、日期和初始资金，分别独立运行。不能把不同账户的利润相加；历史最优不代表未来最优。</p><div id="compare-table"></div><h2>各持有期净值</h2><div class="chart" id="compare-chart"></div></section>
+   <section id="year" class="view" hidden><h2>年度表现</h2><div id="year-table"></div><h2>牛市、熊市与震荡市</h2><p class="note">沿用前面面板的事后市场划分。同类日期收益拼接统计；回撤也是拼接序列回撤，不能理解为连续持有该阶段的可实现策略。没有标签的日期单列“未划分”。</p><div id="regime-table"></div></section>
+  </div>
+  <details><summary>计算口径与数据限制</summary><p>初始资金 100 万元，目标买入金额 = 前一交易日账户净资产 × 每笔仓位。先卖后买，同日多只股票均分可用资金，但单只不超过目标金额。不融资、不注资、不计利息或交易费，允许分数股。</p><p>日历按市场交易日。买入只尝试一次；到期无法卖出则顺延。期末未退出仍按最后真实价格计价并单列持仓，陈旧估值与退市可能影响结果。到期日按自然月计算，月底不足则取该月最后一天。</p><p>个股不复权、不补送转股数与分红，除权会影响收益。涨跌停按板块、日期和已有 ST 快照估算，不能完整还原特殊交易规则；上市初期不尝试买入。历史非 ST 来自之前因子终端定期历史快照（最后一期 2026-09-01），不是逐日完备的风险警示记录；缺失按不通过处理，取消勾选也不会补造行情。</p><p>244 个交易日年化、零无风险利率、总体标准差。Sharpe = 年化收益 ÷ 年化波动。年化超额 = 策略年化收益 − 指数年化收益。年度首日含与上一交易日相比的收益。不用未来市场分类或当前方案最终状态触发交易。</p></details>
+ </section>
+</main><footer class="shell">股权激励首次实施公告研究 · 研究结果不构成投资建议</footer></body></html>
