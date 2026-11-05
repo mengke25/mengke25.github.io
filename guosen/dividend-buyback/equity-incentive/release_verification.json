@@ -32,16 +32,108 @@
       "source_sql_price_checks": 29685,
       "max_equity_difference": 7.916241884231567e-09,
       "original_excel_unchanged": true
+    },
+    "pool_comparison": {
+      "passed": true,
+      "panel": "incentive",
+      "records": [
+        {
+          "label": "initial",
+          "before": "2026-10-29",
+          "after": "2026-10-30",
+          "kind": "信号股票池",
+          "counts": {
+            "added": 4,
+            "kept": 0,
+            "removed": 4
+          }
+        },
+        {
+          "label": "signal_nonadjacent",
+          "before": "2022-01-04",
+          "after": "2026-10-13",
+          "kind": "信号股票池",
+          "counts": {
+            "added": 1,
+            "kept": 0,
+            "removed": 9
+          }
+        },
+        {
+          "label": "holdings_nonadjacent",
+          "before": "2022-01-04",
+          "after": "2026-10-13",
+          "kind": "实际持仓",
+          "counts": {
+            "added": 56,
+            "kept": 2,
+            "removed": 73
+          }
+        },
+        {
+          "label": "same_day",
+          "before": "2026-10-13",
+          "after": "2026-10-13",
+          "kind": "实际持仓",
+          "counts": {
+            "added": 0,
+            "kept": 58,
+            "removed": 0
+          }
+        },
+        {
+          "label": "empty",
+          "before": "2010-01-04",
+          "after": "2010-01-04",
+          "kind": "信号股票池",
+          "counts": {
+            "added": 0,
+            "kept": 0,
+            "removed": 0
+          }
+        },
+        {
+          "label": "regenerated",
+          "before": "2026-10-29",
+          "after": "2026-10-30",
+          "kind": "实际持仓",
+          "counts": {
+            "added": 4,
+            "kept": 53,
+            "removed": 6
+          }
+        }
+      ],
+      "downloads": 8,
+      "ledger_reconciled": true,
+      "nav_unchanged_by_date_comparison": true,
+      "invalid_dates_rejected": true,
+      "unapplied_parameters_preserved": true,
+      "regeneration": true,
+      "race_check": true,
+      "mobile_overflow": false,
+      "errors": [],
+      "assets": {
+        "app.js": "0608ff2ab30ee7763e3e9d19e0e189ad2120a53325f777a441032c24d65398db",
+        "worker.js": "d4e173b461fe5236ed4cdd2ee1d657d1b1aa9ecd57bfdc54c32892af44e68163",
+        "index.html": "9fdd8206a566de8eb0b71f453eb794707428f85ecafd093dface4415fca23546",
+        "pool-compare.js": "12d6b8bb163b7d33f7cde11183428b9b3e4d7bd36d5b93a2fa4acafb3c25c90c",
+        "pool-compare.css": "dd7a6b8821d246d73d41c02991f983bdb728b07fb6be8c63bae959283de3b053",
+        "core.js": "bb384e2144891064548de4a9353bcc7e021542e18a9f456149ced46e27e4657d",
+        "manifest.json": "6d9ce25db861335db1d68fa8a12293a3d66c2c5f9120290bffb24b82df379802"
+      }
     }
   },
   "files": {
-    "app.js": "e905e93c004e867977ca6c47e92608b99532999c51d81f0e6a5f6bd4925a9fd2",
+    "app.js": "0608ff2ab30ee7763e3e9d19e0e189ad2120a53325f777a441032c24d65398db",
     "core.js": "bb384e2144891064548de4a9353bcc7e021542e18a9f456149ced46e27e4657d",
-    "index.html": "4bb525fa6e9fb4de8a3fdae93c97bc58d49b607c9abbdbad4343f7a372da7fa3",
+    "index.html": "9fdd8206a566de8eb0b71f453eb794707428f85ecafd093dface4415fca23546",
     "manifest.json": "6d9ce25db861335db1d68fa8a12293a3d66c2c5f9120290bffb24b82df379802",
     "overrides.css": "36278fa514cef4e1d88c6b79fa04b4e33c23521d837caa1999ce0d1a361ccf28",
+    "pool-compare.css": "dd7a6b8821d246d73d41c02991f983bdb728b07fb6be8c63bae959283de3b053",
+    "pool-compare.js": "12d6b8bb163b7d33f7cde11183428b9b3e4d7bd36d5b93a2fa4acafb3c25c90c",
     "style.css": "a1bf1381858e1c1ad91eb01be3cb6533a80a98364f8e604c729ba7e724da690a",
-    "worker.js": "1307bdb1c907e8dc6741179c673ea3d2c005682f01e9d9e05f28476761bdd543",
+    "worker.js": "d4e173b461fe5236ed4cdd2ee1d657d1b1aa9ecd57bfdc54c32892af44e68163",
     "inputs/meta.json.gz": "de53af41ed4d95aa65760e41d95cbe0f0a33357aaf5da1362ffe2c89a8581cc4",
     "inputs/quotes_0000.json.gz": "c9e2e72cd9dab584bfa7b387eb851909c340feb358b4734a980790e6c82ca058",
     "inputs/quotes_0100.json.gz": "8c21b2818903dc157d4962768c14a632a05e2666e2e21321f02aeb310203c73d",

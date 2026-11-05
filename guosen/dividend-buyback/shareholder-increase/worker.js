@@ -29,6 +29,7 @@ self.onmessage=async({data:msg})=>{
    if(!data)throw Error('数据尚未加载');
    if(type==='run'){const r=result(p);payload={result:r,allSix:result({...p,mask:63}).nav.map(n=>n[0])};}
    else if(type==='inspect')payload=FixedHold.inspect(data,result(p),msg.day);
+   else if(type==='poolCompare'){const r=result(p);payload=[msg.before,msg.after].map(day=>FixedHold.inspect(data,r,day));}
    else if(type==='compare'){
     payload=[];
     for(let months=1;months<=24;months++){

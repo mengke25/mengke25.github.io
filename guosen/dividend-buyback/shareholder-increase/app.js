@@ -5,14 +5,14 @@ const labels={16:'历史非 ST',8:'净利润非负',1:'流动性',2:'股权质�
 const bandText=b=>b===0?'0%（未被套）':`${(b-1)*10}—${b*10}%`;
 let meta,manifest,current,allSix,detail,compareRows=[],page='method',day=0,busy=false,requestId=0,inspectVersion=0;
 let excluded=new Set();const pending=new Map();
-const worker=new Worker('./worker.js?v=hold1');
+const worker=new Worker('./worker.js?v=pool1');
 worker.onmessage=({data:m})=>{const p=pending.get(m.id);if(!p)return;if(m.progress){p.progress?.(m.progress);return;}pending.delete(m.id);m.error?p.reject(Error(m.error)):p.resolve(m.payload);};
 worker.onerror=()=>{for(const p of pending.values())p.reject(Error('计算线程未能运行，请使用新版 Chrome / Edge 刷新此页'));pending.clear();};
 function ask(type,extra={},progress){return new Promise((resolve,reject)=>{const id=++requestId;pending.set(id,{resolve,reject,progress});worker.postMessage({id,type,...extra});});}
 function error(e){$('error').textContent=e.message||String(e);$('error').hidden=false;}
 function config(){return {m:Number($('ratio').value),band:Number($('band').value),months:Number($('months').value),mask:[...document.querySelectorAll('#gates input[type=checkbox]:checked')].reduce((s,x)=>s+Number(x.value),0),op:$('exclude-op').value,cut:Number($('exclude-cut').value),excluded:[...excluded].sort((a,b)=>a-b)};}
 function configText(p){const gates=Object.entries(labels).filter(([k])=>p.mask&k).map(([,v])=>v).join('、')||'不叠加门槛';const op={off:'不额外剔除',gt:'剔除 >',ge:'剔除 ≥',lt:'剔除 <',le:'剔除 ≤'};return `增持 ≥${p.m}% · 被套 ${bandText(p.band)} · 持有 ${p.months} 个月 · ${gates} · ${op[p.op]}${p.op==='off'?'':p.cut+'%'} · 指定剔除 ${p.excluded.length} 只`;}
-function setBusy(value){busy=value;$('generate').disabled=value||!meta;$('compare-run').disabled=value||!current;}
+function setBusy(value){busy=value;$('generate').disabled=value||!meta;$('compare-run').disabled=value||!current;poolComparison.block(value);}
 function dirty(){const changed=current&&JSON.stringify(config())!==JSON.stringify(current.params);$('draft-note').textContent=changed?'选项尚未应用。点击“生成回测”后更新结果。':current?'下方为当前选项的结果。':'默认：历史非 ST + 净利润非负';$('exclude-cut').disabled=$('exclude-op').value==='off';}
 function table(id,headers,rows){$(id).innerHTML=rows.length?`<div class="table-wrap"><table><thead><tr>${headers.map(h=>`<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(row=>`<tr>${row.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`:'<p class="empty">本条件下没有记录。</p>';}
 function stats(id,items){$(id).innerHTML=items.map(([k,v])=>`<dl><dt>${esc(k)}</dt><dd>${esc(v)}</dd></dl>`).join('');}
@@ -38,7 +38,7 @@ async function generate(p=config()){
  try{
   const result=await ask('run',{p});current=result.result;allSix=result.allSix;detail=null;compareRows=[];$('compare-table').innerHTML='';$('compare-chart').hidden=true;$('export-compare').disabled=true;$('compare-status').textContent='';
   $('applied').textContent='当前结果：'+configText(current.params);$('content').hidden=false;
-  renderAccount();renderPeriods();await inspectDay(day);dirty();$('status').textContent=`已计算 ${meta.days.length.toLocaleString()} 个交易日。初始本金 100 万元，买卖费用为 0。`;
+  renderAccount();renderPeriods();await inspectDay(day);updatePoolComparison();dirty();$('status').textContent=`已计算 ${meta.days.length.toLocaleString()} 个交易日。初始本金 100 万元，买卖费用为 0。`;
   if(page==='account')drawAccount();
  }catch(e){error(e);$('status').textContent='计算未完成，未显示旧结果作为本次结果。';}
  finally{setBusy(false);}
@@ -84,6 +84,12 @@ $('export-holdings').onclick=()=>detail&&csv('持仓_'+meta.days[day],['交易�
 $('export-trades').onclick=()=>csv('全部成交',['成交日','代码','名称','买卖','成交价','数量','金额','费用','买入日','计划到期'],current.trades.map(t=>[meta.days[t[0]],meta.symbols[meta.refs[t[1]][0]],meta.refs[t[1]][1],t[2]==='B'?'买入':'卖出',...t.slice(3,7),meta.days[t[7]],t[8]]));
 $('export-nav').onclick=()=>csv('每日账户',['交易日','策略净值','万得全A净值','六项全选对照','现金','股票市值','持仓数','可买数','到期未成交数'],current.nav.map((n,i)=>[meta.days[i],n[0],meta.benchmark[i],allSix[i],n[1],n[0]*1e6-n[1],...n.slice(2)]));
 $('export-compare').onclick=()=>csv('持有期对比',['持有月数','累计收益','万得全A','累计超额','年化收益','最大回撤','买入笔数','期末持仓'],compareRows.map(r=>[r.months,r.total_return,r.benchmark_return,r.excess_return,r.annual_return,r.max_drawdown,r.buy_count,r.account_open_count]));
+const poolColumns=[{key:'ratio',label:'合计增持',kind:'percent'},{key:'cost',label:'股东成本',kind:'number'},{key:'close',label:'当日收盘价',kind:'number'},{key:'under',label:'被套程度',kind:'percent'},{key:'ann',label:'披露日',kind:'date'}];
+const poolComparison=PoolCompare.mount($('pool-comparison'),{
+ load:(before,after,s)=>ask('poolCompare',{before,after,p:s.appliedParams}),rows:(d,kind)=>d[kind],
+ columns:kind=>kind==='pool'?poolColumns:[...poolColumns,{key:'qty',label:'持股数',kind:'number'},{key:'entry',label:'买入日',kind:'date'},{key:'due',label:'到期日',kind:'date'},{key:'mark',label:'估值价格',kind:'number'},{key:'markDate',label:'估值日期',kind:'date'},{key:'status',label:'持仓状态'}]
+});
+function updatePoolComparison(){poolComparison.update({title:'股东增持被套',days:meta.days,min:0,max:meta.days.length-1,cutoff:manifest.last,params:configText(current.params),appliedParams:current.params,excluded:current.params.excluded.map(c=>meta.symbols[c]).join('、'),notes:{pool:'按两日收盘的可买条件比较，已持有或已使用的披露不再列入。移除可能因为已经买入、条件变化等，不代表实际卖出。',holdings:'比较两日实际收盘持仓。保留只表示两期均有持仓；期间交易请看实际买卖表。'}});}
 (async()=>{try{
  const loaded=await ask('init',{},s=>$('status').textContent=s);meta=loaded.meta;manifest=loaded.manifest;day=meta.days.length-1;
  $('interval').textContent=`股东增持被套 · ${manifest.first}—${manifest.last}`;$('date').min=manifest.first;$('date').max=manifest.last;$('date').value=manifest.last;

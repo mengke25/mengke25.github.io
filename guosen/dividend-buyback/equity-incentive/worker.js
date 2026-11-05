@@ -28,10 +28,12 @@ onmessage=async ({data:msg})=>{
    postMessage({type:'result',result,meta:{days:data.days,symbols:data.symbols,names:data.names,events:data.events},manifest});
   }else if(msg.type==='inspect'){
    if(!result)throw Error('请先生成回测');postMessage({type:'inspect',day:msg.day,detail:Incentive.inspect(data,result,msg.day)});
+  }else if(msg.type==='poolCompare'){
+   const r=run(msg.params);postMessage({type:'poolCompare',id:msg.id,pair:[msg.before,msg.after].map(day=>Incentive.inspect(data,r,day))});
   }else if(msg.type==='compare'){
    if(!result)throw Error('请先生成回测');const rows=[];
    for(let months=1;months<=12;months++){progress('对比持有期 '+months+' / 12');const r=run({...result.params,months});rows.push({months,...r.summary,nav:r.nav.map(x=>x[0])});}
    postMessage({type:'compare',rows});
   }
- }catch(e){postMessage({type:'error',message:e.message});}
+ }catch(e){postMessage({type:'error',id:msg.id,message:e.message});}
 };

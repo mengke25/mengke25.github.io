@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>股权激励首次实施公告策略</title><meta name="description" content="首次实施公告后买入，比较1至12个月持有期的净值、万得全A超额及每日交易。"><link rel="stylesheet" href="style.css"><script defer src="vendor/plotly.min.js"></script><script defer src="app.js"></script></head>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>股权激励首次实施公告策略</title><meta name="description" content="首次实施公告后买入，比较1至12个月持有期的净值、万得全A超额及每日交易。"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="pool-compare.css?v=pool1"><script defer src="vendor/plotly.min.js"></script><script defer src="pool-compare.js?v=pool1"></script><script defer src="app.js?v=pool1"></script></head>
 <body><link rel="stylesheet" href="overrides.css"><header><div class="shell"><div class="mast"><strong>股权激励首次实施公告策略</strong><span id="cutoff">正在读取数据日期</span></div><nav aria-label="策略页面"><button data-tab="method" aria-current="page">方法说明</button><button data-tab="pool">股票池与交易</button><button data-tab="nav">净值与资金</button><button data-tab="compare">持有期对比</button><button data-tab="year">年度与牛熊</button></nav></div></header>
 <main class="shell">
  <section id="method" class="method">
@@ -23,6 +23,7 @@
   <div id="results" hidden>
    <dl class="stats" id="metrics"></dl>
    <section id="pool" class="view" hidden>
+    <div id="pool-comparison"></div>
     <div id="date-controls"><label>查看交易日 <input type="date" id="day"></label><button id="prev" aria-label="前一交易日">前一日</button><button id="next" aria-label="后一交易日">后一日</button><button id="next-event">下一有事件日</button><button id="export-pool">下载当日股票池 CSV</button></div>
     <h2>当天公告信号股票池</h2><p class="note">这里列出在所选交易日首次尝试买入的事件，不是未来名单。没有事件的日期为空；已买入的股票继续显示在持仓表中。</p><div id="pool-table"></div>
     <h2>当日收盘持仓</h2><div id="hold-table"></div>

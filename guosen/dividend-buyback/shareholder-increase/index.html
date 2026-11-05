@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>股东增持被套策略</title><link rel="stylesheet" href="./style.css?v=hold1">
-<script defer src="./vendor/plotly.min.js"></script><script defer src="./app.js?v=hold1"></script></head><body>
+<link rel="stylesheet" href="./pool-compare.css?v=pool1"><script defer src="./vendor/plotly.min.js"></script><script defer src="./pool-compare.js?v=pool1"></script><script defer src="./app.js?v=pool1"></script></head><body>
 <header><div class="shell"><div class="mast"><strong>股东增持被套策略</strong><span id="interval">股东增持被套 · 固定持有期</span></div>
 <nav aria-label="研究模块"><button data-page="method" aria-current="page">方法及说明</button><button data-page="daily">每日股票池</button><button data-page="account">净值与资金</button><button data-page="compare">持有期对比</button><button data-page="periods">年度与牛熊</button></nav></div></header>
 <main class="shell"><section id="method" class="method"><p class="eyebrow">股东增持被套策略</p><h1>股东买入后被套，<br>跟随买入，持有到期。</h1>
@@ -24,7 +24,7 @@
 <p class="note" id="applied"></p>
 <div id="content" hidden>
 <section id="daily" hidden><div class="section-title"><h1>每日股票池</h1><div id="date-controls"><label>查看交易日 <input type="date" id="date"></label><div class="buttons"><button id="prev">上一交易日</button><button id="next">下一交易日</button><button id="latest">最新</button><button id="first-buy">首次买入日</button></div></div></div>
-<div class="stats" id="day-stats"></div>
+<div id="pool-comparison"></div><div class="stats" id="day-stats"></div>
 <div class="section-title"><h2>收盘可买候选池</h2><button id="export-pool">下载股票池 CSV</button></div><p class="note">按当日收盘条件筛选，供下一开盘尝试。已持有或已使用的披露不再列为可买；有名单不代表账户有可用现金。</p><div id="pool-table"></div>
 <div class="section-title"><h2>当日开盘买卖</h2><button id="export-trades">下载全部成交 CSV</button></div><div id="trade-table"></div><div id="blocked-table"></div>
 <div class="section-title"><h2>收盘持仓与到期日</h2><button id="export-holdings">下载持仓 CSV</button></div><p class="note">持仓按买入时的披露成本展示被套程度。无当日报价时按最后有效收盘估值；这不等于已核实停牌。</p><div id="holding-table"></div></section>

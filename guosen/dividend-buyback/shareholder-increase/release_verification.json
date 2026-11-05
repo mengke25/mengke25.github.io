@@ -29,28 +29,36 @@
   },
   "files": {
     "app.js": {
-      "sha256": "b592141cb72e5caee2390a7363e430dcc4473eb386405310b64718f313eeb3a8",
-      "bytes": 15414
+      "sha256": "4bec346c4768f4121c8ab31f2b49dc9f00a034229038bd3318386247b7f42377",
+      "bytes": 16791
     },
     "core.js": {
       "sha256": "42d0fe493a0c1ba897e66b8b52398c0b1ffaface4401c1546e60e2066f88566c",
       "bytes": 7926
     },
     "index.html": {
-      "sha256": "4a3183763d691d1634170b71457507b20739ebf69b38a35e82c60dd26094a374",
-      "bytes": 9722
+      "sha256": "5148df8373e5415cf3d56e7c1e93c8fd6b85fd7a3e52f6f3a0a3d1ccf4a0e62e",
+      "bytes": 9866
     },
     "manifest.json": {
       "sha256": "5b6dd1689a3e4d9c588e9c4f6ac23a5fdf126150444fca4b72591fe2a55a9a34",
       "bytes": 1448
+    },
+    "pool-compare.css": {
+      "sha256": "dd7a6b8821d246d73d41c02991f983bdb728b07fb6be8c63bae959283de3b053",
+      "bytes": 722
+    },
+    "pool-compare.js": {
+      "sha256": "12d6b8bb163b7d33f7cde11183428b9b3e4d7bd36d5b93a2fa4acafb3c25c90c",
+      "bytes": 14183
     },
     "style.css": {
       "sha256": "a1bf1381858e1c1ad91eb01be3cb6533a80a98364f8e604c729ba7e724da690a",
       "bytes": 5949
     },
     "worker.js": {
-      "sha256": "0e37407c7c86f453036516b63fc15abd2107ecfda5898eeb67e8c561a99f1a53",
-      "bytes": 2307
+      "sha256": "6f94d038074da3966ccc35d32f99b395378b2463ccd530d4315b7bb61a1d395d",
+      "bytes": 2431
     },
     "inputs/meta.json.gz": {
       "sha256": "3f88b588e32ea1542e74c34b91dbce4698b2c996150e57ba3188a9593af756c6",
@@ -87,6 +95,107 @@
     "vendor/plotly.min.js": {
       "sha256": "6ceddd4bac82a64f5a2b8814a4d10bb4288379262f1989caee3148e7c3509c72",
       "bytes": 4838098
+    }
+  },
+  "pool_comparison": {
+    "passed": true,
+    "panel": "shareholder",
+    "records": [
+      {
+        "label": "initial",
+        "before": "2026-10-12",
+        "after": "2026-10-13",
+        "kind": "信号股票池",
+        "counts": {
+          "added": 0,
+          "kept": 0,
+          "removed": 0
+        }
+      },
+      {
+        "label": "signal_nonadjacent",
+        "before": "2022-01-04",
+        "after": "2026-10-13",
+        "kind": "信号股票池",
+        "counts": {
+          "added": 0,
+          "kept": 0,
+          "removed": 0
+        }
+      },
+      {
+        "label": "nonempty_shareholder_signals",
+        "before": "2011-09-29",
+        "after": "2026-09-30",
+        "kind": "信号股票池",
+        "counts": {
+          "added": 2,
+          "kept": 0,
+          "removed": 1
+        }
+      },
+      {
+        "label": "holdings_nonadjacent",
+        "before": "2022-01-04",
+        "after": "2026-10-13",
+        "kind": "实际持仓",
+        "counts": {
+          "added": 2,
+          "kept": 0,
+          "removed": 6
+        }
+      },
+      {
+        "label": "same_day",
+        "before": "2026-10-13",
+        "after": "2026-10-13",
+        "kind": "实际持仓",
+        "counts": {
+          "added": 0,
+          "kept": 2,
+          "removed": 0
+        }
+      },
+      {
+        "label": "empty",
+        "before": "2010-01-04",
+        "after": "2010-01-04",
+        "kind": "信号股票池",
+        "counts": {
+          "added": 0,
+          "kept": 0,
+          "removed": 0
+        }
+      },
+      {
+        "label": "regenerated",
+        "before": "2026-10-12",
+        "after": "2026-10-13",
+        "kind": "实际持仓",
+        "counts": {
+          "added": 0,
+          "kept": 2,
+          "removed": 0
+        }
+      }
+    ],
+    "downloads": 9,
+    "ledger_reconciled": true,
+    "nav_unchanged_by_date_comparison": true,
+    "invalid_dates_rejected": true,
+    "unapplied_parameters_preserved": true,
+    "regeneration": true,
+    "race_check": true,
+    "mobile_overflow": false,
+    "errors": [],
+    "assets": {
+      "app.js": "4bec346c4768f4121c8ab31f2b49dc9f00a034229038bd3318386247b7f42377",
+      "worker.js": "6f94d038074da3966ccc35d32f99b395378b2463ccd530d4315b7bb61a1d395d",
+      "index.html": "5148df8373e5415cf3d56e7c1e93c8fd6b85fd7a3e52f6f3a0a3d1ccf4a0e62e",
+      "pool-compare.js": "12d6b8bb163b7d33f7cde11183428b9b3e4d7bd36d5b93a2fa4acafb3c25c90c",
+      "pool-compare.css": "dd7a6b8821d246d73d41c02991f983bdb728b07fb6be8c63bae959283de3b053",
+      "core.js": "42d0fe493a0c1ba897e66b8b52398c0b1ffaface4401c1546e60e2066f88566c",
+      "manifest.json": "5b6dd1689a3e4d9c588e9c4f6ac23a5fdf126150444fca4b72591fe2a55a9a34"
     }
   }
 }
