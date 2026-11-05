@@ -1,102 +1,203 @@
 'use strict';
 (() => {
-const $=id=>document.getElementById(id), esc=x=>String(x??'—').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const pct=x=>Number.isFinite(x)?(x*100).toFixed(2)+'%':'—', num=x=>Number.isFinite(x)?x.toFixed(3):'—';
-const bins=[['none','未被套（0%）'],['0_10','大于0%、小于10%'],...Array.from({length:9},(_,i)=>[(i+1)*10+'_'+(i+2)*10,`${(i+1)*10}%—${(i+2)*10}%${i===8?'（含上界）':'（不含上界）'}`]),['ge30','至少30%（汇总档）']];
-const binName=k=>bins.find(x=>x[0]===k)?.[1]??k;
-let meta,common,items=[],current,result,page='method',requestNo=0,rankRows=[],tradeRows=[],rankPage=0,tradePage=0,busy=false;
-const cache=new Map(), pageSize=30;
-const percentMetrics=new Set(['annual_return','excess_annual_return','max_drawdown','total_return','volatility','win_rate','return','benchmark_return','excess_return','avg_annual_drawdown']);
-function format(v,k){return percentMetrics.has(k)?pct(v):k==='sharpe'?num(v):v??'—';}
-function table(target,headers,rows){$(target).innerHTML=rows.length?`<div class="table-wrap"><table><thead><tr>${headers.map(h=>`<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(row=>`<tr>${row.map(v=>`<td>${esc(v)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`:'<div class="empty">没有符合条件的数据。可降低样本数限制或调整筛选条件。</div>';}
-function metricStrip(target,pairs){$(target).innerHTML=pairs.map(([label,value])=>`<div><span>${esc(label)}</span><strong>${esc(value)}</strong></div>`).join('');}
-function failure(e){$('error').hidden=false;$('error').textContent='未能加载或核验结果：'+e.message+'。请检查网络后重新选择组合；不会用旧结果代替当前请求。';$('load-status').textContent='加载失败';}
-async function unpack(info){
- if(!window.DecompressionStream||!crypto.subtle)throw Error('浏览器不支持安全校验或gzip解压，请使用新版Chrome/Edge');
- const response=await fetch(info.file);if(!response.ok)throw Error(`文件读取失败 (${response.status})`);
- const raw=await response.arrayBuffer();if(raw.byteLength!==info.bytes)throw Error('文件长度与版本清单不符');
- const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',raw)),b=>b.toString(16).padStart(2,'0')).join('');
- if(digest!==info.sha256)throw Error('文件校验不一致，请刷新更新版本');
- return JSON.parse(await new Response(new Blob([raw]).stream().pipeThrough(new DecompressionStream('gzip'))).text());
-}
-function hydrate(payload){if(payload.nav.length!==common.rows.length)throw Error('组合日期长度与公共序列不一致');return {...payload,nav_columns:['date','strategy','benchmark','excess','drawdown','holdings','regime'],nav:payload.nav.map((r,i)=>({date:common.rows[i][0],strategy:r[0],benchmark:common.rows[i][1],excess:r[0]/common.rows[i][1],drawdown:r[1],holdings:r[2],regime:common.rows[i][2]})),trades:payload.trades.map(r=>Object.fromEntries(payload.trade_columns.map((k,i)=>[k,r[i]])))};}
-function choiceLabel(x){const p=x.params;return `增持≥${(p.min_ratio*100).toFixed(1)}% · ${binName(p.drawdown_bin)} · 持有${p.hold_months}个月`;}
-function requested(){return items.find(x=>Math.abs(x.params.min_ratio-Number($('ratio').value))<1e-9&&x.params.drawdown_bin===$('bin').value&&x.params.hold_months===Number($('months').value));}
-function putControls(x){$('ratio').value=String(x.params.min_ratio);$('bin').value=x.params.drawdown_bin;$('months').value=String(x.params.hold_months);}
-function setBusy(value){busy=value;$('apply').disabled=value;$('reset').disabled=value;['ratio','bin','months','chart-mode','trade-download','nav-download','result-download','heat-refresh','rank-refresh'].forEach(id=>$(id).disabled=value);}
-async function choose(x,go){
- if(!x||busy)return;const token=++requestNo;setBusy(true);$('error').hidden=true;result=null;
- ['metrics','execution','year-table','regime-table','trade-table'].forEach(id=>$(id).replaceChildren());
- ['nav-chart','year-chart'].forEach(id=>{if(window.Plotly)Plotly.purge($(id));$(id).replaceChildren()});
- current=x;putControls(x);$('selected').textContent='正在加载：'+choiceLabel(x);$('sample-warning').textContent='正在核验所选组合…';$('load-status').textContent='正在校验组合分块…';
- try{
-  let payload=cache.get(x.sha256);if(!payload){payload=await unpack(x);cache.set(x.sha256,payload);if(cache.size>8)cache.delete(cache.keys().next().value);}
-  if(token!==requestNo)return;result=hydrate(payload);
-  for(const [key,value] of Object.entries(x.summary))if(result.summary[key]!==value)throw Error('组合绩效与索引不一致');
-  $('selected').textContent=choiceLabel(x)+' ｜2017-01-01 至 2026-10-13';
-  const s=result.summary;$('sample-warning').textContent=s.entry_count===0?'本组合没有实际入场，净值为现金路径；零收益不代表策略有效。':s.trade_count<30?`已入场${s.entry_count}笔，已平仓仅${s.trade_count}笔，未平仓${s.open_count}笔。样本量较少，不宜据此判断策略有效。`:`已入场${s.entry_count}笔，已平仓${s.trade_count}笔，未平仓${s.open_count}笔。满足30笔只是研究筛选门槛，不等于统计有效或样本外通过。`;
-  $('load-status').textContent='5,472组预计算结果 · 所选分块SHA-256校验通过';tradePage=0;
-  setBusy(false);if(go)show(go);else renderPage();
- }catch(e){result=null;setBusy(false);['trade-download','nav-download','result-download'].forEach(id=>$(id).disabled=true);$('selected').textContent='所选组合加载失败：'+choiceLabel(x);$('sample-warning').textContent='没有可展示的当前结果，请重试。';failure(e);}
-}
-function show(next){page=next;document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-current',b.dataset.page===page?'page':'false'));document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));$('workspace').hidden=page==='method';window.scrollTo(0,0);renderPage();}
-const chartConfig={responsive:true,displaylogo:false,modeBarButtonsToRemove:['lasso2d','select2d'],toImageButtonOptions:{format:'png',scale:2}};
-function plot(id,traces,layout={}){if(!window.Plotly){failure(Error('图表组件未加载'));return;}return Plotly.react(id,traces,{font:{family:'Microsoft YaHei, sans-serif',size:12,color:'#53636e'},paper_bgcolor:'#ffffff',plot_bgcolor:'#ffffff',margin:{t:30,r:30,b:55,l:65},legend:{orientation:'h',y:1.14},hovermode:'x unified',xaxis:{gridcolor:'#f0f3f5'},yaxis:{gridcolor:'#e9eef1'},...layout},chartConfig);}
-function line(name,x,y,color){return {name,x,y,type:'scatter',mode:'lines',line:{color,width:1.8},connectgaps:false};}
-function backtest(){
- const s=result.summary;metricStrip('metrics',[['年化收益',pct(s.annual_return)],['超额年化（日差复利）',pct(s.excess_annual_return)],['Sharpe',num(s.sharpe)],['最大回撤',pct(s.max_drawdown)],['累计收益',pct(s.total_return)],['年化波动',pct(s.volatility)],['已平仓胜率',pct(s.win_rate)],['累计交易费用（元）',Number(s.total_fees).toLocaleString('zh-CN',{maximumFractionDigits:2})]]);
- const mode=$('chart-mode').value,n=result.nav,x=n.map(r=>r.date);let traces,yaxis={gridcolor:'#e9eef1'};
- if(mode==='nav')traces=[line('策略净值',x,n.map(r=>r.strategy),'#0b7f73'),line('万得全A',x,n.map(r=>r.benchmark),'#ad8542')];
- else if(mode==='excess')traces=[line('相对净值（策略÷基准）',x,n.map(r=>r.excess),'#0b7f73')];
- else if(mode==='drawdown'){traces=[{...line('策略回撤',x,n.map(r=>r.drawdown),'#0b7f73'),fill:'tozeroy'}];yaxis.tickformat='.0%';}
- else{traces=[line('持仓数量',x,n.map(r=>r.holdings),'#0b7f73')];yaxis.dtick=2;}
- plot('nav-chart',traces,{yaxis});
- const a=result.audit;table('execution',['检查项','数量 / 说明'],[['符合参数事件',a.eligible_count],['实际入场',s.entry_count],['已平仓',s.trade_count],['期末未平仓',s.open_count],['未纳入或未入场（含不符参数）',a.skipped_count],...Object.entries(a.skipped_reasons??{}).map(([k,v])=>[reasonLabel(k),v])]);
-}
-function reasonLabel(k){return ({already_holding:'同股票已有持仓',no_cash:'现金不足',slots_full:'持仓槽位已满',limit_up:'估算涨停',not_tradable:'无可执行行情',st:'可识别ST',no_volume:'无成交量',outside_drawdown_bin:'不符合被套档位',below_min_ratio:'低于增持比例阈值',suspended_signal_price:'信号日无可用交易价（状态未完整核验）'})[k]??k;}
-function nonnegative(id){const v=Number($(id).value);if(!Number.isFinite(v)||v<0||!Number.isInteger(v))throw Error('样本笔数必须是非负整数');return v;}
-function compare(){
- let min;try{min=nonnegative('heat-min')}catch(e){failure(e);return;}
- const ratio=Number($('ratio').value),metric=$('heat-metric').value,subset=items.filter(x=>Math.abs(x.params.min_ratio-ratio)<1e-9),lookup=new Map(subset.map(x=>[x.params.drawdown_bin+'_'+x.params.hold_months,x]));
- const z=bins.map(([b])=>Array.from({length:24},(_,i)=>{const s=lookup.get(b+'_'+(i+1)).summary;return s.trade_count>=min&&Number.isFinite(s[metric])?s[metric]:null}));
- plot('heat-chart',[{type:'heatmap',x:Array.from({length:24},(_,i)=>i+1),y:bins.map(x=>x[1]),z,colorscale:[[0,'#e8f1ef'],[1,'#0b7f73']],hoverongaps:false,colorbar:{title:{text:$('heat-metric').selectedOptions[0].text},tickformat:percentMetrics.has(metric)?'.1%':'.2f'},hovertemplate:'持有%{x}个月<br>%{y}<br>指标：%{z'+(percentMetrics.has(metric)?':.2%':':.3f')+'}<extra></extra>'}],{margin:{l:190,r:30,b:55,t:25},xaxis:{title:{text:'持有自然月数'},dtick:1},yaxis:{autorange:'reversed'}});
- const el=$('heat-chart');el.removeAllListeners('plotly_click');el.on('plotly_click',event=>{if(busy)return;const p=event.points[0],b=bins[p.pointIndex[0]][0];choose(lookup.get(b+'_'+p.x),'backtest')});
- $('heat-note').textContent=`共288组，其中${z.flat().filter(Number.isFinite).length}组满足样本限制且指标可定义；其余灰白留空，不当作零收益。`;
- const one=subset.filter(x=>x.params.drawdown_bin===$('bin').value).sort((a,b)=>a.params.hold_months-b.params.hold_months);
- plot('sensitivity-chart',[line('年化收益',one.map(x=>x.params.hold_months),one.map(x=>x.summary.entry_count?x.summary.annual_return:null),'#0b7f73'),line('超额年化',one.map(x=>x.params.hold_months),one.map(x=>x.summary.entry_count?x.summary.excess_annual_return:null),'#ad8542')],{xaxis:{title:{text:'持有自然月数'},dtick:1},yaxis:{tickformat:'.0%'},hovermode:'x unified'});
-}
-function periods(){const y=result.yearly;plot('year-chart',[{type:'bar',name:'策略年度收益',x:y.map(r=>r.year),y:y.map(r=>r.return),marker:{color:'#0b7f73'}},{type:'bar',name:'万得全A',x:y.map(r=>r.year),y:y.map(r=>r.benchmark_return),marker:{color:'#ad8542'}}],{barmode:'group',yaxis:{tickformat:'.0%'}});table('year-table',['年份','策略收益','万得全A','年度超额（相减）'],y.map(r=>[r.year,pct(r.return),pct(r.benchmark_return),pct(r.excess_return)]));table('regime-table',['市场状态','交易日数','年化收益','超额年化','波动率','Sharpe','同状态拼接最大回撤','平均年内连续片段回撤'],result.regime_stats.map(r=>[r.name,r.days,pct(r.annual_return),pct(r.excess_annual_return),pct(r.volatility),num(r.sharpe),pct(r.max_drawdown),pct(r.avg_annual_drawdown)]));}
-function screen(rebuild=true){
- if(rebuild){let min;try{min=nonnegative('rank-min')}catch(e){failure(e);return;}const metric=$('rank-metric').value,lower=$('rank-return').value===''?-Infinity:Number($('rank-return').value)/100,dd=$('rank-dd').value===''?1:Number($('rank-dd').value)/100;if(Number.isNaN(lower)||!Number.isFinite(dd)||dd<0||dd>1){failure(Error('请填写有效的收益门槛及0—100%的回撤上限'));return;}rankRows=items.filter(x=>{const s=x.summary;return s.trade_count>=min&&Number.isFinite(s[metric])&&s.annual_return>=lower&&s.max_drawdown>=-dd}).sort((a,b)=>b.summary[metric]-a.summary[metric]||a.id.localeCompare(b.id));rankPage=0;}
- $('rank-count').textContent=`符合条件 ${rankRows.length} / 5,472组；按全样本${$('rank-metric').selectedOptions[0].text}降序。零交易组合单独标注。`;
- const rows=rankRows.slice(rankPage*pageSize,(rankPage+1)*pageSize);table('rank-table',['序号','增持至少','被套档位','月数','年化','超额年化','Sharpe','最大回撤','已平仓','未平仓','状态','查看'],rows.map((x,i)=>{const s=x.summary;return [rankPage*pageSize+i+1,pct(x.params.min_ratio),binName(x.params.drawdown_bin),x.params.hold_months,pct(s.annual_return),pct(s.excess_annual_return),num(s.sharpe),pct(s.max_drawdown),s.trade_count,s.open_count,s.entry_count?'有交易':'现金路径','']}));
- document.querySelectorAll('#rank-table tbody tr').forEach((row,i)=>{const button=document.createElement('button');button.textContent='查看组合';button.disabled=busy;button.onclick=()=>choose(rows[i],'backtest');row.lastElementChild.append(button)});pager('rank',rankPage,rankRows.length);
-}
-function pager(prefix,p,count){$(prefix+'-page').textContent=count?`${p+1} / ${Math.ceil(count/pageSize)}页`:'0 / 0页';$(prefix+'-prev').disabled=p===0;$(prefix+'-next').disabled=(p+1)*pageSize>=count;}
-function trades(rebuild=true){if(rebuild){const query=$('trade-search').value.trim().toLowerCase(),status=$('trade-status').value;tradeRows=result.trades.filter(r=>(status==='all'||r.status===status)&&(r.code.toLowerCase().includes(query)||r.name.toLowerCase().includes(query)));tradePage=0;}table('trade-table',['证券代码','名称','公告日期','入场日','退出日','入场原价','退出原价','增持比例','被套幅度','持有月数','状态','策略收益','基准收益','逐笔超额','延期退出天数'],tradeRows.slice(tradePage*pageSize,(tradePage+1)*pageSize).map(r=>[r.code,r.name,r.announcement_date,r.entry_date,r.exit_date,r.entry_price,r.exit_price,pct(r.ratio),pct(r.underwater),r.holding_months,r.status==='closed'?'已平仓':'未平仓',pct(r.return),pct(r.benchmark_return),pct(r.excess_return),r.exit_delay_days]));$('trade-count').textContent=`显示 ${tradeRows.length} / ${result.trades.length}笔；下载包含全部筛选行，不限当前页。逐笔超额“—”表示基准时点数据缺失，不是0。`;pager('trade',tradePage,tradeRows.length);}
-function renderPage(){if(page==='method')return;if(page==='compare'){compare();return;}if(page==='screen'){screen();return;}if(!result)return;if(page==='backtest')backtest();if(page==='periods')periods();if(page==='trades')trades();}
-function download(name,data,type){const url=URL.createObjectURL(new Blob([data],{type})),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
-function cell(value){let s=value==null?'':String(value);if(typeof value==='string'&&/^[=+\-@\t\r]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"';}
-function csv(name,columns,rows){download(name,'\ufeff'+[columns,...rows].map(row=>row.map(cell).join(',')).join('\r\n'),'text/csv;charset=utf-8');}
-function exportRanks(rows,name){const keys=['annual_return','excess_annual_return','sharpe','max_drawdown','trade_count','open_count','entry_count'];csv(name,['组合ID','增持比例（小数）','被套档位','持有月数','年化收益（小数）','超额年化（小数）','Sharpe','最大回撤（小数）','已平仓','未平仓','入场笔数'],rows.map(x=>[x.id,x.params.min_ratio,binName(x.params.drawdown_bin),x.params.hold_months,...keys.map(k=>x.summary[k])]));}
-document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>{if(items.length)show(b.dataset.page)});document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{if(items.length)show(b.dataset.go)});
-$('apply').onclick=()=>choose(requested());$('reset').onclick=()=>choose(items.find(x=>x.id===meta.baseline));
-['ratio','bin','months'].forEach(id=>$(id).onchange=()=>{if(page==='compare')compare();$('selected').textContent='参数已变更，请点击“查看组合结果”；当前已加载：'+choiceLabel(current);});
-$('chart-mode').onchange=()=>{if(result)backtest()};$('heat-refresh').onclick=compare;$('heat-metric').onchange=compare;$('rank-refresh').onclick=()=>screen();
-$('rank-prev').onclick=()=>{rankPage--;screen(false)};$('rank-next').onclick=()=>{rankPage++;screen(false)};
-$('trade-prev').onclick=()=>{tradePage--;trades(false)};$('trade-next').onclick=()=>{tradePage++;trades(false)};['trade-search','trade-status'].forEach(id=>$(id).oninput=()=>{if(result)trades()});
-$('rank-download').onclick=()=>exportRanks(rankRows,'全样本筛选结果.csv');$('all-download').onclick=()=>exportRanks(items,'全部5472组绩效.csv');
-$('trade-download').onclick=()=>{if(!result)return;trades();const keys=result.trade_columns;csv('所选组合_筛选交易明细.csv',keys,tradeRows.map(r=>keys.map(k=>r[k])))};
-$('nav-download').onclick=()=>{if(result)csv('所选组合_净值.csv',result.nav_columns,result.nav.map(r=>result.nav_columns.map(k=>r[k])))};
-$('result-download').onclick=()=>{if(result)download('所选组合_'+current.id+'.json',JSON.stringify({params:current.params,research_end:meta.research_end,label:meta.label,identity_sha256:meta.identity_sha256,result},null,2),'application/json')};
-async function init(){try{const response=await fetch('manifest.json',{cache:'no-cache'});if(!response.ok)throw Error('版本清单读取失败');meta=await response.json();if(meta.schema!==2||!meta.verification.passed)throw Error('版本不受支持或未核验');[items,common]=await Promise.all([unpack(meta.catalog),unpack(meta.common)]);if(items.length!==meta.count)throw Error('参数目录数量不符');
- $('ratio').innerHTML=Array.from({length:19},(_,i)=>{const v=(10+i*5)/1000;return `<option value="${v}">${(v*100).toFixed(1)}%</option>`}).join('');$('bin').innerHTML=bins.map(([k,v])=>`<option value="${k}">${v}</option>`).join('');$('months').innerHTML=Array.from({length:24},(_,i)=>`<option value="${i+1}">${i+1}个月</option>`).join('');
- metricStrip('study-stats',[['有效披露日事件',meta.input_audit.accepted_events.toLocaleString()],['覆盖股票',meta.input_audit.accepted_codes],['有入场组合',meta.active_count.toLocaleString()],['已平仓≥30笔组合',meta.sample30_count]]);
- const base=items.find(x=>x.id===meta.baseline);if(!base)throw Error('缺少默认基准组合');$('baseline-note').textContent=`基准组合：增持≥1%、被套≥30%、持有6个月。${base.summary.trade_count}笔已平仓；年化收益${pct(base.summary.annual_return)}，累计收益${pct(base.summary.total_return)}，最大回撤${pct(base.summary.max_drawdown)}。样本少，不能据此证明或否定全部增持策略。`;
- const labels={below_grid_minimum_1pct:'低于网格最低增持阈值1%',invalid_event_dates:'事件日期不可用',missing_cost:'缺实际增持成本',missing_initial_signal_quote:'缺首次信号行情',missing_total_shares:'缺股本',overlapping_same_person_periods:'同参与人交易区间重叠',share_basis_conflict:'股本口径冲突',st_name_proxy:'名称快照识别ST',stale_total_shares:'股本时效不满足'};
- table('audit-table',['清洗项目','同披露日分组数量'],[['原始分组',meta.input_audit.source_groups],['纳入研究',meta.input_audit.accepted_events],...Object.entries(meta.input_audit.excluded_groups).map(([k,v])=>[labels[k]??k,v])]);$('version').textContent=`计算版本 ${meta.identity_sha256}；导出时间 ${meta.generated}。自动核验通过仅代表账务和文件一致，不代表简化假设已被验证。`;
- await choose(base);
- }catch(e){failure(e);}}
-window.IncreaseResearch={get state(){return {page,current:current?.id,loaded:!!result,busy,count:items.length,rankCount:rankRows.length,tradeCount:tradeRows.length}},show};
-init();
+  const $ = id => document.getElementById(id);
+  const M = [.5,1,1.5,2,2.5,3], N = Array.from({length:20},(_,i)=>i*5), H = [1,2,3,6,12,24,36];
+  const pages = ['method','backtest','compare','periods','screen','trades'], size=25;
+  const state = {page:'method',m:1,n:30,h:1,catalog:null,calendar:null,info:null,ready:false,busy:false,epoch:0,tradePage:0,rankPage:0,tradeRows:[],rankRows:[]};
+  const cache=new Map(), lookup=new Map();
+  const key=(m,n,h)=>[m,n,h].join('/');
+  const row=(h=state.h)=>lookup.get(key(state.m,state.n,h));
+  const metaFields=[
+    ['m','增持比例门槛（%）'],['n','被套门槛（%）'],['h','持有期（月）'],
+    ['avg_return','每批平均收益'],['paired_return','配对批次平均收益'],['benchmark_return','同期开盘万得全A'],
+    ['excess_return','同样本平均超额'],['beat_count','跑赢批次'],['beat_rate','跑赢占比'],['batch_count','全部批次'],
+    ['completed_count','完整批次'],['paired_count','配对批次'],['pending_count','未完成批次'],['stock_count','入选股票只次'],
+    ['account_total_return','账户累计收益'],['account_annual_return','账户年化收益'],['account_max_drawdown','账户最大回撤']
+  ];
+  const batchFields=[['entry_date','买入日'],['maturity_date','自然月到期日'],['exit_date','最后退出日'],['event_count','批内股票只次'],['closed_event_count','已退出只次'],['paired_event_count','配对只次'],['status','状态'],['return','批次收益'],['benchmark_return','同期万得全A'],['excess_return','同样本超额'],['account_budget','账户投入（元）']];
+  const tradeFields=[['code','股票代码'],['name','股票名称'],['announcement_date','公告日'],['ratio','增持比例'],['underwater','被套幅度'],['cost_price','增持成本（元）'],['entry_date','买入日'],['entry_price','买入价（元）'],['maturity_date','自然月到期日'],['planned_exit_date','计划退出日'],['exit_date','实际退出日'],['exit_price','卖出价（元）'],['status','状态'],['return','股票收益'],['benchmark_return','同期万得全A'],['excess_return','同样本超额'],['account_budget','账户投入（元）']];
+  const yearFields=[['year','年份'],['return','账户收益'],['benchmark_return','万得全A'],['excess_return','年度超额'],['max_drawdown','账户最大回撤']];
+  const regimeFields=[['name','市场环境'],['days','交易日'],['annual_return','账户年化收益'],['excess_annual_return','超额年化'],['volatility','年化波动率'],['sharpe','夏普比率'],['max_drawdown','拼接最大回撤'],['avg_annual_drawdown','平均年内回撤']];
+  const label=Object.fromEntries(metaFields), pctKeys=new Set(['avg_return','paired_return','return','benchmark_return','excess_return','beat_rate','underwater','ratio','account_total_return','account_annual_return','account_max_drawdown','max_drawdown','avg_annual_drawdown','volatility','annual_return','excess_annual_return']);
+  const metrics=['excess_return','avg_return','paired_return','benchmark_return','beat_rate','paired_count','account_total_return','account_annual_return','account_max_drawdown'];
+  const finite=Number.isFinite, esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const statusMap={closed:'已完成',completed:'已完成',complete:'已完成',open:'未完成',pending:'未完成',incomplete:'未完成',unclosed:'未完成',已平仓:'已完成',未平仓:'未完成'};
+  function format(k,v){
+    if(v==null||v==='')return '—';
+    if(pctKeys.has(k))return finite(v)?(v*100).toFixed(2)+'%':'—';
+    if(k==='status')return statusMap[v]||String(v);
+    if(['entry_price','exit_price','cost_price','account_budget','sharpe'].includes(k))return finite(v)?v.toLocaleString('zh-CN',{maximumFractionDigits:k==='account_budget'?2:4}):'—';
+    return String(v);
+  }
+  function flatten(r){
+    const s=r.summary;
+    return {...s,m:r.m,n:r.n,h:r.h,beat_count:s.beat_count??(s.paired_count>0&&finite(s.beat_rate)?Math.round(s.beat_rate*s.paired_count):null)};
+  }
+  const columns=keys=>keys.map(k=>[k,label[k]]);
+  const option=(v,t)=>'<option value="'+esc(v)+'">'+esc(t)+'</option>';
+  const table=(cols,body,cls='')=>'<div class="table-wrap"><table class="'+cls+'"><thead><tr>'+cols.map(t=>'<th scope="col">'+esc(t)+'</th>').join('')+'</tr></thead><tbody>'+body.join('')+'</tbody></table></div>';
+  function records(id,cols,rows,after){
+    if(!rows.length){$(id).innerHTML='<p class="empty">没有符合条件的记录。可调整参数或放宽筛选条件。</p>';return;}
+    $(id).innerHTML=table(cols.map(c=>c[1]).concat(after?['查看']:[]),rows.map(r=>'<tr>'+cols.map(([k])=>'<td>'+esc(format(k,r[k]))+'</td>').join('')+(after?'<td>'+after(r)+'</td>':'')+'</tr>'));
+  }
+  function link(r){return '<button data-pick="'+[r.m,r.n,r.h].join('/')+'">查看组合</button>';}
+  async function unpack(info){
+    if(!window.crypto?.subtle||!window.DecompressionStream)throw Error('此浏览器不能校验和解压数据，请使用新版浏览器并通过 HTTPS 或本机地址打开');
+    if(!info||typeof info.file!=='string'||!Number.isSafeInteger(info.bytes)||!/^[\da-f]{64}$/i.test(info.sha256))throw Error('文件清单不完整');
+    const url=new URL(info.file,document.baseURI);if(url.origin!==location.origin)throw Error('文件位置与当前站点不符');
+    const res=await fetch(url);if(!res.ok)throw Error('文件读取失败（HTTP '+res.status+'）');
+    const raw=await res.arrayBuffer();if(raw.byteLength!==info.bytes)throw Error('数据文件长度与清单不符');
+    const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',raw)),x=>x.toString(16).padStart(2,'0')).join('');
+    if(digest!==info.sha256.toLowerCase())throw Error('数据文件 SHA-256 校验不符');
+    return JSON.parse(await new Response(new Blob([raw]).stream().pipeThrough(new DecompressionStream('gzip'))).text());
+  }
+  function detail(r){
+    const k=r.sha256;
+    if(cache.has(k)){const p=cache.get(k);cache.delete(k);cache.set(k,p);return p;}
+    const p=unpack(r).then(d=>{
+      if(!Array.isArray(d.nav)||d.nav.length!==state.calendar.dates.length||!Array.isArray(d.holding)||d.holding.length!==d.nav.length||['yearly','regimes','trades','batches'].some(x=>!Array.isArray(d[x])))throw Error('组合数据字段或交易日长度不一致');
+      return d;
+    }).catch(e=>{cache.delete(k);throw e;});cache.set(k,p);
+    if(cache.size>18)cache.delete(cache.keys().next().value);return p;
+  }
+  function complain(e){$('error').hidden=false;$('error').querySelector('span').textContent='未能读取或核验本次结果：'+e.message+'。';$('load-status').textContent='';}
+  async function init(){
+    state.ready=false;$('error').hidden=true;$('load-status').textContent='正在核验研究数据…';
+    try{
+      const res=await fetch('./manifest.json',{cache:'no-store'});if(!res.ok)throw Error('研究清单读取失败（HTTP '+res.status+'）');
+      const info=await res.json();if(info.schema!==3)throw Error('版本不兼容：需要第三版批次研究数据');
+      const [calendar,catalog]=await Promise.all([unpack(info.calendar),unpack(info.catalog)]);
+      if(!Array.isArray(calendar.dates)||calendar.dates.length<1||!['benchmark','regimes'].every(x=>Array.isArray(calendar[x])&&calendar[x].length===calendar.dates.length))throw Error('研究日历与基准长度不一致');
+      if(!Array.isArray(catalog)||info.count!==M.length*N.length*H.length||catalog.length!==info.count)throw Error('参数组合数量与完整网格不一致');
+      lookup.clear();for(const r of catalog){if(!M.includes(r.m)||!N.includes(r.n)||!H.includes(r.h)||!r.summary||lookup.has(key(r.m,r.n,r.h)))throw Error('参数缺失或重复');lookup.set(key(r.m,r.n,r.h),r);}
+      Object.assign(state,{info,calendar,catalog,ready:true});$('interval').textContent=info.start+' — '+info.end+' · 冻结样本';
+      $('load-status').textContent='';render();
+    }catch(e){complain(e);}
+  }
+  const dash=ys=>{let peak=1;return ys.map(v=>{if(!finite(v))return null;peak=Math.max(peak,v);return peak>0?v/peak-1:null;});};
+  const relative=(ys,base)=>ys.map((v,i)=>finite(v)&&finite(base[i])&&base[i]>0?v/base[i]:null);
+  const colors=['#087360','#3b6fb0','#a66e20','#704e91','#bf5644','#367881','#765845'];
+  function chart(id,data,yTitle,isPercent=false){
+    if(!window.Plotly)throw Error('图表组件未载入，请刷新后重试');
+    return Plotly.react($(id),data,{autosize:true,margin:{l:62,r:18,t:15,b:60},paper_bgcolor:'#fff',plot_bgcolor:'#fff',colorway:colors,font:{family:'system-ui, Microsoft YaHei, sans-serif',color:'#314a52',size:12},xaxis:{gridcolor:'#eef2f1',automargin:true},yaxis:{title:{text:yTitle},tickformat:isPercent?'.0%':undefined,gridcolor:'#e1e9e7',automargin:true},legend:{orientation:'h',y:-.17,x:0},hovermode:'x unified',barmode:'group'},{displayModeBar:false,responsive:true,scrollZoom:false});
+  }
+  function line(name,y,color,style){return {name,x:state.calendar.dates,y,type:'scatter',mode:'lines',connectgaps:false,line:{color,width:style?2.3:1.7,dash:style||'solid'}};}
+  function clearPlot(id){if(window.Plotly&&$(id).data)Plotly.purge($(id));$(id).replaceChildren();}
+  function commonTables(){
+    const all=H.map(h=>flatten(row(h)));
+    $('sample-warning').textContent=all.every(r=>r.batch_count===0)?'这组门槛没有可入场的批次；账户全程持有现金。可放宽增持或被套门槛。':all.every(r=>r.paired_count===0)?'这组门槛没有完整配对批次，无法判断是否跑赢基准。':'';
+    records('seven-table',columns(['h','avg_return','paired_return','benchmark_return','excess_return','beat_count','beat_rate','batch_count','completed_count','paired_count','pending_count','stock_count']),all);
+    records('account-table',columns(['h','account_total_return','account_annual_return','account_max_drawdown']),all);
+  }
+  async function navChart(epoch){
+    const hs=$('chart-window').value==='all'?H:[+$('chart-window').value], mode=$('chart-mode').value;
+    const ds=await Promise.all(hs.map(h=>detail(row(h))));if(epoch!==state.epoch)return;
+    const base=state.calendar.benchmark;
+    const lines=ds.map((d,i)=>line(hs[i]+'个月',mode==='relative'?relative(d.nav,base):mode==='drawdown'?dash(d.nav):mode==='holding'?d.holding:d.nav,colors[H.indexOf(hs[i])]));
+    if(mode==='nav'||mode==='drawdown')lines.push(line('万得全A（收盘）',mode==='nav'?base:dash(base),'#303638','dash'));
+    if(mode==='relative')lines.push(line('与基准持平',base.map(v=>finite(v)&&v>0?1:null),'#68716f','dot'));
+    await chart('nav-chart',lines,{nav:'净值',relative:'相对净值',drawdown:'回撤',holding:'持仓数量'}[mode],mode==='drawdown');
+  }
+  function heat(){
+    const metric=$('heat-metric').value,min=Math.max(0,+$('heat-min').value||0),rows=N.map(n=>H.map(h=>lookup.get(key(state.m,n,h))));
+    const get=r=>r.summary.paired_count>=min&&finite(r.summary[metric])?r.summary[metric]:null;
+    const vals=rows.flat().map(get).filter(finite),max=Math.max(1e-12,...vals.map(Math.abs));
+    const body=rows.map((rs,i)=>'<tr><th scope="row">'+(N[i]===0?'0%（不限）':N[i]+'%')+'</th>'+rs.map(r=>{
+      const v=get(r);if(v===null)return '<td class="none">—</td>';
+      const bg='rgba('+(v<0?'184,103,49':'36,140,115')+','+Math.min(.42,Math.abs(v)/max*.42).toFixed(3)+')';
+      return '<td style="background:'+bg+'"><button data-pick="'+[r.m,r.n,r.h].join('/')+'" aria-label="被套至少'+r.n+'%，持有'+r.h+'个月，'+esc(label[metric])+esc(format(metric,v))+'">'+esc(format(metric,v))+'</button></td>';
+    }).join('')+'</tr>');$('heat-table').innerHTML=table(['被套至少'].concat(H.map(h=>h+'个月')),body,'heat');
+  }
+  async function periods(epoch){
+    const d=await detail(row());if(epoch!==state.epoch)return;
+    $('period-note').textContent=state.h+'个月独立账户。年度按收盘净值计算，超额为同年账户收益减去万得全A收益。首尾年度以实际样本日期为准。';
+    records('year-table',yearFields,d.yearly);records('regime-table',regimeFields,d.regimes);
+    await chart('year-chart',[['return','账户'],['benchmark_return','万得全A']].map(([k,name])=>({type:'bar',name,x:d.yearly.map(r=>String(r.year)),y:d.yearly.map(r=>r[k])})),'年度收益',true);
+  }
+  function pageRows(kind,rows,cols,after){
+    const pages=Math.max(1,Math.ceil(rows.length/size)),pk=kind+'Page';
+    state[pk]=Math.max(0,Math.min(state[pk],pages-1));const p=state[pk];state[kind+'Rows']=rows;
+    $(kind+'-count').textContent='共 '+rows.length.toLocaleString('zh-CN')+' 条'+(kind==='rank'?' · 仅按有值的排序指标排列':'');
+    $(kind+'-page').textContent=(p+1)+' / '+pages;$(kind+'-prev').disabled=p===0;$(kind+'-next').disabled=p+1>=pages;
+    records(kind+'-table',cols,rows.slice(p*size,p*size+size),after);
+  }
+  function rank(){
+    const metric=$('rank-metric').value,min=Math.max(0,+$('rank-min').value||0),ret=$('rank-return').value,dd=$('rank-dd').value;
+    const rs=state.catalog.map(flatten).filter(r=>finite(r[metric])&&r.paired_count>=min&&(ret===''||(finite(r.account_annual_return)&&r.account_annual_return>=Number(ret)/100))&&(dd===''||(finite(r.account_max_drawdown)&&Math.abs(r.account_max_drawdown)<=Math.max(0,Number(dd))/100)));
+    rs.sort((a,b)=>b[metric]-a[metric]||b.paired_count-a.paired_count||a.m-b.m||a.n-b.n||a.h-b.h);
+    const keys=[...new Set(['m','n','h',metric,'avg_return','excess_return','paired_count','pending_count','account_annual_return','account_max_drawdown'])];
+    pageRows('rank',rs,columns(keys),link);
+  }
+  function trades(d){
+    const kind=$('detail-kind').value,status=$('trade-status').value,q=$('trade-search').value.trim().toLowerCase();
+    $('search-label').hidden=kind!=='trades';
+    const rs=d[kind].filter(r=>{
+      const mapped=format('status',r.status);
+      return (status==='all'||(status==='closed'?mapped==='已完成':mapped==='未完成'))&&(kind!=='trades'||(String(r.code)+' '+String(r.name)).toLowerCase().includes(q));
+    });pageRows('trade',rs,kind==='trades'?tradeFields:batchFields);
+  }
+  let activeDetail=null;
+  function detailButtons(on){for(const k of ['trade-download','nav-download','result-download'])$(k).disabled=!on;}
+  async function render(){
+    const ep=++state.epoch,page=state.page;
+    for(const k of pages)$(k).hidden=k!==page;$('workspace').hidden=page==='method';
+    document.querySelectorAll('nav [data-page]').forEach(b=>{if(b.dataset.page===page)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
+    $('h-label').hidden=!['trades','periods'].includes(page);$('parameters').hidden=page==='screen';$('bin').parentElement.hidden=page==='compare';
+    $('ratio').value=state.m;$('bin').value=state.n;$('months').value=state.h;
+    activeDetail=null;detailButtons(false);
+    if(!state.ready)return;
+    state.busy=false;$('error').hidden=true;$('load-status').textContent='';
+    try{
+      if(page==='method')return;
+      if(page==='compare'){heat();return;}if(page==='screen'){rank();return;}
+      state.busy=true;$('load-status').textContent='正在读取所选结果…';
+      if(page==='backtest'){commonTables();clearPlot('nav-chart');await navChart(ep);}
+      if(page==='periods'){for(const id of ['year-table','regime-table','period-note'])$(id).replaceChildren();clearPlot('year-chart');await periods(ep);}
+      if(page==='trades'){
+        $('trade-table').replaceChildren();$('trade-count').textContent='';$('trade-page').textContent='';
+        const d=await detail(row());if(ep!==state.epoch)return;activeDetail=d;trades(d);detailButtons(true);
+      }
+      if(ep===state.epoch)$('load-status').textContent='';
+    }catch(e){if(ep===state.epoch){if(page==='backtest')$('nav-chart').textContent='所选账户曲线未能加载。';if(page==='periods')$('year-chart').textContent='所选年度图表未能加载。';complain(e);}}
+    finally{if(ep===state.epoch)state.busy=false;}
+  }
+  function csv(cols,rows){
+    const cell=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+    const safe=(k,v)=>{if(v==null)return '';if(k==='status')return format(k,v);if(pctKeys.has(k))return finite(v)?(v*100).toFixed(8)+'%':'';return typeof v==='string'&&/^[\t\r\n =+@-]/.test(v)?"'"+v:v;};
+    return '\uFEFF'+[cols.map(c=>cell(c[1])).join(','),...rows.map(r=>cols.map(([k])=>cell(safe(k,r[k]))).join(','))].join('\r\n');
+  }
+  function save(name,body,mime){
+    const url=URL.createObjectURL(new Blob([body],{type:mime})),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+  }
+  function download(id){
+    if(!state.ready)return;
+    const tag='增持'+state.m+'%_被套'+state.n+'%_'+state.h+'个月',out=(n,c,rs)=>save(n+'.csv',csv(c,rs),'text/csv;charset=utf-8');
+    if(id==='all-download')return out('全部参数绩效',metaFields,state.catalog.map(flatten));
+    if(id==='rank-download')return out('筛选参数绩效',metaFields,state.rankRows);
+    if(!activeDetail)return;
+    if(id==='result-download')return save('组合完整结果_'+tag+'.json',JSON.stringify({m:state.m,n:state.n,h:state.h,summary:row().summary,calendar:state.calendar,...activeDetail}),'application/json');
+    if(id==='trade-download'){const isStock=$('detail-kind').value==='trades';return out((isStock?'股票明细_':'批次明细_')+tag,isStock?tradeFields:batchFields,state.tradeRows);}
+    if(id==='nav-download'){const cal=state.calendar,d=activeDetail,dd=dash(d.nav),rel=relative(d.nav,cal.benchmark);return out('账户净值_'+tag,[['date','日期'],['nav','账户净值'],['bench','万得全A收盘净值'],['relative','相对净值'],['max_drawdown','当日回撤'],['holding','持仓数量'],['regime','市场环境']],cal.dates.map((date,i)=>({date,nav:d.nav[i],bench:cal.benchmark[i],relative:rel[i],max_drawdown:dd[i],holding:d.holding[i],regime:cal.regimes[i]})));}
+  }
+  function go(page){if(!pages.includes(page))return;state.page=page;render();}
+  $('ratio').innerHTML=M.map(v=>option(v,v+'%')).join('');
+  $('bin').innerHTML=N.map(v=>option(v,v===0?'0%（不限）':v+'%')).join('');
+  $('months').innerHTML=H.map(v=>option(v,v+'个月')).join('');$('chart-window').innerHTML+=$('months').innerHTML;
+  for(const k of ['rank-metric','heat-metric'])$(k).innerHTML=metrics.map(m=>option(m,label[m])).join('');
+  document.addEventListener('click',ev=>{
+    const b=ev.target.closest('button');if(!b)return;
+    if(b.dataset.pick){[state.m,state.n,state.h]=b.dataset.pick.split('/').map(Number);$('chart-window').value=state.h;state.tradePage=0;go('backtest');}
+    else if(b.dataset.page||b.dataset.go)go(b.dataset.page||b.dataset.go);
+    else if(b.id==='reset'){Object.assign(state,{m:1,n:30,h:1,tradePage:0,rankPage:0});$('chart-window').value='all';render();}
+    else if(b.id==='retry'){state.ready?render():init();}
+    else if(b.id.endsWith('-download'))download(b.id);
+    else if(/^(rank|trade)-(prev|next)$/.test(b.id)){const [k,d]=b.id.split('-');state[k+'Page']+=d==='prev'?-1:1;if(k==='rank'&&state.ready)rank();if(k==='trade'&&activeDetail)trades(activeDetail);}
+  });
+  for(const [id,sk] of [['ratio','m'],['bin','n'],['months','h']])$(id).addEventListener('change',()=>{state[sk]=+$(id).value;if(sk==='h'&&$('chart-window').value!=='all')$('chart-window').value=state.h;state.tradePage=0;render();});
+  $('chart-mode').addEventListener('change',render);
+  $('chart-window').addEventListener('change',()=>{if($('chart-window').value!=='all')state.h=+$('chart-window').value;state.tradePage=0;render();});
+  for(const id of ['heat-metric','heat-min'])$(id).addEventListener(id==='heat-min'?'input':'change',()=>state.ready&&heat());
+  for(const id of ['rank-metric','rank-min','rank-return','rank-dd'])$(id).addEventListener(id==='rank-metric'?'change':'input',()=>{state.rankPage=0;if(state.ready)rank();});
+  for(const id of ['detail-kind','trade-search','trade-status'])$(id).addEventListener(id==='trade-search'?'input':'change',()=>{state.tradePage=0;if(activeDetail)trades(activeDetail);});
+  render();init();
 })();

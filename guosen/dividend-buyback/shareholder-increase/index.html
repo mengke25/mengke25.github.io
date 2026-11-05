@@ -1,23 +1,51 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>股东增持被套策略 · 研究终端</title><link rel="stylesheet" href="style.css"><script src="vendor/plotly.min.js" defer></script><script src="app.js" defer></script></head>
-<body><header><div class="top"><strong>股东增持被套策略</strong><span>研究截止 2026-10-13 · 在线结果版</span></div><nav class="tabs" aria-label="研究模块">
-<button data-page="method" aria-current="page">方法及说明</button><button data-page="backtest">策略回测</button><button data-page="compare">参数对比</button><button data-page="periods">年度与牛熊</button><button data-page="screen">组合筛选</button><button data-page="trades">明细与下载</button></nav></header>
-<main><div class="persistent">不复权简化研究 · 估算涨跌停 · ST快照筛除 · 全样本探索，非投资建议</div>
-<div id="load-status" role="status">正在读取已核验的研究结果…</div><div id="error" role="alert" hidden></div>
-<section id="method" class="page active"><div class="lead"><div><small>研究假设 / SHAREHOLDER BEHAVIOUR</small><h1>股东买入后被套，<br>是否存在可重复的投资机会？</h1><p>把真实增持披露转化为可检查的交易规则：按增持占比、公告时被套幅度和持有时间分组，观察相对于万得全A的收益与风险。先理解研究口径，再比较结果。</p><button class="primary" data-go="backtest">查看基准组合</button></div><aside><span>完整参数网格</span><strong>5,472 组</strong><p>19个比例阈值 × 12个被套档位 × 24个持有月份</p><span>研究区间</span><strong class="date">2017.01 — 2026.10</strong><p>基准本地已补至11月4日；本次策略结果只用到10月13日。</p></aside></div>
-<div class="metrics" id="study-stats"></div>
-<h2>从原始披露到组合净值</h2><div class="steps"><article><b>01 · 确认实际增持</b><p>使用已发生的股东、管理层增持记录，不把增持计划当作完成交易。按同公司、同公告日合并，不跨公告日累加。</p></article><article><b>02 · 清理重复与成本</b><p>同参与人交易区间重叠、缺实际均价、股本口径冲突等整组隔离。合并成本为实际增持数量加权均价。</p></article><article><b>03 · 形成公告日信号</b><p>增持比例＝合计实际增持股数 ÷ 对齐股本。被套幅度＝max(0，1－公告日或此前最后市场交易日收盘价 ÷ 合并成本)。</p></article><article><b>04 · 买入、持有与退出</b><p>公告视为收盘后可得；次一市场交易日开盘只尝试买一次。到期按自然月退出，无法成交则延后，期末未退出单列。</p></article></div>
-<h2>规则与参数</h2><div class="table-wrap"><table><thead><tr><th>项目</th><th>本次设定</th></tr></thead><tbody>
-<tr><td>增持比例</td><td>至少1%至10%，每0.5个百分点一档；阈值间样本相互重叠。</td></tr><tr><td>被套档位</td><td>未被套；(0,10%)；[10%,20%)…[90%,100%]；另有≥30%汇总档，与区间档重叠。</td></tr><tr><td>持有时间</td><td>1—24个自然月，不是固定20交易日；未到期持仓按截止日估值。</td></tr><tr><td>成交约束</td><td>缺真实报价、无成交量、可识别ST、估算涨停不入场；不顺延追买。估算跌停或缺价时延后退出。</td></tr><tr><td>资金与费用</td><td>初始100万元、20槽位、有限现金；同股不重复持仓，买卖各0.2%；允许分数股，不模拟完整流动性冲击。</td></tr><tr><td>涨跌停估算</td><td>主板10%；创业板2020-08-24前10%、之后20%；科创板20%；北交所开市后30%。上市首5个市场交易日保守排除，特殊交易日未完整模拟。</td></tr></tbody></table></div>
-<h2>指标怎么读</h2><div class="two-col"><article class="card"><h3>组合指标</h3><p>以244个交易日年化；波动率使用总体标准差，Sharpe＝年化收益÷年化波动（无风险利率为0）。最大回撤包含初始净值1。</p><p><b>超额年化</b>是“每日策略收益减基准收益”复利后年化；<b>相对净值</b>是策略净值÷基准净值；<b>年度超额</b>是两者年度收益之差。三者口径不同，不能混为一谈。</p></article><article class="card"><h3>逐笔与市场环境</h3><p>逐笔基准按开盘到开盘对齐；缺指数开盘价则留空，不用收盘价冒充。未平仓不计入已平仓胜率。</p><p>牛熊划分沿用老项目，仅作事后归因；超出划分范围标“未划分”。同状态拼接回撤与平均年内连续片段回撤分别列示。</p></article></div>
-<h2>先看证据，而不是只看最好的参数</h2><div class="notice" id="baseline-note"></div><p class="muted">全部5,472组均保留，含零交易组合。30笔筛选仅是样本量提示，不等于通过统计显著性检验；本页没有新增样本外、成本压力或走样本验证。</p>
-<h2>必须保留的研究限制</h2><ol class="limitations"><li><b>不复权不是总回报：</b>未计入分红送转权益，除权可能制造假性被套或价格亏损；万得全A为价格指数，不意味着个股必须采用不复权。</li><li><b>历史状态未完整核验：</b>ST只用公告表及本地名称快照，可能存在选择偏差；估算限价不等于交易所逐日正式限价。</li><li><b>缺价不等于核实停牌：</b>缺价不成交，持仓暂按最后真实收盘估值。退市等陈旧估值可能无法兑现。</li><li><b>披露与清洗有选择偏差：</b>仅纳入成本、股本等可对齐事件，不能代表全部增持公告；同披露日分组不是已核验的同一增持计划。</li><li><b>全样本择优存在过拟合：</b>排名用于研究，不是预测；组合样本重叠，不能把多组相似结果当成独立证据。</li></ol>
-<details><summary>查看数据清洗统计与版本核验</summary><div id="audit-table"></div><p id="version" class="muted break"></p></details>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>股东增持被套策略 · 研究面板</title>
+  <link rel="stylesheet" href="./style.css?v=cohort3.1">
+  <script defer src="./vendor/plotly.min.js"></script><script defer src="./app.js?v=cohort3.1"></script>
+</head>
+<body>
+<header><div class="shell"><div class="mast"><strong>股东增持被套策略</strong><span id="interval">事件研究</span></div>
+<nav aria-label="研究模块"><button data-page="method" aria-current="page">方法及说明</button><button data-page="backtest">策略回测</button><button data-page="compare">参数对比</button><button data-page="periods">年度与牛熊</button><button data-page="screen">组合筛选</button><button data-page="trades">明细与下载</button></nav></div></header>
+<main class="shell">
+<div id="load-status" role="status" aria-live="polite"></div><div id="error" role="alert" hidden><span></span> <button id="retry">重试</button></div>
+<section id="method" class="method">
+  <p class="eyebrow">研究出发点</p><h1>股东增持后被套，<br>买入同一批股票能否跑赢市场？</h1>
+  <p class="intro">从已经披露的真实增持出发，把同一天买到的股票看作一批，比较它们在不同持有期的表现。</p>
+  <dl class="method-list">
+    <dt>怎么买卖</dt><dd>同公司、同公告日的实际增持合并计算。公告后第一个市场交易日开盘尝试买入，买不到不追；持有到期，在可成交的开盘卖出，不设价格止盈。买卖各计 0.2% 费用。</dd>
+    <dt>三个参数</dt><dd>实际增持股数占总股本至少 <b>m</b>（0.5% 至 3%，每档 0.5 个百分点）。公告日收盘价比按增持股数加权的买入成本低至少 <b>n</b>（0% 至 95%，每档 5 个百分点；0% 不限，无须被套）。两项门槛都含等号。持有 <b>1、2、3、6、12、24 或 36</b> 个自然月。</dd>
+    <dt>看什么</dt><dd>先看每批平均赚多少、与同期万得全A相比如何，再看有限资金下账户的净值和回撤。批次等权平均收益不等于账户收益。</dd>
+  </dl>
+  <button class="primary" data-go="backtest">查看七个持有期 →</button>
 </section>
-<section id="workspace" hidden><div class="controls card"><label>合计增持比例至少<select id="ratio" aria-label="合计增持比例至少"></select></label><label>公告时被套幅度<select id="bin" aria-label="公告时被套幅度"></select></label><label>持有自然月数<select id="months" aria-label="持有自然月数"></select></label><button id="apply" class="primary" disabled>查看组合结果</button><button id="reset" disabled>恢复基准组合</button><span class="muted">读取预计算结果，不是线上重新回测</span></div><div id="selected" class="context" aria-live="polite"></div><div id="sample-warning" class="notice"></div>
-<section id="backtest" class="page"><h1>策略回测</h1><div id="metrics" class="metrics"></div><div class="card"><div class="controls"><label>图表序列<select id="chart-mode"><option value="nav">策略与万得全A净值</option><option value="excess">相对净值（策略÷基准）</option><option value="drawdown">策略回撤</option><option value="holdings">持仓数量</option></select></label><span class="muted">拖动缩放；双击复位。图表缩放不重算全样本绩效。</span></div><div id="nav-chart" class="chart"></div></div><h2>交易执行概况</h2><div id="execution"></div></section>
-<section id="compare" class="page"><h1>参数对比</h1><p class="muted">固定上方增持比例，比较12个被套档位 × 24个月。点击热图进入组合。颜色只描述样本内结果；未被套与≥30%汇总档不是相邻连续区间。</p><div class="controls"><label>对比指标<select id="heat-metric"><option value="annual_return">年化收益</option><option value="excess_annual_return">超额年化</option><option value="sharpe">Sharpe</option><option value="max_drawdown">最大回撤</option><option value="trade_count">已平仓笔数</option></select></label><label>最少已平仓笔数<input id="heat-min" type="number" min="0" step="1" value="30"></label><button id="heat-refresh">更新热图</button></div><div id="heat-chart" class="chart heat"></div><p id="heat-note" class="muted"></p><h2>持有时间敏感性 · 固定当前比例与被套档</h2><div id="sensitivity-chart" class="chart"></div></section>
-<section id="periods" class="page"><h1>年度与牛熊表现</h1><p class="muted">与当前所选组合一致。2026年为截至10月13日的非完整年度；年度超额＝策略年度收益－基准年度收益。</p><div id="year-chart" class="chart"></div><div id="year-table"></div><h2>分市场环境绩效</h2><p class="muted">事后归因，不参与入场择时。同状态收益拼接的最大回撤，并非一段连续可投资路径；平均年内回撤按每年连续状态片段取最差值后平均。</p><div id="regime-table"></div></section>
-<section id="screen" class="page"><h1>组合筛选 · 全样本探索</h1><p class="notice">这里只筛选已有5,472组，不新增搜索，也没有训练/验证切分。严禁将排名解释为未来收益预测。</p><div class="controls"><label>排序指标<select id="rank-metric"><option value="annual_return">年化收益</option><option value="excess_annual_return">超额年化</option><option value="sharpe">Sharpe</option><option value="max_drawdown">最大回撤（越接近0越好）</option></select></label><label>最少已平仓笔数<input id="rank-min" type="number" min="0" step="1" value="30"></label><label>最低年化收益(%)<input id="rank-return" type="number" step="any" placeholder="不限"></label><label>最大回撤幅度上限(%)<input id="rank-dd" type="number" min="0" max="100" step="any" placeholder="不限"></label><button id="rank-refresh" class="primary">筛选排序</button><button id="rank-download">下载筛选结果 CSV</button></div><p id="rank-count" role="status"></p><div id="rank-table"></div><div class="pager"><button id="rank-prev">上一页</button><span id="rank-page"></span><button id="rank-next">下一页</button></div></section>
-<section id="trades" class="page"><h1>交易明细与下载</h1><p class="muted">收益保留费用影响；原始成交价不复权。期末未平仓是历史截止日持仓，不是实时推荐股票。指数开盘缺失时逐笔超额留空。</p><div class="controls"><label>代码或名称<input id="trade-search" type="search" placeholder="搜索股票"></label><label>状态<select id="trade-status"><option value="all">全部</option><option value="closed">已平仓</option><option value="open">未平仓</option></select></label><button id="trade-download">下载筛选明细 CSV</button><button id="nav-download">下载所选净值 CSV</button><button id="result-download">下载所选结果 JSON</button><button id="all-download">下载全部参数绩效 CSV</button></div><p id="trade-count" role="status"></p><div id="trade-table"></div><div class="pager"><button id="trade-prev">上一页</button><span id="trade-page"></span><button id="trade-next">下一页</button></div></section>
-</section><footer>派生研究结果 · 不含原始行情库与公告源表 · 所有页面基于同一冻结数据版本<br>网页净值下载保留展示序列；完整现金、市值及权益账务在本地核验档案中保留。</footer></main></body></html>
+<section id="workspace" hidden>
+  <div class="toolbar" id="parameters"><label>增持比例至少（m）<select id="ratio"></select></label><label>被套幅度至少（n）<select id="bin"></select></label><label id="h-label">查看单个持有期<select id="months"></select></label><button id="reset">恢复默认</button></div>
+  <section id="backtest" hidden>
+    <p class="eyebrow">按买入日分批 · 各批等权</p><h1>七个持有期，放在一起看</h1>
+    <p class="note">每批先算买入股票的等额收益，再对完整退出的批次等权平均。基准按各股票实际买卖日开盘对齐；只有整批均有配对行情，才纳入同期基准、超额及跑赢统计。</p>
+    <div id="seven-table"></div><p id="sample-warning" class="hint"></p><p class="hint">不同窗口的到期批次可能不同。超额只比较同批、同区间；“完整”指整批全部退出，“配对”是其中可与指数完整对齐的批次。“—”表示没有适用样本，不是零收益。</p>
+    <div class="section-title"><div><p class="eyebrow">独立资金账户 · 每日收盘估值</p><h2>如果用一笔钱持续投资</h2></div></div>
+    <p class="note">每个持有期各用一个独立账户。新一批的投入最多为前时点账户权益的 5%，并受可用现金限制；批内等额。没有投入的资金留在账户中。基准用同期万得全A收盘净值，从同一起点比较。</p>
+    <div class="toolbar inline"><label>显示持有期<select id="chart-window"><option value="all">全部七个持有期</option></select></label><label>图表内容<select id="chart-mode"><option value="nav">策略与万得全A净值</option><option value="relative">相对净值（策略 ÷ 基准）</option><option value="drawdown">回撤（相对历史高点）</option><option value="holding">持仓数量</option></select></label></div>
+    <div id="nav-chart" class="chart" aria-label="有限资金账户图表"></div><div id="account-table"></div>
+    <details><summary>研究限制与口径</summary><p>个股用不复权价格，未计分红送转；除权可能造成表观被套或亏损。涨跌停采用估算，历史 ST 状态可能不完整。缺报价不能视为已核实停牌，未退出头寸的期末估值不保证可兑现。参数间样本重叠，全样本结果不代表未来。</p></details>
+  </section>
+  <section id="compare" hidden><h1>参数对比</h1><p class="note">固定增持比例，纵向调整被套门槛，横向对照七个持有期。点击任一数值可查看该组合。相邻参数可能包含同一批股票。</p>
+    <div class="toolbar inline"><label>比较什么<select id="heat-metric"></select></label><label>最少配对批次<input id="heat-min" type="number" min="0" step="1" value="0"></label></div><div id="heat-table"></div><p class="hint">橙色为负，青色为正；颜色深浅仅在当前表内比较。未达到样本下限或没有指标值的格子显示“—”。</p>
+  </section>
+  <section id="periods" hidden><h1>年度与牛熊表现</h1><p id="period-note" class="note"></p><div id="year-chart" class="chart" aria-label="账户与万得全A各年度收益"></div><div id="year-table"></div><h2>按市场环境拆分</h2><p class="note">牛熊划分为事后归因，不用于入场择时。同状态拼接的最大回撤不等于一段连续持有的实际回撤。</p><div id="regime-table"></div></section>
+  <section id="screen" hidden><h1>组合筛选</h1><p class="note">在所有参数中筛选。优先检查配对批次与未完成数量，少数批次的好表现不等于可靠规律。</p>
+    <div class="toolbar inline"><label>排序指标<select id="rank-metric"></select></label><label>最少配对批次<input id="rank-min" type="number" min="0" step="1" value="0"></label><label>最低账户年化（%）<input id="rank-return" type="number" step="any" placeholder="不限"></label><label>最大回撤幅度上限（%）<input id="rank-dd" type="number" min="0" max="100" step="any" placeholder="不限"></label><button id="rank-download">下载筛选结果 CSV</button></div>
+    <p id="rank-count" class="hint"></p><div id="rank-table"></div><div class="pager"><button id="rank-prev">上一页</button><span id="rank-page"></span><button id="rank-next">下一页</button></div>
+  </section>
+  <section id="trades" hidden><h1>明细与下载</h1><p class="note">按买入日看整批，再展开到具体股票。账户分配金额为零，不代表该事件样本被删除。未完成的收益不按零处理。</p>
+    <div class="toolbar inline"><label>明细层级<select id="detail-kind"><option value="batches">按批次</option><option value="trades">按股票</option></select></label><label>完成状态<select id="trade-status"><option value="all">全部</option><option value="closed">已完成</option><option value="open">未完成</option></select></label><label id="search-label">代码或名称<input id="trade-search" type="search" placeholder="搜索股票"></label><button id="trade-download">下载当前明细 CSV</button></div>
+    <p id="trade-count" class="hint"></p><div id="trade-table"></div><div class="pager"><button id="trade-prev">上一页</button><span id="trade-page"></span><button id="trade-next">下一页</button></div>
+    <h2>其他下载</h2><div class="actions"><button id="nav-download">当前账户每日净值 CSV</button><button id="result-download">当前组合完整结果 JSON</button><button id="all-download">全部参数结果 CSV</button></div>
+  </section>
+</section>
+</main><footer class="shell">股东增持事件研究 · 不复权价格 · 全样本探索，非投资建议</footer>
+</body></html>
