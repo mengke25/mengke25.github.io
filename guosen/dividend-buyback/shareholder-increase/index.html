@@ -2,8 +2,8 @@
 <html lang="zh-CN"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>股东增持被套策略 · 每日研究面板</title>
-<link rel="stylesheet" href="./style.css?v=daily4-20261105a">
-<script defer src="./vendor/plotly.min.js?v=daily4-20261105a"></script><script defer src="./app.js?v=daily4-20261105a"></script>
+<link rel="stylesheet" href="./style.css?v=daily4-20261105-zerofee">
+<script defer src="./vendor/plotly.min.js?v=daily4-20261105-zerofee"></script><script defer src="./app.js?v=daily4-20261105-zerofee"></script>
 </head><body>
 <header><div class="shell"><div class="mast"><strong>股东增持被套策略</strong><span id="interval">每日研究面板</span></div>
 <nav aria-label="研究模块"><button data-page="method" aria-current="page">方法及说明</button><button data-page="daily">每日股票池</button><button data-page="account">净值与资金</button><button data-page="compare">参数对比与筛选</button><button data-page="periods">年度与牛熊</button></nav></div></header>
@@ -12,7 +12,7 @@
 <p class="intro">从已公告的真实增持出发，每天用股东的加权增持成本与收盘价比较，寻找低于股东成本的股票。</p>
 <dl><dt>何时买入</dt><dd>实际增持股数占总股本 ≥ <b>m</b>，且收盘价低于股东成本、被套幅度 ≥ <b>n</b>。满足条件可买入，已有持仓可加仓。</dd>
 <dt>何时卖出</dt><dd>被套收窄至低于门槛，只持有、不加仓。收盘价回到或超过股东成本，下一可成交开盘卖出。</dd>
-<dt>资金去哪</dt><dd>将可用现金（包括卖出回款）等分给仍可买入的股票；没有可买标的就留现金，不借钱、不加杠杆。</dd>
+<dt>资金去哪</dt><dd>将可用现金（包括卖出回款）等分给仍可买入的股票；没有可买标的就留现金，不借钱、不加杠杆。回测不计买卖费用。</dd>
 <dt>面板看什么</dt><dd>选交易日看股票名称、代码、股东成本和操作信号；可分别核对开盘成交、收盘持仓，以及账户净值与万得全A。</dd></dl>
 <button class="primary" data-page="daily">查看每日股票池 →</button></section>
 <div id="workspace" hidden>
@@ -27,7 +27,7 @@
 <div id="signal-table"></div>
 <div class="section-title"><h2>当日开盘执行</h2><button id="export-execs">下载当日执行 CSV</button></div><p class="note">按开盘执行日列示回测成交与未成交尝试。模拟允许分数股，不设 100 股或最小金额限制，不代表实盘可下单。</p><div id="exec-table"></div>
 <div class="section-title"><h2>当日收盘持仓</h2><button id="export-holdings">下载当日持仓 CSV</button></div><p class="note" id="position-note"></p><div id="holding-table"></div></section>
-<section id="account" hidden><p class="eyebrow">独立资金账户 · 每日收盘估值</p><h1>净值与资金</h1><p class="note">策略净值已计买卖费用。基准为同起点的万得全A收盘净值；股票市值与现金均按人民币计。若首次仅一只股票可买，固定本金可能长期集中在单一持仓。</p>
+<section id="account" hidden><p class="eyebrow">独立资金账户 · 每日收盘估值</p><h1>净值与资金</h1><p class="note">以 2016-12-30 收盘为基期：初始现金 100 万元，策略净值为 1；万得全A以当天收盘 4,310.22 点为 1。图从下一交易日（2017-01-03）开始，不计买卖费用。若首次仅一只股票可买，固定本金可能长期集中在单一持仓。</p>
 <div class="stats" id="account-stats"></div><div class="section-title"><h2>策略与万得全A</h2><button id="export-nav">下载每日账户 CSV</button></div><div id="nav-chart" class="chart"></div>
 <h2>资金分布</h2><div id="capital-chart" class="chart"></div></section>
 <section id="compare" hidden><p class="eyebrow">全样本 · 各参数独立账户</p><h1>参数对比与筛选</h1><p class="note">按实际买入笔数和回撤筛选；点击任一组合查看当日名单。相邻参数可能包含相同股票。</p>
