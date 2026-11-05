@@ -106,8 +106,9 @@ function start(){
     try{
       const response=await fetch('./manifest.json',{cache:'no-store'});if(!response.ok)throw Error('无法读取本次发布的数据清单');
       const man=await response.json();
-      if(man.publication!=='selectable-six-gates-v1'||man.gate_choices!==64||!man.days?.length||man.combos?.length!==120)throw Error('数据版本不匹配，请刷新页面');
+      if(!['selectable-six-gates-v1','selectable-six-gates-2010-v2'].includes(man.publication)||man.gate_choices!==64||!man.days?.length||man.combos?.length!==120)throw Error('数据版本不匹配，请刷新页面');
       state.manifest=man;state.date=man.days.at(-1);
+      $('base-note').textContent='以 '+man.base_date+' 收盘为基期，初始现金 '+num(man.initial_capital/1e4,0)+' 万元，策略净值为 1；万得全A以当日收盘 '+num(man.benchmark_base_close)+' 点为 1。图从 '+man.days[0]+' 开始，不计买卖费用。没有可买股票时保留现金。';
       if(man.entry_gate){
         const how=document.querySelector('#method dl dd');
         how.textContent='先过 F01 六门槛资产池，再看增持比例和被套幅度。只有当期 F01 池内、实际增持占总股本达到 m、股价低于股东成本且被套幅度达到 n 的股票，才能新买或加仓。持仓掉出 F01 后只禁加仓，仍按原成本解套退出。';
@@ -141,6 +142,16 @@ function start(){
     const materialize=async pack=>{
       const mask=state.mask,series=pack.series.slice(),keys=new Set([...pack.variants[mask],pack.variants[63][0]]);
       await Promise.all([...keys].map(async k=>{if(typeof series[k]==='string')series[k]=await getFile(series[k]);}));
+      const key=pack.variants[mask][5],fills=series[key]?.fills;
+      if(fills){
+        const q=await getFile(man.execution_quotes),ts=[];
+        for(const [d,gross,sell,buy] of fills){
+          function price(r){const pr=q[d*65536+r];if(!real(pr))throw Error('缺少实际成交价');return pr;}
+          for(let j=0;j<sell.length;j+=2){const r=sell[j],qty=sell[j+1],pr=price(r);ts.push([d,r,'S',pr,qty,pr*qty,0]);}
+          for(const id of buy){const r=Math.floor(id/2),pr=price(r);ts.push([d,r,id%2?'A':'B',pr,gross/pr,gross,0]);}
+        }
+        series[key]=ts;
+      }
       return selectedLedger({...pack,series},mask,state.ranks[mask][index]);
     };
     const near=dateNeighbours(man.days,state.date);

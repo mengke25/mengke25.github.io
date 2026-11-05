@@ -3,7 +3,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>6大门槛因子 · 股东增持被套策略</title>
 <link rel="stylesheet" href="./style.css?v=six-gates-1">
-<script defer src="./vendor/plotly.min.js?v=daily4-20261105-zerofee"></script><script defer src="./app.js?v=six-gates-1"></script>
+<script defer src="./vendor/plotly.min.js?v=daily4-20261105-zerofee"></script><script defer src="./app.js?v=six-gates-2010-v2"></script>
 </head><body>
 <header><div class="shell"><div class="mast"><strong>6大门槛因子</strong><span id="interval">股东增持被套策略</span></div>
 <nav aria-label="研究模块"><button data-page="method" aria-current="page">方法及说明</button><button data-page="daily">每日股票池</button><button data-page="account">净值与资金</button><button data-page="compare">参数对比与筛选</button><button data-page="periods">年度与牛熊</button></nav></div></header>
@@ -30,7 +30,7 @@
 <div id="signal-table"></div>
 <div class="section-title"><h2>当日开盘执行</h2><button id="export-execs">下载当日执行 CSV</button></div><p class="note">按开盘执行日列示回测成交与未成交尝试。模拟允许分数股，不设 100 股或最小金额限制，不代表实盘可下单。</p><div id="exec-table"></div>
 <div class="section-title"><h2>当日收盘持仓</h2><button id="export-holdings">下载当日持仓 CSV</button></div><p class="note" id="position-note"></p><div id="holding-table"></div></section>
-<section id="account" hidden><p class="eyebrow">独立资金账户 · 每日收盘估值</p><h1>净值与资金</h1><p class="note">以 2016-12-30 收盘为基期：初始现金 100 万元，策略净值为 1；万得全A以当天收盘 4,310.22 点为 1。图从下一交易日（2017-01-03）开始，不计买卖费用。若首次仅一只股票可买，固定本金可能长期集中在单一持仓。</p>
+<section id="account" hidden><p class="eyebrow">独立资金账户 · 每日收盘估值</p><h1>净值与资金</h1><p class="note" id="base-note">期初全部持有现金，不计买卖费用；策略和万得全A使用同一基期。</p>
 <div class="stats" id="account-stats"></div><div class="section-title"><h2>策略与万得全A</h2><button id="export-nav">下载每日账户 CSV</button></div><div id="nav-chart" class="chart"></div>
 <h2>资金分布</h2><div id="capital-chart" class="chart"></div></section>
 <section id="compare" hidden><p class="eyebrow">全样本 · 各参数独立账户</p><h1>参数对比与筛选</h1><p class="note">按实际买入笔数和回撤筛选；点击任一组合查看当日名单。相邻参数可能包含相同股票。</p>
