@@ -1,8 +1,8 @@
 'use strict';
 (()=>{
- const button=document.querySelector('.nav-item[data-panel="2"]');if(!button||typeof window.selectPanel!=='function')return;
+ const button=document.querySelector('.nav-item[data-panel="2"]');if(!button||typeof window.selectPanel!=='function'||document.getElementById('factorPanel'))return;
  button.querySelector('.nav-name').textContent='A股红利因子回测';button.querySelector('.nav-meta').textContent='面板 2 · 在线结果版';
- const panel=document.createElement('section');panel.id='factorPanel';panel.className='factor-workspace panel-hidden';
+ const panel=document.createElement('section');panel.id='factorPanel';panel.className='factor-workspace panel-hidden';panel.setAttribute('aria-labelledby',button.id||'panelNav2');
  panel.innerHTML='<iframe id="factorFrame" title="A股红利因子回测在线结果" referrerpolicy="same-origin"></iframe>';
  document.getElementById('reservedPanel').before(panel);
  const original=window.selectPanel;
