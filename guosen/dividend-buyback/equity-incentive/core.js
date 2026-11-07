@@ -27,9 +27,11 @@ const Incentive = (() => {
   if(![2,5,10,20].includes(p.weight))throw Error('单笔目标仓位无效');
   if(p.tool!=='全部'&&!d.events.some(e=>e.tools.includes(p.tool)))throw Error('激励工具无效');
   if(typeof p.nonST!=='boolean')throw Error('ST 选项无效');
-  const a=lower(d.days,p.start),z=lower(d.days,p.end);
-  if(d.days[a]!==p.start||d.days[z]!==p.end||a>z)throw Error('起止日期须为有效交易日，且开始不晚于结束');
-  return {...p,a,z};
+  for(const date of [p.start,p.end])if(typeof date!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(date)||!Number.isFinite(Date.parse(date))||new Date(date).toISOString().slice(0,10)!==date)throw Error('请填写有效的策略起止日期');
+  if(p.start<d.days[0]||p.end>d.days.at(-1)||p.start>p.end)throw Error('起止日期超出可用行情区间，或开始晚于结束');
+  const a=lower(d.days,p.start),end=lower(d.days,p.end),z=d.days[end]===p.end?end:end-1;
+  if(a>z||a>=d.days.length||z<0)throw Error('所选日期范围内没有交易日');
+  return {...p,a,z,effectiveStart:d.days[a],effectiveEnd:d.days[z]};
  }
  function metrics(rets,br){
   let v=1,b=1,peak=1,dd=0;for(let i=0;i<rets.length;i++){v*=1+rets[i];b*=1+br[i];peak=Math.max(peak,v);dd=Math.min(dd,v/peak-1);}

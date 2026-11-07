@@ -24,6 +24,12 @@ const FixedHold=(()=>{
   return new Date(Date.UTC(target.getUTCFullYear(),target.getUTCMonth(),Math.min(d,max))).toISOString().slice(0,10);
  }
  function lower(days,date){let l=0,h=days.length;while(l<h){let m=(l+h)>>1;if(days[m]<date)l=m+1;else h=m;}return l;}
+ function startIndex(d,start){
+  if(start===undefined)return 0; // Backward-compatible full-history configuration.
+  if(typeof start!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(start)||!Number.isFinite(Date.parse(start))||new Date(start).toISOString().slice(0,10)!==start)throw Error('请填写有效的策略起始日');
+  if(start<d.days[0]||start>d.days.at(-1))throw Error('策略起始日超出可用行情区间');
+  return lower(d.days,start);
+ }
  function initialize(data){
   if(data.schema!=='fixed-hold-input-v1')throw Error('固定持有期输入版本不符');
   const size=data.symbols.length;
@@ -41,7 +47,7 @@ const FixedHold=(()=>{
  const quote=(d,c,day,key)=>{const s=d.prices[c],i=day-s.start;return i<0||i>=s.close.length?(key==='flags'?0:NaN):s[key][i];};
  function gateOK(d,c,day,mask,open=false){return mask===0||(d.gates[(open?d.gateOpen:d.gateClose)[day]][c]&mask)===mask;}
  function run(d,raw){
-  const p=settings(raw),N=d.days.length,K=d.symbols.length,excluded=new Set(p.excluded);
+  const p=settings(raw),N=d.days.length,K=d.symbols.length,excluded=new Set(p.excluded),a=startIndex(d,p.start);
   if(p.excluded.some(c=>c>=K))throw Error('剔除股票不在当前数据中');
   const lock=new Int32Array(K).fill(-1),ref=new Int32Array(K).fill(-1),qty=new Float64Array(K);
   const entry=new Int32Array(K).fill(-1),due=new Int32Array(K).fill(-1),dueDate=Array(K).fill('');
@@ -58,6 +64,9 @@ const FixedHold=(()=>{
    return r>=0&&!used.has(r)&&lock[c]<0&&!excluded.has(c)&&gateOK(d,c,day,p.mask,open)&&qualifies(quote(d,c,day-(open?1:0),'close'),d.refs[r][3],p);
   }
   for(let day=0;day<N;day++){
+   // No inherited account state. Historical disclosures are read at the first
+   // active opening by updates(), with their original availability cutoff.
+   if(day<a){nav.push([1,INITIAL,0,0,0]);continue;}
    updates(2*day);
    const sold=[];
    for(let c=0;c<K;c++){
@@ -93,11 +102,13 @@ const FixedHold=(()=>{
    if(!Number.isFinite(equity)||equity<=0||cash<0)throw Error('账户不平衡：'+d.days[day]);
    nav.push([equity/INITIAL,cash,held,count,overdue]);
   }
-  const stats=performance(nav.map(r=>r[0]),d.benchmark);
-  return {params:p,nav,trades,blocked,summary:{...stats,initial_capital:INITIAL,final_equity:nav.at(-1)[0]*INITIAL,final_cash:cash,total_fees:0,buy_count:trades.filter(t=>t[2]==='B').length,sell_count:trades.filter(t=>t[2]==='S').length,account_open_count:nav.at(-1)[2]}};
+  const base=a?d.benchmark[a-1]:1,bench=d.benchmark.map((v,i)=>i<a?1:v/base);
+  const stats=performance(nav.slice(a).map(r=>r[0]),bench.slice(a));
+  return {params:p,startIndex:a,effectiveStart:d.days[a],baseDate:a?d.days[a-1]:d.baseDate,bench,nav,trades,blocked,summary:{...stats,initial_capital:INITIAL,final_equity:nav.at(-1)[0]*INITIAL,final_cash:cash,total_fees:0,buy_count:trades.filter(t=>t[2]==='B').length,sell_count:trades.filter(t=>t[2]==='S').length,account_open_count:nav.at(-1)[2]}};
  }
  function inspect(d,result,day){
   if(!Number.isInteger(day)||day<0||day>=d.days.length)throw Error('交易日无效');
+  if(day<result.startIndex)return {pool:[],holdings:[],trades:[],blocked:[]};
   const p=result.params,used=new Set(),held=new Map(),refs=new Int32Array(d.symbols.length).fill(-1),excluded=new Set(p.excluded);
   for(const [slot,r] of d.events){if(slot>2*day+1)break;if(round(d.refs[r][4]*100)>=p.m)refs[d.refs[r][0]]=r;}
   for(const t of result.trades){

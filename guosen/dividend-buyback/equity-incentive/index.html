@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>股权激励首次实施公告策略</title><meta name="description" content="首次实施公告后买入，比较1至12个月持有期的净值、万得全A超额及每日交易。"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="pool-compare.css?v=pool1"><script defer src="vendor/plotly.min.js"></script><script defer src="pool-compare.js?v=pool1"></script><script defer src="app.js?v=pool1"></script></head>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>股权激励首次实施公告策略</title><meta name="description" content="首次实施公告后买入，比较1至12个月持有期的净值、万得全A超额及每日交易。"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="pool-compare.css?v=pool1"><script defer src="vendor/plotly.min.js"></script><script defer src="pool-compare.js?v=pool1"></script><script defer src="app.js?v=start-20261107"></script></head>
 <body><link rel="stylesheet" href="overrides.css"><header><div class="shell"><div class="mast"><strong>股权激励首次实施公告策略</strong><span id="cutoff">正在读取数据日期</span></div><nav aria-label="策略页面"><button data-tab="method" aria-current="page">方法说明</button><button data-tab="pool">股票池与交易</button><button data-tab="nav">净值与资金</button><button data-tab="compare">持有期对比</button><button data-tab="year">年度与牛熊</button></nav></div></header>
 <main class="shell">
  <section id="method" class="method">
@@ -16,9 +16,10 @@
  <section id="workspace" hidden>
   <form id="params" class="toolbar">
    <label>持有期<select id="months"></select></label><label>激励工具<select id="tool"></select></label><label>每笔目标仓位<select id="weight"><option value="2">2%</option><option value="5" selected>5%</option><option value="10">10%</option><option value="20">20%</option></select></label>
-   <label>开始交易日<input id="from" type="date" required></label><label>结束交易日<input id="to" type="date" required></label>
+   <label>策略起始日<input id="from" type="date" required aria-describedby="start-hint"></label><label>结束日期<input id="to" type="date" required aria-describedby="start-hint"></label>
    <label class="check"><span><input type="checkbox" id="nonST" checked> 历史非 ST</span></label><button type="submit" class="primary" id="generate">生成回测</button>
   </form>
+  <p id="start-hint" class="hint">从起始日以 100 万现金重新开始，不继承此前持仓、不追买过去错过的事件。休市日起点向后、终点向前取交易日；此前累计收益为 0，图表不展示未运行时段。比较基期为起始交易日前一交易日收盘（净值 1）。</p>
   <p id="draft" class="hint" hidden>参数已修改。点击“生成回测”后更新结果；下方仍为上一次结果。</p><p id="status" role="status"></p><p id="error" role="alert" hidden></p><p id="applied" class="hint"></p>
   <div id="results" hidden>
    <dl class="stats" id="metrics"></dl>

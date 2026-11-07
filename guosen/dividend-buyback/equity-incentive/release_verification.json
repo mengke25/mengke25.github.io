@@ -1,173 +1,328 @@
 {
-  "version": "20261105",
-  "checks": {
-    "js_verification.json": {
-      "pass": true,
-      "checks": 240992,
-      "cases": 15,
-      "default": {
-        "days": 4084,
-        "total_return": 1.3544269609798136,
-        "benchmark_return": 0.8453699073743666,
-        "excess_return": 0.5090570536054471,
-        "annual_return": 0.052491051136709155,
-        "benchmark_annual": 0.037282968906074965,
-        "excess_annual": 0.01520808223063419,
-        "volatility": 0.2732305619670738,
-        "sharpe": 0.19211266396705173,
-        "max_drawdown": -0.7379490957916532,
-        "relative_return": 0.27585637522925954,
-        "buys": 2513,
-        "sells": 2453,
-        "open": 60,
-        "cash": 0,
-        "fees": 0,
-        "win_rate": 0.4745209947003669
-      }
+  "feature": "strategy-start-20261107",
+  "passed": true,
+  "checks": 54185,
+  "cases": [
+    {
+      "kind": "incentive",
+      "start": "2015-01-01",
+      "effective": "2015-01-05",
+      "months": 1,
+      "days": 2872,
+      "buys": 3676,
+      "return": 0.7906285651474589
     },
-    "independent_verification.json": {
-      "pass_": true,
-      "cases": 15,
-      "daily_rows": 54943,
-      "source_sql_price_checks": 29685,
-      "max_equity_difference": 7.916241884231567e-09,
-      "original_excel_unchanged": true
+    {
+      "kind": "incentive",
+      "start": "2015-01-01",
+      "effective": "2015-01-05",
+      "months": 3,
+      "days": 2872,
+      "buys": 2154,
+      "return": 0.8930391949600198
     },
-    "pool_comparison": {
-      "passed": true,
-      "panel": "incentive",
-      "records": [
-        {
-          "label": "initial",
-          "before": "2026-10-29",
-          "after": "2026-10-30",
-          "kind": "信号股票池",
-          "counts": {
-            "added": 4,
-            "kept": 0,
-            "removed": 4
-          }
-        },
-        {
-          "label": "signal_nonadjacent",
-          "before": "2022-01-04",
-          "after": "2026-10-13",
-          "kind": "信号股票池",
-          "counts": {
-            "added": 1,
-            "kept": 0,
-            "removed": 9
-          }
-        },
-        {
-          "label": "holdings_nonadjacent",
-          "before": "2022-01-04",
-          "after": "2026-10-13",
-          "kind": "实际持仓",
-          "counts": {
-            "added": 56,
-            "kept": 2,
-            "removed": 73
-          }
-        },
-        {
-          "label": "same_day",
-          "before": "2026-10-13",
-          "after": "2026-10-13",
-          "kind": "实际持仓",
-          "counts": {
-            "added": 0,
-            "kept": 58,
-            "removed": 0
-          }
-        },
-        {
-          "label": "empty",
-          "before": "2010-01-04",
-          "after": "2010-01-04",
-          "kind": "信号股票池",
-          "counts": {
-            "added": 0,
-            "kept": 0,
-            "removed": 0
-          }
-        },
-        {
-          "label": "regenerated",
-          "before": "2026-10-29",
-          "after": "2026-10-30",
-          "kind": "实际持仓",
-          "counts": {
-            "added": 4,
-            "kept": 53,
-            "removed": 6
-          }
-        }
-      ],
-      "downloads": 8,
-      "ledger_reconciled": true,
-      "nav_unchanged_by_date_comparison": true,
-      "invalid_dates_rejected": true,
-      "unapplied_parameters_preserved": true,
-      "regeneration": true,
-      "race_check": true,
-      "mobile_overflow": false,
-      "errors": [],
-      "assets": {
-        "app.js": "0608ff2ab30ee7763e3e9d19e0e189ad2120a53325f777a441032c24d65398db",
-        "worker.js": "d4e173b461fe5236ed4cdd2ee1d657d1b1aa9ecd57bfdc54c32892af44e68163",
-        "index.html": "9fdd8206a566de8eb0b71f453eb794707428f85ecafd093dface4415fca23546",
-        "pool-compare.js": "12d6b8bb163b7d33f7cde11183428b9b3e4d7bd36d5b93a2fa4acafb3c25c90c",
-        "pool-compare.css": "dd7a6b8821d246d73d41c02991f983bdb728b07fb6be8c63bae959283de3b053",
-        "core.js": "bb384e2144891064548de4a9353bcc7e021542e18a9f456149ced46e27e4657d",
-        "manifest.json": "6d9ce25db861335db1d68fa8a12293a3d66c2c5f9120290bffb24b82df379802"
-      }
+    {
+      "kind": "incentive",
+      "start": "2015-01-01",
+      "effective": "2015-01-05",
+      "months": 12,
+      "days": 2872,
+      "buys": 607,
+      "return": -0.155407576075425
+    },
+    {
+      "kind": "incentive",
+      "start": "2020-01-04",
+      "effective": "2020-01-06",
+      "months": 1,
+      "days": 1651,
+      "buys": 2632,
+      "return": 1.261547004655637
+    },
+    {
+      "kind": "incentive",
+      "start": "2020-01-04",
+      "effective": "2020-01-06",
+      "months": 3,
+      "days": 1651,
+      "buys": 1129,
+      "return": 2.5485831585854934
+    },
+    {
+      "kind": "incentive",
+      "start": "2020-01-04",
+      "effective": "2020-01-06",
+      "months": 12,
+      "days": 1651,
+      "buys": 235,
+      "return": 1.127366995838639
+    },
+    {
+      "kind": "incentive",
+      "start": "2023-01-01",
+      "effective": "2023-01-03",
+      "months": 1,
+      "days": 925,
+      "buys": 1462,
+      "return": 0.46162200174343293
+    },
+    {
+      "kind": "incentive",
+      "start": "2023-01-01",
+      "effective": "2023-01-03",
+      "months": 3,
+      "days": 925,
+      "buys": 610,
+      "return": 0.37515861904861936
+    },
+    {
+      "kind": "incentive",
+      "start": "2023-01-01",
+      "effective": "2023-01-03",
+      "months": 12,
+      "days": 925,
+      "buys": 91,
+      "return": 0.1288016728849679
+    },
+    {
+      "kind": "incentive",
+      "start": "2026-01-01",
+      "effective": "2026-01-05",
+      "months": 1,
+      "days": 198,
+      "buys": 343,
+      "return": -0.09171282950153892
+    },
+    {
+      "kind": "incentive",
+      "start": "2026-01-01",
+      "effective": "2026-01-05",
+      "months": 3,
+      "days": 198,
+      "buys": 139,
+      "return": -0.19881248981287103
+    },
+    {
+      "kind": "incentive",
+      "start": "2026-01-01",
+      "effective": "2026-01-05",
+      "months": 12,
+      "days": 198,
+      "buys": 21,
+      "return": -0.3098787456072144
+    },
+    {
+      "kind": "incentive",
+      "start": "2026-10-30",
+      "effective": "2026-10-30",
+      "months": 1,
+      "days": 1,
+      "buys": 4,
+      "return": -0.0024005391380295116
+    },
+    {
+      "kind": "incentive",
+      "start": "2026-10-30",
+      "effective": "2026-10-30",
+      "months": 3,
+      "days": 1,
+      "buys": 4,
+      "return": -0.0024005391380295116
+    },
+    {
+      "kind": "incentive",
+      "start": "2026-10-30",
+      "effective": "2026-10-30",
+      "months": 12,
+      "days": 1,
+      "buys": 4,
+      "return": -0.0024005391380295116
     }
-  },
+  ],
+  "scope": "Start-date feature regression; source price and event data unchanged. Not a new financial-data audit.",
+  "browser_checks": [
+    "weekend shifted to 2020-01-06",
+    "same-base benchmark",
+    "pool date lower bound",
+    "holding-period comparison",
+    "CSV export dates verified"
+  ],
   "files": {
-    "app.js": "0608ff2ab30ee7763e3e9d19e0e189ad2120a53325f777a441032c24d65398db",
-    "core.js": "bb384e2144891064548de4a9353bcc7e021542e18a9f456149ced46e27e4657d",
-    "index.html": "9fdd8206a566de8eb0b71f453eb794707428f85ecafd093dface4415fca23546",
-    "manifest.json": "6d9ce25db861335db1d68fa8a12293a3d66c2c5f9120290bffb24b82df379802",
-    "overrides.css": "36278fa514cef4e1d88c6b79fa04b4e33c23521d837caa1999ce0d1a361ccf28",
-    "pool-compare.css": "dd7a6b8821d246d73d41c02991f983bdb728b07fb6be8c63bae959283de3b053",
-    "pool-compare.js": "12d6b8bb163b7d33f7cde11183428b9b3e4d7bd36d5b93a2fa4acafb3c25c90c",
-    "style.css": "a1bf1381858e1c1ad91eb01be3cb6533a80a98364f8e604c729ba7e724da690a",
-    "worker.js": "d4e173b461fe5236ed4cdd2ee1d657d1b1aa9ecd57bfdc54c32892af44e68163",
-    "inputs/meta.json.gz": "de53af41ed4d95aa65760e41d95cbe0f0a33357aaf5da1362ffe2c89a8581cc4",
-    "inputs/quotes_0000.json.gz": "c9e2e72cd9dab584bfa7b387eb851909c340feb358b4734a980790e6c82ca058",
-    "inputs/quotes_0100.json.gz": "8c21b2818903dc157d4962768c14a632a05e2666e2e21321f02aeb310203c73d",
-    "inputs/quotes_0200.json.gz": "15263d0663394cb050491584b7ce4cae3c87841de70c3546008c8b64792696e6",
-    "inputs/quotes_0300.json.gz": "eea0687ac3e058b6e5da072cd7ce43f33a1a8e30f10916d2e013e30b347575ad",
-    "inputs/quotes_0400.json.gz": "228be6d19953c565abd4e20460bf563e3a1f89f8fda735db590406bc69575105",
-    "inputs/quotes_0500.json.gz": "a0c124d2c2a9038b86ca7df5de7dd4d2eecc8259da0403746874157c08bea7c3",
-    "inputs/quotes_0600.json.gz": "14b91dd1466072eceb35b7b4b0b0d16f640e2381b0d9fe4bc6e9c10ba0ace0a0",
-    "inputs/quotes_0700.json.gz": "4fe5ff7468bd3326ceaed418958ebbf3ecec06c5af9410b801c56872a3cd77d2",
-    "inputs/quotes_0800.json.gz": "d566b9940272c7bf348c35af36186453c51ca1c823e1ea5ba1632e952a286162",
-    "inputs/quotes_0900.json.gz": "0ce8ace69586aa91f27f99ffe2fda097d5b3a931eba092cc15065db440e5dc6a",
-    "inputs/quotes_1000.json.gz": "03505138856663b8598a8b6caffed189565865659d245910cded5cc9873cdfc4",
-    "inputs/quotes_1100.json.gz": "e2f54df096d3956024cfab4e0f3af2195f5436cd66340d98114eadc59e36f389",
-    "inputs/quotes_1200.json.gz": "cd01bd940483e33f4a57a32070378cba1831810ac7de3f9ed897a7bcf0384e4b",
-    "inputs/quotes_1300.json.gz": "3c36914f30736bdea013b42240f7e5357ea6013a01c6e7e086c819510633b261",
-    "inputs/quotes_1400.json.gz": "dfd0df27585d7a536bdf7217cec6fdd9ce56f71c1e148a9a59085438390f6a8a",
-    "inputs/quotes_1500.json.gz": "b00d0f0b37e24ae47ab84640c1aa0d50ed93d5dbd856facc7fd551113218df8f",
-    "inputs/quotes_1600.json.gz": "60bca078860a7078deba2d6f8f7d6ece4d2f2aae8f6785055a08c10affaebeda",
-    "inputs/quotes_1700.json.gz": "256f76fed1a474662bc720c035ca8969ba5471588bfbf5d05d3349d728aba102",
-    "inputs/quotes_1800.json.gz": "ff15af5b13779b7e69245785e1f96d96260c1175269802bb390a2d1e0d9fcb44",
-    "inputs/quotes_1900.json.gz": "29a047ebbdf3032cc47c29974926557429e09f81af42642e0b73ce9adb780f0c",
-    "inputs/quotes_2000.json.gz": "b57ed26eeb845d9cf24033ead43ddb2c18d6db3eeb2124d52d831ccd0c37f532",
-    "inputs/quotes_2100.json.gz": "d32a7c3d980fe518e29a7bb0f08e488a201a2fbfa637f8f87c6a1e6f0c6be8da",
-    "inputs/quotes_2200.json.gz": "a05225060fab383871c0d0baca5ffa80cbc554552eac12423aa96071fccbe133",
-    "inputs/quotes_2300.json.gz": "cda973f212b2d95475f0932c5eb103a8acad08287c4ce44a94531c4a1dda6de8",
-    "inputs/quotes_2400.json.gz": "44a6a9a691199e3c27332282ed7dfa51eee82bbbe285320807830f542b4924b6",
-    "inputs/quotes_2500.json.gz": "dc29885b41a6d6819460ae305fe63b0e0e5b967cad8d58f2c0bf3b7b87dcec42",
-    "inputs/quotes_2600.json.gz": "4f86c8b575cf7f35cf52424584b792a6aa5ed694a51cfa36b63286495642ad05",
-    "inputs/quotes_2700.json.gz": "2c3e005fc4ef53d9866c7bfbadc087c8ca69b4197c3d12979240c4ed7e287315",
-    "inputs/quotes_2800.json.gz": "3e6af99fae172a8100cd44d764c7a9da01d95700754755bf7282f46095b5aa31",
-    "inputs/quotes_2900.json.gz": "38c70e279608708d65d0c503f2f1e2e28db1a8ff59299addb1c3c4c44bdddb0e",
-    "inputs/quotes_3000.json.gz": "e2fd866e4e72e0e2239636403272adad0ab22f2ee1258b1f16f152db718c7e44",
-    "inputs/quotes_3100.json.gz": "244c7ef56a817d35e6c310cb1dd5f3958c926e0b9f92cb8fafd37135f5454d61",
-    "inputs/quotes_3200.json.gz": "01c204d848470b59d3e9d7906fbcf4409c5c5064dbea6d0274c0ec6c5e0b3168",
-    "vendor/plotly.min.js": "6ceddd4bac82a64f5a2b8814a4d10bb4288379262f1989caee3148e7c3509c72"
+    "app.js": {
+      "sha256": "1e46a8e0c32114413187d9fde4425e1faccd12a05881fff8ba2cd79cbdec955c",
+      "bytes": 12814
+    },
+    "core.js": {
+      "sha256": "7b01a2f80a9da5495643b64bc6fe52b7c47d61a8f4b261ec13219c8dc4c95965",
+      "bytes": 7691
+    },
+    "index.html": {
+      "sha256": "20c86356d5ffffb4027cfd2cc7dfd8da546dbd074c95e61b4a57b349ed1b077a",
+      "bytes": 8737
+    },
+    "manifest.json": {
+      "sha256": "6d9ce25db861335db1d68fa8a12293a3d66c2c5f9120290bffb24b82df379802",
+      "bytes": 6049
+    },
+    "overrides.css": {
+      "sha256": "36278fa514cef4e1d88c6b79fa04b4e33c23521d837caa1999ce0d1a361ccf28",
+      "bytes": 484
+    },
+    "pool-compare.css": {
+      "sha256": "dd7a6b8821d246d73d41c02991f983bdb728b07fb6be8c63bae959283de3b053",
+      "bytes": 722
+    },
+    "pool-compare.js": {
+      "sha256": "12d6b8bb163b7d33f7cde11183428b9b3e4d7bd36d5b93a2fa4acafb3c25c90c",
+      "bytes": 14183
+    },
+    "style.css": {
+      "sha256": "a1bf1381858e1c1ad91eb01be3cb6533a80a98364f8e604c729ba7e724da690a",
+      "bytes": 5949
+    },
+    "worker.js": {
+      "sha256": "0154ed7d9ce932223b1eef304fb35979062103a8003b3e31ead4318b522f870e",
+      "bytes": 2515
+    },
+    "inputs/meta.json.gz": {
+      "sha256": "de53af41ed4d95aa65760e41d95cbe0f0a33357aaf5da1362ffe2c89a8581cc4",
+      "bytes": 146557
+    },
+    "inputs/quotes_0000.json.gz": {
+      "sha256": "c9e2e72cd9dab584bfa7b387eb851909c340feb358b4734a980790e6c82ca058",
+      "bytes": 613856
+    },
+    "inputs/quotes_0100.json.gz": {
+      "sha256": "8c21b2818903dc157d4962768c14a632a05e2666e2e21321f02aeb310203c73d",
+      "bytes": 485838
+    },
+    "inputs/quotes_0200.json.gz": {
+      "sha256": "15263d0663394cb050491584b7ce4cae3c87841de70c3546008c8b64792696e6",
+      "bytes": 817399
+    },
+    "inputs/quotes_0300.json.gz": {
+      "sha256": "eea0687ac3e058b6e5da072cd7ce43f33a1a8e30f10916d2e013e30b347575ad",
+      "bytes": 976370
+    },
+    "inputs/quotes_0400.json.gz": {
+      "sha256": "228be6d19953c565abd4e20460bf563e3a1f89f8fda735db590406bc69575105",
+      "bytes": 868041
+    },
+    "inputs/quotes_0500.json.gz": {
+      "sha256": "a0c124d2c2a9038b86ca7df5de7dd4d2eecc8259da0403746874157c08bea7c3",
+      "bytes": 818505
+    },
+    "inputs/quotes_0600.json.gz": {
+      "sha256": "14b91dd1466072eceb35b7b4b0b0d16f640e2381b0d9fe4bc6e9c10ba0ace0a0",
+      "bytes": 739340
+    },
+    "inputs/quotes_0700.json.gz": {
+      "sha256": "4fe5ff7468bd3326ceaed418958ebbf3ecec06c5af9410b801c56872a3cd77d2",
+      "bytes": 623908
+    },
+    "inputs/quotes_0800.json.gz": {
+      "sha256": "d566b9940272c7bf348c35af36186453c51ca1c823e1ea5ba1632e952a286162",
+      "bytes": 823340
+    },
+    "inputs/quotes_0900.json.gz": {
+      "sha256": "0ce8ace69586aa91f27f99ffe2fda097d5b3a931eba092cc15065db440e5dc6a",
+      "bytes": 930875
+    },
+    "inputs/quotes_1000.json.gz": {
+      "sha256": "03505138856663b8598a8b6caffed189565865659d245910cded5cc9873cdfc4",
+      "bytes": 918391
+    },
+    "inputs/quotes_1100.json.gz": {
+      "sha256": "e2f54df096d3956024cfab4e0f3af2195f5436cd66340d98114eadc59e36f389",
+      "bytes": 807144
+    },
+    "inputs/quotes_1200.json.gz": {
+      "sha256": "cd01bd940483e33f4a57a32070378cba1831810ac7de3f9ed897a7bcf0384e4b",
+      "bytes": 722956
+    },
+    "inputs/quotes_1300.json.gz": {
+      "sha256": "3c36914f30736bdea013b42240f7e5357ea6013a01c6e7e086c819510633b261",
+      "bytes": 672634
+    },
+    "inputs/quotes_1400.json.gz": {
+      "sha256": "dfd0df27585d7a536bdf7217cec6fdd9ce56f71c1e148a9a59085438390f6a8a",
+      "bytes": 514899
+    },
+    "inputs/quotes_1500.json.gz": {
+      "sha256": "b00d0f0b37e24ae47ab84640c1aa0d50ed93d5dbd856facc7fd551113218df8f",
+      "bytes": 364693
+    },
+    "inputs/quotes_1600.json.gz": {
+      "sha256": "60bca078860a7078deba2d6f8f7d6ece4d2f2aae8f6785055a08c10affaebeda",
+      "bytes": 317899
+    },
+    "inputs/quotes_1700.json.gz": {
+      "sha256": "256f76fed1a474662bc720c035ca8969ba5471588bfbf5d05d3349d728aba102",
+      "bytes": 237407
+    },
+    "inputs/quotes_1800.json.gz": {
+      "sha256": "ff15af5b13779b7e69245785e1f96d96260c1175269802bb390a2d1e0d9fcb44",
+      "bytes": 289053
+    },
+    "inputs/quotes_1900.json.gz": {
+      "sha256": "29a047ebbdf3032cc47c29974926557429e09f81af42642e0b73ce9adb780f0c",
+      "bytes": 667332
+    },
+    "inputs/quotes_2000.json.gz": {
+      "sha256": "b57ed26eeb845d9cf24033ead43ddb2c18d6db3eeb2124d52d831ccd0c37f532",
+      "bytes": 664309
+    },
+    "inputs/quotes_2100.json.gz": {
+      "sha256": "d32a7c3d980fe518e29a7bb0f08e488a201a2fbfa637f8f87c6a1e6f0c6be8da",
+      "bytes": 649940
+    },
+    "inputs/quotes_2200.json.gz": {
+      "sha256": "a05225060fab383871c0d0baca5ffa80cbc554552eac12423aa96071fccbe133",
+      "bytes": 633366
+    },
+    "inputs/quotes_2300.json.gz": {
+      "sha256": "cda973f212b2d95475f0932c5eb103a8acad08287c4ce44a94531c4a1dda6de8",
+      "bytes": 540528
+    },
+    "inputs/quotes_2400.json.gz": {
+      "sha256": "44a6a9a691199e3c27332282ed7dfa51eee82bbbe285320807830f542b4924b6",
+      "bytes": 613599
+    },
+    "inputs/quotes_2500.json.gz": {
+      "sha256": "dc29885b41a6d6819460ae305fe63b0e0e5b967cad8d58f2c0bf3b7b87dcec42",
+      "bytes": 629414
+    },
+    "inputs/quotes_2600.json.gz": {
+      "sha256": "4f86c8b575cf7f35cf52424584b792a6aa5ed694a51cfa36b63286495642ad05",
+      "bytes": 475972
+    },
+    "inputs/quotes_2700.json.gz": {
+      "sha256": "2c3e005fc4ef53d9866c7bfbadc087c8ca69b4197c3d12979240c4ed7e287315",
+      "bytes": 522761
+    },
+    "inputs/quotes_2800.json.gz": {
+      "sha256": "3e6af99fae172a8100cd44d764c7a9da01d95700754755bf7282f46095b5aa31",
+      "bytes": 426707
+    },
+    "inputs/quotes_2900.json.gz": {
+      "sha256": "38c70e279608708d65d0c503f2f1e2e28db1a8ff59299addb1c3c4c44bdddb0e",
+      "bytes": 417341
+    },
+    "inputs/quotes_3000.json.gz": {
+      "sha256": "e2fd866e4e72e0e2239636403272adad0ab22f2ee1258b1f16f152db718c7e44",
+      "bytes": 387619
+    },
+    "inputs/quotes_3100.json.gz": {
+      "sha256": "244c7ef56a817d35e6c310cb1dd5f3958c926e0b9f92cb8fafd37135f5454d61",
+      "bytes": 323244
+    },
+    "inputs/quotes_3200.json.gz": {
+      "sha256": "01c204d848470b59d3e9d7906fbcf4409c5c5064dbea6d0274c0ec6c5e0b3168",
+      "bytes": 279349
+    },
+    "vendor/plotly.min.js": {
+      "sha256": "6ceddd4bac82a64f5a2b8814a4d10bb4288379262f1989caee3148e7c3509c72",
+      "bytes": 4838098
+    }
   }
 }

@@ -1,5 +1,5 @@
 'use strict';
-const $=s=>document.querySelector(s),worker=new Worker('worker.js?v=pool1');
+const $=s=>document.querySelector(s),worker=new Worker('worker.js?v=start-20261107');
 let manifest=null,meta=null,result=null,detail=null,current='method',comparison=null,busy=false,selectedDay=0;
 const pct=x=>x===null||!Number.isFinite(x)?'—':(x*100).toFixed(2)+'%',num=(x,d=2)=>x===null||!Number.isFinite(x)?'—':x.toLocaleString('zh-CN',{minimumFractionDigits:d,maximumFractionDigits:d});
 const esc=x=>String(x??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));
@@ -28,10 +28,10 @@ function anchor(){return result.params.a?meta.days[result.params.a-1]:manifest.b
 function charts(){const x=[anchor(),...dates()];graph('nav-chart',[line('策略净值',x,[1,...result.nav.map(x=>x[0])],'#087f74'),line('万得全A',x,[1,...result.bench],'#aa8040')]);graph('relative-chart',[line('策略 / 万得全A',x,[1,...result.nav.map((r,i)=>r[0]/result.bench[i])],'#087f74')]);graph('cash-chart',[line('现金',dates(),result.nav.map(r=>r[1]),'#aa8040'),line('股票市值',dates(),result.nav.map(r=>r[2]),'#087f74')],'元');}
 const perfHeaders=['区间','交易日','累计收益','万得全A收益','累计超额','年化收益','年化超额','年化波动','Sharpe','最大回撤'];
 function perfRow(r,label){return [label,r.days,pct(r.total_return),pct(r.benchmark_return),pct(r.excess_return),pct(r.annual_return),pct(r.excess_annual),pct(r.volatility),num(r.sharpe,3),pct(r.max_drawdown)];}
-function display(){const s=result.summary,p=result.params;$('#draft').hidden=true;$('#results').hidden=false;$('#applied').textContent=`当前结果：${p.start} 至 ${p.end}；持有 ${p.months} 个月；${p.tool}；单笔 ${p.weight}%；${p.nonST?'历史非 ST':'不限制 ST'}。基期 ${anchor()}，净值 1；零手续费。`;
+function display(){const s=result.summary,p=result.params;$('#draft').hidden=true;$('#results').hidden=false;$('#applied').textContent=`当前结果：选择 ${p.start} 至 ${p.end}；实际交易 ${p.effectiveStart}—${p.effectiveEnd}；持有 ${p.months} 个月；${p.tool}；单笔 ${p.weight}%；${p.nonST?'历史非 ST':'不限制 ST'}。比较基期 ${anchor()}，净值 1、累计收益 0；不继承此前持仓，零手续费。`;
  const stats=[['累计收益',pct(s.total_return)],['万得全A收益',pct(s.benchmark_return)],['累计超额',pct(s.excess_return)],['年化收益',pct(s.annual_return)],['最大回撤',pct(s.max_drawdown)],['买入 / 卖出',s.buys+' / '+s.sells],['期末持仓',s.open+' 只'],['已平仓胜率',pct(s.win_rate)]];
  $('#metrics').innerHTML=stats.map(([k,v])=>'<div><dt>'+k+'</dt><dd>'+v+'</dd></div>').join('');table('#year-table',perfHeaders,result.yearly.map(r=>perfRow(r,r.label)));table('#regime-table',perfHeaders,result.regimes.map(r=>perfRow(r,r.label)));
- $('#day').min=p.start;$('#day').max=p.end;comparison=null;$('#compare-table').innerHTML='';$('#compare-chart').innerHTML='';$('#export-compare').disabled=true;daily(p.z);updatePoolComparison();show(current);
+ $('#day').min=p.effectiveStart;$('#day').max=p.effectiveEnd;comparison=null;$('#compare-table').innerHTML='';$('#compare-chart').innerHTML='';$('#export-compare').disabled=true;daily(p.z);updatePoolComparison();show(current);
 }
 $('#compare-run').onclick=()=>{if(busy)return;lock(true);error('');worker.postMessage({type:'compare'});};
 function compareChart(){const colors=['#1c6c61','#486d9b','#ad793e','#80576e','#5d7d3a','#467d89','#7c7250','#445b74','#a85e50','#4b9383','#887cb2','#b08c3d'],x=[anchor(),...dates()];graph('compare-chart',comparison.map((r,i)=>line(r.months+' 个月',x,[1,...r.nav],colors[i])));}

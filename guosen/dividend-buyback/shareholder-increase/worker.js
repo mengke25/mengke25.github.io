@@ -1,5 +1,5 @@
 'use strict';
-importScripts('./core.js?v=fixed-hold-1');
+importScripts('./core.js?v=start-20261107');
 let data,manifest;const cache=new Map();
 async function asset(path){
  const r=await fetch('./'+path);if(!r.ok)throw Error('输入读取失败：'+path);

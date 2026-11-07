@@ -1,44 +1,164 @@
 {
+  "feature": "strategy-start-20261107",
   "passed": true,
-  "publication": "fixed-hold-v1-20261105",
-  "source": {
-    "snapshot_sha256": "e2944536d89d2a22570d211bba6fcccff7ce6cb830b73afaf5f667cbcc01ebcb",
-    "gate_sha256": "cff728a3d44db501515b8799834efeb4fcdeb8d9883e36ec0097805886991a01",
-    "engine_source_sha256": "42d0fe493a0c1ba897e66b8b52398c0b1ffaface4401c1546e60e2066f88566c",
-    "manifest_sha256": "5b6dd1689a3e4d9c588e9c4f6ac23a5fdf126150444fca4b72591fe2a55a9a34",
-    "events": 1831,
-    "stocks": 914
-  },
-  "python_cases": 18,
-  "daily_rows": 73278,
-  "browser": {
-    "passed": true,
-    "first_buy": "2011-09-30",
-    "console_errors": [],
-    "default_checked": [
-      "历史非 ST",
-      "净利润非负"
-    ],
-    "dropdown_sizes": [
-      19,
-      11,
-      24
-    ],
-    "holding_comparison_rows": 24,
-    "nav_points": 4072
-  },
+  "checks": 54185,
+  "cases": [
+    {
+      "kind": "increase",
+      "start": "2015-01-01",
+      "effective": "2015-01-05",
+      "months": 1,
+      "days": 2859,
+      "buys": 559,
+      "return": 3.7699939893280057
+    },
+    {
+      "kind": "increase",
+      "start": "2015-01-01",
+      "effective": "2015-01-05",
+      "months": 3,
+      "days": 2859,
+      "buys": 528,
+      "return": -0.7035028920292288
+    },
+    {
+      "kind": "increase",
+      "start": "2015-01-01",
+      "effective": "2015-01-05",
+      "months": 12,
+      "days": 2859,
+      "buys": 226,
+      "return": 0.284824601205625
+    },
+    {
+      "kind": "increase",
+      "start": "2020-01-04",
+      "effective": "2020-01-06",
+      "months": 1,
+      "days": 1638,
+      "buys": 388,
+      "return": 0.1695055166449002
+    },
+    {
+      "kind": "increase",
+      "start": "2020-01-04",
+      "effective": "2020-01-06",
+      "months": 3,
+      "days": 1638,
+      "buys": 315,
+      "return": -0.3269769367481664
+    },
+    {
+      "kind": "increase",
+      "start": "2020-01-04",
+      "effective": "2020-01-06",
+      "months": 12,
+      "days": 1638,
+      "buys": 173,
+      "return": 0.09091368324220306
+    },
+    {
+      "kind": "increase",
+      "start": "2023-01-01",
+      "effective": "2023-01-03",
+      "months": 1,
+      "days": 912,
+      "buys": 279,
+      "return": -0.48146500562882144
+    },
+    {
+      "kind": "increase",
+      "start": "2023-01-01",
+      "effective": "2023-01-03",
+      "months": 3,
+      "days": 912,
+      "buys": 213,
+      "return": -0.021623113507241554
+    },
+    {
+      "kind": "increase",
+      "start": "2023-01-01",
+      "effective": "2023-01-03",
+      "months": 12,
+      "days": 912,
+      "buys": 99,
+      "return": 0.06646147539484426
+    },
+    {
+      "kind": "increase",
+      "start": "2026-01-01",
+      "effective": "2026-01-05",
+      "months": 1,
+      "days": 185,
+      "buys": 100,
+      "return": 0.003355785628695651
+    },
+    {
+      "kind": "increase",
+      "start": "2026-01-01",
+      "effective": "2026-01-05",
+      "months": 3,
+      "days": 185,
+      "buys": 83,
+      "return": -0.06575409229832319
+    },
+    {
+      "kind": "increase",
+      "start": "2026-01-01",
+      "effective": "2026-01-05",
+      "months": 12,
+      "days": 185,
+      "buys": 30,
+      "return": -0.13692199757305434
+    },
+    {
+      "kind": "increase",
+      "start": "2026-10-13",
+      "effective": "2026-10-13",
+      "months": 1,
+      "days": 1,
+      "buys": 38,
+      "return": 0.013666813136515188
+    },
+    {
+      "kind": "increase",
+      "start": "2026-10-13",
+      "effective": "2026-10-13",
+      "months": 3,
+      "days": 1,
+      "buys": 38,
+      "return": 0.013666813136515188
+    },
+    {
+      "kind": "increase",
+      "start": "2026-10-13",
+      "effective": "2026-10-13",
+      "months": 12,
+      "days": 1,
+      "buys": 38,
+      "return": 0.013666813136515188
+    }
+  ],
+  "scope": "Start-date feature regression; source price and event data unchanged. Not a new financial-data audit.",
+  "browser_checks": [
+    "weekend shifted to 2020-01-06",
+    "same-base benchmark",
+    "pool date lower bound",
+    "holding-period comparison",
+    "CSV export dates verified"
+  ],
   "files": {
     "app.js": {
-      "sha256": "4bec346c4768f4121c8ab31f2b49dc9f00a034229038bd3318386247b7f42377",
-      "bytes": 16791
+      "sha256": "d31a85ce42950c3bd9b5f3edf0b33cad93df2e9c3b7d7d9c85d5539c80a53d8d",
+      "bytes": 17668
     },
     "core.js": {
-      "sha256": "42d0fe493a0c1ba897e66b8b52398c0b1ffaface4401c1546e60e2066f88566c",
-      "bytes": 7926
+      "sha256": "c58cab17de333876b72852822a59ec79bccf891a68c4b8defbc53a092b716df9",
+      "bytes": 8852
     },
     "index.html": {
-      "sha256": "5148df8373e5415cf3d56e7c1e93c8fd6b85fd7a3e52f6f3a0a3d1ccf4a0e62e",
-      "bytes": 9866
+      "sha256": "3c1a90547987254aa063681f9d5d8ae3732a670f9190855b0afbc8b4965127af",
+      "bytes": 10238
     },
     "manifest.json": {
       "sha256": "5b6dd1689a3e4d9c588e9c4f6ac23a5fdf126150444fca4b72591fe2a55a9a34",
@@ -57,8 +177,8 @@
       "bytes": 5949
     },
     "worker.js": {
-      "sha256": "6f94d038074da3966ccc35d32f99b395378b2463ccd530d4315b7bb61a1d395d",
-      "bytes": 2431
+      "sha256": "c701f0fc4a7a523060861eec46bd47d6556b7cc4fef6e11d67160f846a4941c6",
+      "bytes": 2433
     },
     "inputs/meta.json.gz": {
       "sha256": "3f88b588e32ea1542e74c34b91dbce4698b2c996150e57ba3188a9593af756c6",
@@ -95,107 +215,6 @@
     "vendor/plotly.min.js": {
       "sha256": "6ceddd4bac82a64f5a2b8814a4d10bb4288379262f1989caee3148e7c3509c72",
       "bytes": 4838098
-    }
-  },
-  "pool_comparison": {
-    "passed": true,
-    "panel": "shareholder",
-    "records": [
-      {
-        "label": "initial",
-        "before": "2026-10-12",
-        "after": "2026-10-13",
-        "kind": "信号股票池",
-        "counts": {
-          "added": 0,
-          "kept": 0,
-          "removed": 0
-        }
-      },
-      {
-        "label": "signal_nonadjacent",
-        "before": "2022-01-04",
-        "after": "2026-10-13",
-        "kind": "信号股票池",
-        "counts": {
-          "added": 0,
-          "kept": 0,
-          "removed": 0
-        }
-      },
-      {
-        "label": "nonempty_shareholder_signals",
-        "before": "2011-09-29",
-        "after": "2026-09-30",
-        "kind": "信号股票池",
-        "counts": {
-          "added": 2,
-          "kept": 0,
-          "removed": 1
-        }
-      },
-      {
-        "label": "holdings_nonadjacent",
-        "before": "2022-01-04",
-        "after": "2026-10-13",
-        "kind": "实际持仓",
-        "counts": {
-          "added": 2,
-          "kept": 0,
-          "removed": 6
-        }
-      },
-      {
-        "label": "same_day",
-        "before": "2026-10-13",
-        "after": "2026-10-13",
-        "kind": "实际持仓",
-        "counts": {
-          "added": 0,
-          "kept": 2,
-          "removed": 0
-        }
-      },
-      {
-        "label": "empty",
-        "before": "2010-01-04",
-        "after": "2010-01-04",
-        "kind": "信号股票池",
-        "counts": {
-          "added": 0,
-          "kept": 0,
-          "removed": 0
-        }
-      },
-      {
-        "label": "regenerated",
-        "before": "2026-10-12",
-        "after": "2026-10-13",
-        "kind": "实际持仓",
-        "counts": {
-          "added": 0,
-          "kept": 2,
-          "removed": 0
-        }
-      }
-    ],
-    "downloads": 9,
-    "ledger_reconciled": true,
-    "nav_unchanged_by_date_comparison": true,
-    "invalid_dates_rejected": true,
-    "unapplied_parameters_preserved": true,
-    "regeneration": true,
-    "race_check": true,
-    "mobile_overflow": false,
-    "errors": [],
-    "assets": {
-      "app.js": "4bec346c4768f4121c8ab31f2b49dc9f00a034229038bd3318386247b7f42377",
-      "worker.js": "6f94d038074da3966ccc35d32f99b395378b2463ccd530d4315b7bb61a1d395d",
-      "index.html": "5148df8373e5415cf3d56e7c1e93c8fd6b85fd7a3e52f6f3a0a3d1ccf4a0e62e",
-      "pool-compare.js": "12d6b8bb163b7d33f7cde11183428b9b3e4d7bd36d5b93a2fa4acafb3c25c90c",
-      "pool-compare.css": "dd7a6b8821d246d73d41c02991f983bdb728b07fb6be8c63bae959283de3b053",
-      "core.js": "42d0fe493a0c1ba897e66b8b52398c0b1ffaface4401c1546e60e2066f88566c",
-      "manifest.json": "5b6dd1689a3e4d9c588e9c4f6ac23a5fdf126150444fca4b72591fe2a55a9a34"
     }
   }
 }
