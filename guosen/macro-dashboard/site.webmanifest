@@ -1,0 +1,15 @@
+{
+  "id": "/guosen/macro-dashboard/",
+  "name": "宏观看板@mengke25",
+  "short_name": "宏观看板",
+  "lang": "zh-CN",
+  "start_url": "/guosen/macro-dashboard/",
+  "scope": "/guosen/macro-dashboard/",
+  "display": "standalone",
+  "background_color": "#f7f8fa",
+  "theme_color": "#f7f8fa",
+  "icons": [
+    {"src": "icons/tree-v1-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icons/tree-v1-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"}
+  ]
+}
