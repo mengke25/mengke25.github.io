@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>回购与股权激励</title><meta name="description" content="按回购用途、回购方式及公告阶段分别研究，保留股权激励首次实施公告回测。"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="hub.css"><script defer src="pool-compare.js"></script><script defer src="catalog-core.js"></script><script defer src="hub.js"></script></head>
+<body><header><div class="shell"><div class="mast"><strong>回购与股权激励</strong><span id="cutoff">读取数据中</span></div><nav aria-label="研究模块"><button data-page="method" aria-current="page">方法说明</button><button data-page="ledger">用途与阶段台账</button><button data-page="buyback">回购用途回测</button><button data-page="incentive">股权激励回测</button></nav></div></header>
+<main><section id="method" class="shell method"><h1>先分清回购用途，<br>再看激励走到哪一步。</h1><dl>
+<dt>怎么分</dt><dd>公司只公告回购，即使准备把股票用于股权激励，也先放在“回购”。有明确对应的激励预案后，才进入“激励待实施”；首次实施公告后，进入“激励已实施”。</dd>
+<dt>区分用途</dt><dd>注销减资、拟用于股权激励、员工持股、混合用途、市值管理等分别看。“股权激励注销”单独列出，它不是新回购股票准备授予。集中竞价、定向回购另设筛选，不和用途混在一起。</dd>
+<dt>怎么买卖</dt><dd>回购研究在每个可辨认方案的最早现存明细公告后，下一交易日尝试买入。激励研究仍按首次实施公告后买入。两者独立运行、固定本金、持有 1—12 个月、零交易费用；台账归类变化不会自动买卖。</dd>
+<dt>看什么</dt><dd>按日查看方案处于哪一阶段、回购用途、方式及原始表述；对比两期新增、保留、移出和阶段变化并下载 Excel。回测中查看股票池、实际买卖、净值、万得全A超额、年度和牛熊统计。</dd></dl>
+<p class="note">用途不同，不能直接用同一个“回购金额”解释 ROE。本页不推算未经财务数据验证的 ROE 增幅，也不把计划金额当作实际执行金额。</p><button class="primary" data-open="ledger">查看用途与阶段</button>
+<details open><summary>本次数据能确认什么</summary><p id="coverage"></p><p>原始明细没有提供回购批次与激励预案的直接对应编号。现阶段未核实的回购保留在回购类；激励方案独立列示，不依据“同一家公司”自动关联。不是说这些公司没有激励，而是尚不能证明对应的是哪一批回购。</p><p>现存明细往往晚于首次回购预案，本回购回测不是完整的“首次预案后买入”回测；不用晚披露的用途回填早期日期。记录缺失的期间不虚构股票池，数据样本也不代表全市场零遗漏。</p></details></section>
+<section id="ledger" class="shell" hidden><h2>按公告时点查看方案</h2><p class="note">这是方案台账，不是持仓。统计单位为方案，同一股票可以有多个方案；买卖及股票池请看各自回测。名称沿用导出名称，金额为该次已披露累计执行金额，不跨公告相加。</p>
+<form id="filters" class="toolbar"><label>前一期<input type="date" id="before" required></label><label>本期<input type="date" id="after" required></label><label>用途<select id="purpose"></select></label><label>回购方式<select id="method-filter"></select></label><label>阶段<select id="stage"><option>全部</option><option>回购</option><option>股权激励·待实施</option><option>股权激励·已实施</option></select></label><label>代码 / 名称<input type="search" id="query" placeholder="例如 000001.SZ"></label><button class="primary" type="submit">更新台账</button></form>
+<p id="pending" class="hint" hidden>筛选已修改，点击“更新台账”后生效。下载仍对应上次已生成结果。</p><p id="error" role="alert" hidden></p><p id="applied" class="hint"></p><p id="counts" role="status"></p>
+<div class="buttons"><button id="download" disabled>下载两期台账 XLSX</button><button id="download-current" disabled>下载本期 XLSX</button></div><h2>本期明细</h2><div id="table"></div><div class="buttons pager"><button id="prev">上一页</button><span id="page-info"></span><button id="next">下一页</button></div><h2>两期变化</h2><p class="hint">按方案标识对比。用途或阶段变更单列；“保留”只表示同一方案仍在结果中，不表示金额或其他字段未变。下载包含全部行及原始用途、核实依据。</p><div id="changes"></div></section>
+<section id="buyback" class="embedded" hidden><iframe title="按回购用途与方式回测" id="buyback-frame"></iframe></section>
+<section id="incentive" class="embedded" hidden><iframe title="原股权激励首次实施公告回测" id="incentive-frame"></iframe></section>
+</main><footer class="shell">回购与股权激励研究 · 两类策略独立计算，不合并利润 · 不构成投资建议</footer></body></html>
