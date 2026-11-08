@@ -149,16 +149,16 @@
   ],
   "files": {
     "app.js": {
-      "sha256": "d31a85ce42950c3bd9b5f3edf0b33cad93df2e9c3b7d7d9c85d5539c80a53d8d",
-      "bytes": 17668
+      "sha256": "e23c5d8eaa890dfd24618d0008f67d019c207d567fe28f4ca09867092d4cc129",
+      "bytes": 18148
     },
     "core.js": {
-      "sha256": "c58cab17de333876b72852822a59ec79bccf891a68c4b8defbc53a092b716df9",
-      "bytes": 8852
+      "sha256": "ff82aeb3268f3ece8fc04167840fb6d62e64b8d59d92efd691c1280252b79b8a",
+      "bytes": 9241
     },
     "index.html": {
-      "sha256": "e834d2528107376f6dc25844d920f6b406d1936857eedb8f022948a0d451bdae",
-      "bytes": 10606
+      "sha256": "c606a2d277f3905c0b42924c3e82297aba636722ded9d127508ab33f6e395b31",
+      "bytes": 11003
     },
     "inputs/meta.json.gz": {
       "sha256": "3f88b588e32ea1542e74c34b91dbce4698b2c996150e57ba3188a9593af756c6",
@@ -213,12 +213,12 @@
       "bytes": 1147
     },
     "research-ranking.js": {
-      "sha256": "450205768205e60c1575bc5e8b03e540366296d6621a8d61d69047e4b72976b6",
-      "bytes": 8969
+      "sha256": "44f3f7db7acd684b09dbb9a921d6fa159aea3d8b04481569381e257cdd135963",
+      "bytes": 9357
     },
     "research-ranking.json": {
-      "sha256": "1e240f459a094634f23a85edd34a2cb2c19d158e7c13ed4e9f0c58f37eebaa2d",
-      "bytes": 6865
+      "sha256": "ced147409d20d8a066aa34a10c5de8c00e1db06208b991f197584a7743fbf101",
+      "bytes": 4080
     },
     "style.css": {
       "sha256": "a1bf1381858e1c1ad91eb01be3cb6533a80a98364f8e604c729ba7e724da690a",
@@ -229,17 +229,19 @@
       "bytes": 4838098
     },
     "worker.js": {
-      "sha256": "c701f0fc4a7a523060861eec46bd47d6556b7cc4fef6e11d67160f846a4941c6",
-      "bytes": 2433
+      "sha256": "b4ae1b54337b9b78f47252632453796053e2be43814acd248f01fa441f30cad7",
+      "bytes": 2434
     }
   },
   "parameter_ranking_20261108": {
     "passed": true,
-    "checks": 107319,
+    "sort": "full-window Sharpe descending",
+    "risk": "arithmetic mean of calendar-year maximum drawdowns; sample daily volatility; zero-risk-free arithmetic Sharpe, 244 days",
+    "checks": 85848,
     "browser": true,
-    "sort": "training70 annual-return minus benchmark-annual-return; validation30 is not sorted",
-    "scope": "method-page conclusions, purpose glossary, read-only parameter links and XLSX; engines and inputs unchanged",
-    "current_data_cutoff": "2026-10-13"
+    "unchangedNavAndTrades": true,
+    "rawInputsUnchanged": true,
+    "scope": "risk calculations, ranking, derived downloads and display; trading rules unchanged"
   },
   "plain_language_copy_20261108": {
     "passed": true,

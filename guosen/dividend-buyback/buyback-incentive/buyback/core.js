@@ -33,11 +33,13 @@ const Incentive = (() => {
   if(a>z||a>=d.days.length||z<0)throw Error('所选日期范围内没有交易日');
   return {...p,a,z,effectiveStart:d.days[a],effectiveEnd:d.days[z]};
  }
- function metrics(rets,br){
+ function metrics(rets,br,dates=null){
   let v=1,b=1,peak=1,dd=0;for(let i=0;i<rets.length;i++){v*=1+rets[i];b*=1+br[i];peak=Math.max(peak,v);dd=Math.min(dd,v/peak-1);}
   const n=rets.length,mean=rets.reduce((a,b)=>a+b,0)/n;
-  const vol=Math.sqrt(rets.reduce((s,r)=>s+(r-mean)**2,0)/n*244),annual=v**(244/n)-1,ba=b**(244/n)-1;
-  return {days:n,total_return:v-1,benchmark_return:b-1,excess_return:v-b,annual_return:annual,benchmark_annual:ba,excess_annual:annual-ba,volatility:vol,sharpe:vol?annual/vol:null,max_drawdown:dd,relative_return:v/b-1};
+  const vol=n>1?Math.sqrt(rets.reduce((s,r)=>s+(r-mean)**2,0)/(n-1)*244):null,annual=v**(244/n)-1,ba=b**(244/n)-1;
+  const years=new Map();if(dates)rets.forEach((r,i)=>{const y=dates[i].slice(0,4);if(!years.has(y))years.set(y,{v:1,peak:1,dd:0});const g=years.get(y);g.v*=1+r;g.peak=Math.max(g.peak,g.v);g.dd=Math.min(g.dd,g.v/g.peak-1);});
+  const annual_mdd_mean=years.size?[...years.values()].reduce((s,g)=>s+g.dd,0)/years.size:null;
+  return {days:n,total_return:v-1,benchmark_return:b-1,excess_return:v-b,annual_return:annual,benchmark_annual:ba,excess_annual:annual-ba,volatility:vol,sharpe:vol?mean*244/vol:null,max_drawdown:dd,annual_mdd_mean,relative_return:v/b-1};
  }
  function run(d,raw){
   const p=settings(d,raw),held=new Map(),trades=[],decisions=[],nav=[];
@@ -75,8 +77,8 @@ const Incentive = (() => {
   }
   const base=p.a?d.benchmark[p.a-1]:1,bench=d.benchmark.slice(p.a,p.z+1).map(v=>v/base);
   const rets=nav.map((r,i)=>r[0]/(i?nav[i-1][0]:1)-1),br=bench.map((v,i)=>v/(i?bench[i-1]:1)-1);
-  const sells=trades.filter(t=>t.side==='卖出'),summary={...metrics(rets,br),buys:trades.length-sells.length,sells:sells.length,open:held.size,cash,fees:0,win_rate:sells.length?sells.filter(t=>t.pnl>0).length/sells.length:null};
-  function grouped(fn){const g=new Map();rets.forEach((_,i)=>{const k=fn(i);if(!g.has(k))g.set(k,[]);g.get(k).push(i);});return [...g].map(([label,ids])=>({label,...metrics(ids.map(i=>rets[i]),ids.map(i=>br[i]))}));}
+  const sells=trades.filter(t=>t.side==='卖出'),summary={...metrics(rets,br,d.days.slice(p.a,p.z+1)),buys:trades.length-sells.length,sells:sells.length,open:held.size,cash,fees:0,win_rate:sells.length?sells.filter(t=>t.pnl>0).length/sells.length:null};
+  function grouped(fn){const g=new Map();rets.forEach((_,i)=>{const k=fn(i);if(!g.has(k))g.set(k,[]);g.get(k).push(i);});return [...g].map(([label,ids])=>({label,...metrics(ids.map(i=>rets[i]),ids.map(i=>br[i]),ids.map(i=>d.days[p.a+i]))}));}
   return {params:p,nav,bench,trades,decisions,summary,yearly:grouped(i=>d.days[p.a+i].slice(0,4)),regimes:grouped(i=>d.regime[p.a+i])};
  }
  function inspect(d,res,day){

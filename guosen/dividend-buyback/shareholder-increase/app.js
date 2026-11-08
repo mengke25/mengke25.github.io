@@ -5,7 +5,7 @@ const labels={16:'历史非 ST',8:'净利润非负',1:'流动性',2:'股权质�
 const bandText=b=>b===0?'0%（未被套）':`${(b-1)*10}—${b*10}%`;
 let meta,manifest,current,allSix,detail,compareRows=[],page='method',day=0,busy=false,requestId=0,inspectVersion=0;
 let excluded=new Set();const pending=new Map();
-const worker=new Worker('./worker.js?v=start-20261107');
+const worker=new Worker('./worker.js?v=sharpe-20261108');
 worker.onmessage=({data:m})=>{const p=pending.get(m.id);if(!p)return;if(m.progress){p.progress?.(m.progress);return;}pending.delete(m.id);m.error?p.reject(Error(m.error)):p.resolve(m.payload);};
 worker.onerror=()=>{for(const p of pending.values())p.reject(Error('计算线程未能运行，请使用新版 Chrome / Edge 刷新此页'));pending.clear();};
 function ask(type,extra={},progress){return new Promise((resolve,reject)=>{const id=++requestId;pending.set(id,{resolve,reject,progress});worker.postMessage({id,type,...extra});});}
@@ -60,7 +60,7 @@ function renderDay(){
  $('prev').disabled=day===current.startIndex;$('next').disabled=day===meta.days.length-1;
 }
 function renderAccount(){const s=current.summary;
- stats('account-stats',[['累计收益',pct(s.total_return)],['万得全A收益',pct(s.benchmark_return)],['累计超额',pct(s.excess_return)],['年化收益',pct(s.annual_return)],['最大回撤',pct(s.max_drawdown)],['年化波动',pct(s.volatility)],['Sharpe（无风险利率=0）',num(s.sharpe,3)],['实际买入 / 卖出',s.buy_count+' / '+s.sell_count]]);
+ stats('account-stats',[['累计收益',pct(s.total_return)],['万得全A收益',pct(s.benchmark_return)],['累计超额',pct(s.excess_return)],['年化收益',pct(s.annual_return)],['平均年度最大回撤',pct(s.annual_mdd_mean)],['年化波动',pct(s.volatility)],['Sharpe（无风险利率=0）',num(s.sharpe,3)],['实际买入 / 卖出',s.buy_count+' / '+s.sell_count]]);
  $('base-note').textContent=`选择起始日 ${current.params.start||meta.days[0]}；实际交易起点 ${current.effectiveStart}。比较基期 ${current.baseDate||meta.baseDate} 净值为 1，累计收益为 0；策略、六项对照和万得全A使用同一基期。回测至 ${meta.days.at(-1)}，不继承此前持仓；未用资金不计息。`;
 }
 function chart(id,traces,ytitle='净值'){
@@ -69,13 +69,15 @@ function chart(id,traces,ytitle='净值'){
  Plotly.react(id,traces,layout,{responsive:true,displaylogo:false,scrollZoom:false});
 }
 function drawAccount(){const a=current.startIndex,days=meta.days.slice(a),nav=current.nav.slice(a),x=[current.baseDate||meta.baseDate,...days];chart('nav-chart',[{x,y:[1,...nav.map(n=>n[0])],name:'当前策略',mode:'lines',line:{color:'#087e73',width:2}},{x,y:[1,...allSix.slice(a)],name:'六项全选对照',mode:'lines',line:{color:'#85959a',width:1.5,dash:'dot'}},{x,y:[1,...current.bench.slice(a)],name:'万得全A',mode:'lines',line:{color:'#b08741',width:1.5}}]);chart('capital-chart',[{x:days,y:nav.map(n=>n[1]/1e4),name:'现金',type:'scatter',stackgroup:'one',line:{color:'#a4c3be'}},{x:days,y:nav.map(n=>(n[0]*1e6-n[1])/1e4),name:'股票市值',type:'scatter',stackgroup:'one',line:{color:'#087e73'}}],'万元');}
-function grouped(kind){const groups=new Map();for(let i=current.startIndex;i<meta.days.length;i++){
- const key=kind==='year'?meta.days[i].slice(0,4):meta.regime[i]||'未划分';if(!groups.has(key))groups.set(key,{count:0,s:1,b:1,peak:1,dd:0});const g=groups.get(key);
- g.s*=current.nav[i][0]/(i>current.startIndex?current.nav[i-1][0]:1);g.b*=current.bench[i]/(i>current.startIndex?current.bench[i-1]:1);g.count++;g.peak=Math.max(g.peak,g.s);g.dd=Math.min(g.dd,g.s/g.peak-1);
- }return [...groups].map(([key,g])=>[key,g.count,pct(g.s-1),pct(g.b-1),pct(g.s-g.b),pct(g.dd)]);}
-function renderPeriods(){const h=['期间','交易日数','策略收益','万得全A','累计超额','策略回撤'];table('years-table',h,grouped('year'));table('regime-table',h,grouped('regime'));}
+function grouped(kind){
+ const groups=new Map();for(let i=current.startIndex;i<meta.days.length;i++){
+  const key=kind==='year'?meta.days[i].slice(0,4):meta.regime[i]||'未划分';if(!groups.has(key))groups.set(key,[]);groups.get(key).push(i);
+ }
+ return [...groups].map(([key,ii])=>{let v=1,b=1;const vv=[],bb=[],dates=[];for(const i of ii){v*=current.nav[i][0]/(i>current.startIndex?current.nav[i-1][0]:1);b*=current.bench[i]/(i>current.startIndex?current.bench[i-1]:1);vv.push(v);bb.push(b);dates.push(meta.days[i]);}const m=FixedHold.performance(vv,bb,dates);return [key,ii.length,pct(m.total_return),pct(m.benchmark_return),pct(m.excess_return),pct(m.annual_return),pct(m.volatility),num(m.sharpe,3),pct(m.annual_mdd_mean)];});
+}
+function renderPeriods(){const h=['期间','交易日数','策略收益','万得全A','累计超额','年化收益','年化波动率','Sharpe','平均年度最大回撤'];table('years-table',h,grouped('year'));table('regime-table',h,grouped('regime'));}
 $('compare-run').onclick=async()=>{if(busy||!current)return;setBusy(true);$('error').hidden=true;const p=current.params;
- try{compareRows=await ask('compare',{p},s=>$('compare-status').textContent=s);$('compare-status').textContent='完成。其余条件：'+configText(p);$('compare-chart').hidden=false;drawCompare();table('compare-table',['持有月数','累计收益','万得全A','累计超额','年化收益','最大回撤','买入笔数','期末持仓','查看'],compareRows.map(r=>[r.months,pct(r.total_return),pct(r.benchmark_return),pct(r.excess_return),pct(r.annual_return),pct(r.max_drawdown),r.buy_count,r.account_open_count,`<button data-month="${r.months}">应用 ${r.months} 月</button>`]));$('export-compare').disabled=false;}catch(e){error(e);}finally{setBusy(false);}
+ try{compareRows=await ask('compare',{p},s=>$('compare-status').textContent=s);compareRows.sort((a,b)=>(b.sharpe??-Infinity)-(a.sharpe??-Infinity)||a.months-b.months);$('compare-status').textContent='完成，按 Sharpe 降序。其余条件：'+configText(p);$('compare-chart').hidden=false;drawCompare();table('compare-table',['持有月数','累计收益','万得全A','累计超额','年化收益','年化波动率','Sharpe','平均年度最大回撤','买入笔数','期末持仓','查看'],compareRows.map(r=>[r.months,pct(r.total_return),pct(r.benchmark_return),pct(r.excess_return),pct(r.annual_return),pct(r.volatility),num(r.sharpe,3),pct(r.annual_mdd_mean),r.buy_count,r.account_open_count,`<button data-month="${r.months}">应用 ${r.months} 月</button>`]));$('export-compare').disabled=false;}catch(e){error(e);}finally{setBusy(false);}
 };
 function drawCompare(){if(!window.Plotly)return;Plotly.react('compare-chart',[{x:compareRows.map(r=>r.months),y:compareRows.map(r=>r.total_return*100),type:'bar',name:'策略累计收益',marker:{color:'#087e73'}},{x:compareRows.map(r=>r.months),y:compareRows.map(r=>r.excess_return*100),type:'bar',name:'相对万得全A超额',marker:{color:'#b08741'}}],{barmode:'group',margin:{l:60,r:20,t:45,b:40},font:{family:'Microsoft YaHei'},legend:{orientation:'h'},xaxis:{title:'持有月数',dtick:1},yaxis:{title:'%'},paper_bgcolor:'#fff',plot_bgcolor:'#fff'},{responsive:true,displaylogo:false});}
 $('compare-table').onclick=e=>{const b=e.target.closest('[data-month]');if(!b||busy)return;const p={...current.params,months:Number(b.dataset.month)};setForm(p);navTo('account');generate(p);};
@@ -84,7 +86,7 @@ $('export-pool').onclick=()=>detail&&csv('股票池_'+meta.days[day],['交易日
 $('export-holdings').onclick=()=>detail&&csv('持仓_'+meta.days[day],['交易日','代码','名称','成本','当日收盘','被套比例','数量','估值价格','估值日','买入日','计划到期','状态'],detail.holdings.map(r=>[meta.days[day],r.code,r.name,r.cost,r.close,r.under,r.qty,r.mark,r.markDate,r.entry,r.due,r.status]));
 $('export-trades').onclick=()=>csv('全部成交',['成交日','代码','名称','买卖','成交价','数量','金额','费用','买入日','计划到期'],current.trades.map(t=>[meta.days[t[0]],meta.symbols[meta.refs[t[1]][0]],meta.refs[t[1]][1],t[2]==='B'?'买入':'卖出',...t.slice(3,7),meta.days[t[7]],t[8]]));
 $('export-nav').onclick=()=>csv('每日账户',['交易日','策略净值','万得全A净值','六项全选对照','现金','股票市值','持仓数','可买数','到期未成交数'],current.nav.slice(current.startIndex).map((n,j)=>{const i=j+current.startIndex;return [meta.days[i],n[0],current.bench[i],allSix[i],n[1],n[0]*1e6-n[1],...n.slice(2)];}));
-$('export-compare').onclick=()=>csv('持有期对比',['持有月数','累计收益','万得全A','累计超额','年化收益','最大回撤','买入笔数','期末持仓'],compareRows.map(r=>[r.months,r.total_return,r.benchmark_return,r.excess_return,r.annual_return,r.max_drawdown,r.buy_count,r.account_open_count]));
+$('export-compare').onclick=()=>csv('持有期对比',['持有月数','累计收益','万得全A','累计超额','年化收益','年化波动率','Sharpe','平均年度最大回撤','买入笔数','期末持仓'],compareRows.map(r=>[r.months,r.total_return,r.benchmark_return,r.excess_return,r.annual_return,r.volatility,r.sharpe,r.annual_mdd_mean,r.buy_count,r.account_open_count]));
 const poolColumns=[{key:'ratio',label:'合计增持',kind:'percent'},{key:'cost',label:'股东成本',kind:'number'},{key:'close',label:'当日收盘价',kind:'number'},{key:'under',label:'被套程度',kind:'percent'},{key:'ann',label:'披露日',kind:'date'}];
 const poolComparison=PoolCompare.mount($('pool-comparison'),{
  load:(before,after,s)=>ask('poolCompare',{before,after,p:s.appliedParams}),rows:(d,kind)=>d[kind],

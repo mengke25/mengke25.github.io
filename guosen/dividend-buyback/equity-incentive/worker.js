@@ -1,5 +1,5 @@
 'use strict';
-importScripts('core.js?v=start-20261107');
+importScripts('core.js?v=sharpe-20261108');
 let data=null,manifest=null,result=null;
 const cache=new Map();
 function progress(message){postMessage({type:'progress',message});}

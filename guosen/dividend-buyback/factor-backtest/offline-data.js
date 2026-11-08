@@ -19,9 +19,9 @@ window.OfflineData=(()=>{
  async function compare(a,b,steps){if(a>b)throw Error('比较起点不能晚于观察季度');const early=await pool(a,steps),late=await pool(b,steps),aa=new Set(early.rows.map(r=>r.wind_code)),bb=new Set(late.rows.map(r=>r.wind_code));return {early,late,added:late.rows.filter(r=>!aa.has(r.wind_code)),removed:early.rows.filter(r=>!bb.has(r.wind_code)),retained:late.rows.filter(r=>aa.has(r.wind_code)),signature:early.signature+late.signature};}
  function score(m,k){if(k==='excess_return')k='excess_annual_return';return k==='low_volatility'?-m.volatility:k==='low_drawdown'?m.max_drawdown:k==='robust_composite'?m.annual_return-m.volatility+m.max_drawdown:m[k];}
  async function search(b){const c=b.config,all=await load('data/candidates.json.gz');
-  const matches=all.filter(r=>r.steps.length<=c.max_depth&&r.steps.every(s=>c.factors.includes(s.id))&&r.avg_holdings>=c.min_holdings&&r.avg_holdings<=c.max_holdings&&r.avg_pool_ratio>=c.min_pool_ratio&&r.avg_pool_ratio<=c.max_pool_ratio&&r.nonempty_ratio>=c.min_nonempty_ratio&&(c.min_annual_return==null||r.training.annual_return>=c.min_annual_return)&&(c.max_drawdown==null||-r.training.max_drawdown<=c.max_drawdown));
-  const results=matches.map(r=>({...r,score:score(r.training,c.objective)})).filter(r=>Number.isFinite(r.score)).sort((a,b)=>b.score-a.score||id(a.steps).localeCompare(id(b.steps))).slice(0,c.top_n);
-  return {id:'published',status:'completed',evaluated:all.length,budget:all.length,elapsed:0,errors:manifest.strategies.filter(x=>x.training_error).length,error_examples:manifest.strategies.filter(x=>x.training_error).slice(0,3).map(x=>x.id+': '+x.training_error),split:manifest.split,results,coverage:'仅对已发布候选库筛选排序，不是实时搜索，不代表全局最优。排名与约束只用训练期。'};
+  const matches=all.filter(r=>r.full&&r.steps.length<=c.max_depth&&r.steps.every(s=>c.factors.includes(s.id))&&r.avg_holdings>=c.min_holdings&&r.avg_holdings<=c.max_holdings&&r.avg_pool_ratio>=c.min_pool_ratio&&r.avg_pool_ratio<=c.max_pool_ratio&&r.nonempty_ratio>=c.min_nonempty_ratio&&(c.min_annual_return==null||r.full.annual_return>=c.min_annual_return)&&(c.max_drawdown==null||-r.full.annual_mdd_mean<=c.max_drawdown));
+  const results=matches.map(r=>({...r,score:r.full.sharpe})).filter(r=>Number.isFinite(r.score)).sort((a,b)=>b.score-a.score||id(a.steps).localeCompare(id(b.steps))).slice(0,c.top_n);
+  return {id:'published',status:'completed',evaluated:all.length,budget:all.length,elapsed:0,errors:manifest.strategies.filter(x=>x.training_error).length,error_examples:manifest.strategies.filter(x=>x.training_error).slice(0,3).map(x=>x.id+': '+x.training_error),split:manifest.split,results,coverage:'仅对已发布候选库筛选排序，不是实时搜索，不代表全局最优。排名和约束均使用完整回测区间；Sharpe 降序，回撤约束使用平均年度最大回撤。历史筛选不代表样本外检验。'};
  }
  async function api(url,b={}){
   await init();const u=new URL(url,'https://local.invalid');
@@ -29,7 +29,7 @@ window.OfflineData=(()=>{
   if(u.pathname==='/api/pool')return b.compare?compare(b.early,b.late,b.steps):pool(b.quarter,b.steps);
   if(u.pathname==='/api/backtest'){
    if(Object.keys(manifest.settings).some(k=>b[k]!==manifest.settings[k]))throw Error('该区间或费用尚未发布，请在本地终端计算后更新。');
-   const r=manifest.strategies.find(r=>r.id===id(b.steps));if(!r)throw Error('此组合尚未预计算。可以查看股票池，或从“已发布策略”列表选择；新收益需本地计算后发布。');if(r.status!=='ok')throw Error('此配置未通过本地数据校验：'+r.error);return load(r.file);
+   const r=manifest.strategies.find(r=>r.id===id(b.steps));if(!r)throw Error('此组合尚未预计算。可以查看股票池，或从“已发布策略”列表选择；新收益需本地计算后发布。');if(r.status!=='ok')throw Error('此配置未通过本地数据校验：'+r.error);if(!r.file)throw Error('该候选已计算统计指标，尚未发布完整净值文件；股票池仍可查看。');return load(r.file);
   }
   if(u.pathname==='/api/coverage'){const out=[];for(const q of manifest.summary.quarters){const r=await pool(q,b.steps);out.push({quarter:q,count:r.count,total:r.total});}return out;}
   if(u.pathname==='/api/matrix'){if(b.x===b.y)throw Error('请选择两个不同因子');const factors=Object.fromEntries(manifest.summary.factors.map(f=>[f.id,f]));const x=factors[b.x].kind==='rank'?manifest.summary.grid:[1],y=factors[b.y].kind==='rank'?manifest.summary.grid:[1],rows=await quarter(b.quarter);const step=(f,n)=>({id:f,...(factors[f].kind==='rank'?{q:n}:{value:n})});return {x,y,cells:x.map(a=>y.map(v=>select(rows,[step(b.x,a),step(b.y,v)]).rows.length))};}

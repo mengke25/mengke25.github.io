@@ -1,5 +1,5 @@
 'use strict';
-importScripts('core.js?v=buyback1','buyback-filter.js');
+importScripts('core.js?v=sharpe-20261108','buyback-filter.js');
 let data=null,manifest=null,result=null;
 const cache=new Map();
 function progress(message){postMessage({type:'progress',message});}

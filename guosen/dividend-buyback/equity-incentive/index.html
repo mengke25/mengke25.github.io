@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>股权激励首次实施公告策略</title><meta name="description" content="首次实施公告后买入，比较1至12个月持有期的净值、万得全A超额及每日交易。"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="pool-compare.css?v=pool1"><script defer src="vendor/plotly.min.js"></script><script defer src="pool-compare.js?v=pool1"></script><script defer src="app.js?v=start-20261107"></script></head>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>股权激励首次实施公告策略</title><meta name="description" content="首次实施公告后买入，比较1至12个月持有期的净值、万得全A超额及每日交易。"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="pool-compare.css?v=pool1"><script defer src="vendor/plotly.min.js"></script><script defer src="pool-compare.js?v=pool1"></script><script defer src="app.js?v=sharpe-20261108"></script></head>
 <body><link rel="stylesheet" href="overrides.css"><header><div class="shell"><div class="mast"><strong>股权激励首次实施公告策略</strong><span id="cutoff">正在读取数据日期</span></div><nav aria-label="策略页面"><button data-tab="method" aria-current="page">方法说明</button><button data-tab="pool">股票池与交易</button><button data-tab="nav">净值与资金</button><button data-tab="compare">持有期对比</button><button data-tab="year">年度与牛熊</button></nav></div></header>
 <script defer src="research-rank-apply.js?v=20261108"></script><main class="shell">
  <section id="method" class="method">
@@ -11,7 +11,7 @@
   <dt>看什么</dt><dd>每日有哪些公告触发买入、哪些没买及原因、实际持仓与到期日；再看净值、相对万得全A的收益，以及 12 个持有期、各年度和不同市场阶段的结果。</dd></dl>
   <p class="note">使用不复权行情，不计现金分红与送转调整，结果不等同总回报。牛熊划分用于事后统计，不参与选股。历史 ST 和涨跌停为近似判断。</p>
   <button class="primary" id="start-view">查看回测与股票池</button>
-  <details><summary>数据范围与去重口径</summary><div id="audit-summary"></div><p>原始两份 Excel 完整保存在本地。以一览表的首次实施公告日期构造事件，实施明细仅作辅助核查。不按当前“实施/终止/全部完成”状态筛历史样本。同公司、同预案日、同激励工具识别方案，日期冲突隔离；同公司同一实施公告日合并买入事件。</p><p>数量、授予价格、企业属性等可能被事后修改，因此不拿当前值做历史筛选。工具分类沿用原表方案分类。该数据是本次导出样本，未证明全市场零遗漏。</p></details>
+  <p id="risk-definition" class="muted">风险统计：平均年度最大回撤按每个自然年分别计算后等权平均，首尾不足整年按已有交易日计入；不是全历史最大回撤，也不是最坏年份。波动率按日收益样本标准差年化，Sharpe 无风险利率取0，每年244个交易日。</p><details><summary>数据范围与去重口径</summary><div id="audit-summary"></div><p>原始两份 Excel 完整保存在本地。以一览表的首次实施公告日期构造事件，实施明细仅作辅助核查。不按当前“实施/终止/全部完成”状态筛历史样本。同公司、同预案日、同激励工具识别方案，日期冲突隔离；同公司同一实施公告日合并买入事件。</p><p>数量、授予价格、企业属性等可能被事后修改，因此不拿当前值做历史筛选。工具分类沿用原表方案分类。该数据是本次导出样本，未证明全市场零遗漏。</p></details>
  </section>
  <section id="workspace" hidden>
   <form id="params" class="toolbar">

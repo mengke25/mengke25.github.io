@@ -13,10 +13,10 @@
     "ST_periodic_snapshots"
   ],
   "files": {
-    "buyback/app.js": "71e90daadaf09e893249d0d42cdfb29cd3604879e15ad616ebbfb5a538e2443c",
+    "buyback/app.js": "650412cd50570e24d154dd830d9684a383ff4239af54285fc3d1096e4247c195",
     "buyback/buyback-filter.js": "0f7b35440c8c662264a8302445db4b7812c9bdbbc324f5d16fc47b79c5542296",
-    "buyback/core.js": "7b01a2f80a9da5495643b64bc6fe52b7c47d61a8f4b261ec13219c8dc4c95965",
-    "buyback/index.html": "b26c19fbc5d6c5f1182c7c81bc6a3d567269f1ab54aff28517f2c747f8470280",
+    "buyback/core.js": "786749f71763c6c91621e94c9cb663e029d1a3f9764be389f5bf110aa29c9a26",
+    "buyback/index.html": "44f4328e1049a7452e2352de80c305d20726865e7c9a4d10124a4bfcb79cd632",
     "buyback/inputs/meta.json.gz": "af5063182e5ee091b37e2b64203044415117fac84b8ac7f6655f86e1b71e927c",
     "buyback/inputs/quotes_0000.json.gz": "5629254719853bf9823b1f3e14c195fbd4efcb58766d8c1c7e31293eeed360bf",
     "buyback/inputs/quotes_0100.json.gz": "d50d6b724c36b2ed2aae09f219fff4b2aeb366293fedc139010126209765adfd",
@@ -62,17 +62,17 @@
     "buyback/research-rank-apply.js": "1da926040b9a3c40b9b6adebd13eb97cd91f72bcf994f72aafd0a670d55f121d",
     "buyback/style.css": "a1bf1381858e1c1ad91eb01be3cb6533a80a98364f8e604c729ba7e724da690a",
     "buyback/vendor/plotly.min.js": "6ceddd4bac82a64f5a2b8814a4d10bb4288379262f1989caee3148e7c3509c72",
-    "buyback/worker.js": "3b73588e3058313d47ea0eac75a8f508d91f161cc1eca1f0dd5c2c08ad9f5c2e",
+    "buyback/worker.js": "4736fa65d891774646dac7796751c62940146a8ef0aa44b57ad975f5dc924c94",
     "catalog-core.js": "ebf945bf9e62b89cb519b34f39d8b32188b32269747f542d85715840a82e4a08",
     "catalog-manifest.json": "aabc9d49147c3812690c185273bced0922fe9c76476d3a0784c952425c837d39",
     "catalog.json.gz": "c902ee3cfdb6f49acebd07313682e821aefd50366fa4596b9563a9859aa03404",
     "hub.css": "7b9fc20dde3f3ca71843faf1ad96ef70f62c5b97cc3f261dfe56d8c0a5c68a52",
     "hub.js": "478b3279d162cfc58b641681bd9b87e3975b7cfed22f2283e432d7210625b0fe",
-    "index.html": "a552a704a364ce1902ce7092b12e3b28b62b61788ded7a97461c39f7a476de61",
+    "index.html": "c481b9c4eff30c86f84dc3ff5e42d7d8fd645b14eeb589063029eb31c133443f",
     "pool-compare.js": "12d6b8bb163b7d33f7cde11183428b9b3e4d7bd36d5b93a2fa4acafb3c25c90c",
     "research-ranking.css": "6432fed1687e36b54bbd73e3faaf524457447025ea3e6b178e850d193033bac7",
-    "research-ranking.js": "450205768205e60c1575bc5e8b03e540366296d6621a8d61d69047e4b72976b6",
-    "research-ranking.json": "e9ac6c02208f56562e87db36be243c55fdc4327c9f7003029e4c90b9abb0173b",
+    "research-ranking.js": "44f3f7db7acd684b09dbb9a921d6fa159aea3d8b04481569381e257cdd135963",
+    "research-ranking.json": "527df6d9c1ce8ea3b3514dc60408395a19f5d44a7b5b1a45e1749a8bcfba4990",
     "style.css": "a1bf1381858e1c1ad91eb01be3cb6533a80a98364f8e604c729ba7e724da690a"
   },
   "content_update_20261108": {
@@ -101,11 +101,13 @@
   },
   "parameter_ranking_20261108": {
     "passed": true,
-    "checks": 107319,
+    "sort": "full-window Sharpe descending",
+    "risk": "arithmetic mean of calendar-year maximum drawdowns; sample daily volatility; zero-risk-free arithmetic Sharpe, 244 days",
+    "checks": 85848,
     "browser": true,
-    "sort": "training70 annual-return minus benchmark-annual-return; validation30 is not sorted",
-    "scope": "method-page conclusions, purpose glossary, read-only parameter links and XLSX; engines and inputs unchanged",
-    "current_data_cutoff": "2026-10-30"
+    "unchangedNavAndTrades": true,
+    "rawInputsUnchanged": true,
+    "scope": "risk calculations, ranking, derived downloads and display; trading rules unchanged"
   },
   "plain_language_copy_20261108": {
     "passed": true,

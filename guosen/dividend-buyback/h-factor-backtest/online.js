@@ -10,12 +10,12 @@ window.addEventListener('research-ready',async()=>{
  const f=Object.fromEntries(release.summary.factors.map(x=>[x.id,x]));
  for(const r of release.strategies){const o=document.createElement('option');o.value=r.id;o.textContent=r.steps.map(s=>f[s.id].name+' '+(s.q?s.q+'%':s.value?'满足':'不满足')).join(' → ')+(r.status!=='ok'?' · 数据不足':r.file?'':' · 仅指标');document.getElementById('published-strategy').append(o);}
  document.getElementById('use-published').onclick=()=>{const r=release.strategies.find(x=>x.id===document.getElementById('published-strategy').value);sendLab(r.steps);backtest('lab-result',r.steps);};
- document.getElementById('published-count').textContent=release.strategies.filter(x=>x.file).length+' 项有完整净值；其余有效候选仅发布训练、验证与全样本指标';
+ document.getElementById('published-count').textContent=release.strategies.filter(x=>x.file).length+' 项有完整净值；其余有效候选仅发布全区间统计指标';
  document.getElementById('search-run').textContent='筛选已发布候选';document.getElementById('search-stop').hidden=true;
  for(const id of ['search-budget','search-seconds'])document.getElementById(id).closest('label').hidden=true;
- document.getElementById('search-status').textContent='仅对本地预计算候选库进行筛选与训练期排序，不运行新的回测或全空间搜索。';
- document.querySelector('#reverse>p.muted').textContent='候选库覆盖单因子全部5%档位、两因子全部顺序的预算档位，以及三因子20%档的全部顺序。只按训练期指标排序与约束，验证期和全样本只用于展示；这不是全空间穷尽搜索，也不代表未来稳定或全局最优。';
+ document.getElementById('search-status').textContent='对已发布候选按完整回测区间 Sharpe 降序筛选，不运行新的回测或全空间搜索。';
+ document.querySelector('#reverse>p.muted').textContent='按完整回测区间的 Sharpe 从高到低排列；收益和平均年度最大回撤约束也用同一区间。这里只搜索本次已计算且满足基础样本要求的候选，不是全空间穷尽，也不是样本外检验。';
  document.getElementById('single-result').innerHTML='<p class="empty">选择因子与档位，查看本地预先计算的收益。未通过数据核验的配置会明确提示。</p>';
  document.querySelector('#audit>p').textContent='此处展示生成线上结果的同一套筛选、季度交易和市场归因代码；股价和财务原始数据库保留本地，线上仅发布派生因子与研究结果。';
- document.getElementById('export-xlsx').textContent='下载固定择优XLSX';document.getElementById('export-xlsx').disabled=false;document.getElementById('export-xlsx').onclick=()=>{location.href='./downloads/h-share-best-pool.xlsx';};const poolHint=document.createElement('p');poolHint.className='notice';poolHint.textContent='CSV对应当前动态筛选；XLSX为预算约束发布候选库按训练期稳健综合选出的固定结果，内含真实训练、验证、全样本指标与历次调仓股票池。';document.getElementById('pool-note').after(poolHint);refreshContexts();
+ document.getElementById('export-xlsx').textContent='下载Sharpe第一名XLSX';document.getElementById('export-xlsx').disabled=false;document.getElementById('export-xlsx').onclick=()=>{location.href='./downloads/parameter-rank-1.xlsx';};const poolHint=document.createElement('p');poolHint.className='notice';poolHint.textContent='CSV对应当前动态筛选；此XLSX固定对应首页 Sharpe 第一名，不跟随当前筛选变化。其他排名的XLSX请到首页选择后下载。';document.getElementById('pool-note').after(poolHint);refreshContexts();
 });

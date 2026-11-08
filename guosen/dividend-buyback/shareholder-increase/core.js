@@ -103,7 +103,7 @@ const FixedHold=(()=>{
    nav.push([equity/INITIAL,cash,held,count,overdue]);
   }
   const base=a?d.benchmark[a-1]:1,bench=d.benchmark.map((v,i)=>i<a?1:v/base);
-  const stats=performance(nav.slice(a).map(r=>r[0]),bench.slice(a));
+  const stats=performance(nav.slice(a).map(r=>r[0]),bench.slice(a),d.days.slice(a));
   return {params:p,startIndex:a,effectiveStart:d.days[a],baseDate:a?d.days[a-1]:d.baseDate,bench,nav,trades,blocked,summary:{...stats,initial_capital:INITIAL,final_equity:nav.at(-1)[0]*INITIAL,final_cash:cash,total_fees:0,buy_count:trades.filter(t=>t[2]==='B').length,sell_count:trades.filter(t=>t[2]==='S').length,account_open_count:nav.at(-1)[2]}};
  }
  function inspect(d,result,day){
@@ -129,11 +129,13 @@ const FixedHold=(()=>{
   if(pool.length!==result.nav[day][3]||holdings.length!==result.nav[day][2])throw Error('股票池与账户不一致');
   return {pool,holdings,trades:result.trades.filter(t=>t[0]===day),blocked:result.blocked.filter(t=>t[0]===day)};
  }
- function performance(v,b){
+ function performance(v,b,dates=null){
   let peak=1,dd=0,active=1,previous=1,bprev=1;
   const rs=v.map((x,i)=>{const r=x/previous-1,br=b[i]/bprev-1;previous=x;bprev=b[i];active*=1+r-br;peak=Math.max(peak,x);dd=Math.min(dd,x/peak-1);return r;});
-  const mean=rs.reduce((s,x)=>s+x,0)/rs.length,vol=Math.sqrt(244*rs.reduce((s,x)=>s+(x-mean)**2,0)/rs.length),ar=v.at(-1)**(244/v.length)-1;
-  return {total_return:v.at(-1)-1,annual_return:ar,excess_return:v.at(-1)-b.at(-1),benchmark_return:b.at(-1)-1,excess_annual_return:active>=0?active**(244/v.length)-1:null,volatility:vol,sharpe:vol?ar/vol:null,max_drawdown:dd};
+  const mean=rs.reduce((s,x)=>s+x,0)/rs.length,vol=rs.length>1?Math.sqrt(244*rs.reduce((s,x)=>s+(x-mean)**2,0)/(rs.length-1)):null,ar=v.at(-1)**(244/v.length)-1;
+  const years=new Map();if(dates)rs.forEach((r,i)=>{const y=dates[i].slice(0,4);if(!years.has(y))years.set(y,{v:1,peak:1,dd:0});const g=years.get(y);g.v*=1+r;g.peak=Math.max(g.peak,g.v);g.dd=Math.min(g.dd,g.v/g.peak-1);});
+  const annual_mdd_mean=years.size?[...years.values()].reduce((s,g)=>s+g.dd,0)/years.size:null;
+  return {total_return:v.at(-1)-1,annual_return:ar,excess_return:v.at(-1)-b.at(-1),benchmark_return:b.at(-1)-1,excess_annual_return:active>=0?active**(244/v.length)-1:null,volatility:vol,sharpe:vol?mean*244/vol:null,max_drawdown:dd,annual_mdd_mean};
  }
  return {initialize,run,inspect,settings,qualifies,monthDate,lower,performance};
 })();

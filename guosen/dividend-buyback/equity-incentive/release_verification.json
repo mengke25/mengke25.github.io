@@ -149,16 +149,16 @@
   ],
   "files": {
     "app.js": {
-      "sha256": "1e46a8e0c32114413187d9fde4425e1faccd12a05881fff8ba2cd79cbdec955c",
-      "bytes": 12814
+      "sha256": "311ec8ae6ce9dc8797d2117b96c7be3c0b5cc493291cd3715df3bfeba2b7b321",
+      "bytes": 13014
     },
     "core.js": {
-      "sha256": "7b01a2f80a9da5495643b64bc6fe52b7c47d61a8f4b261ec13219c8dc4c95965",
-      "bytes": 7691
+      "sha256": "786749f71763c6c91621e94c9cb663e029d1a3f9764be389f5bf110aa29c9a26",
+      "bytes": 8104
     },
     "index.html": {
-      "sha256": "384c1911cb419071440b095f2c28b8c93b8c0928e6d1478852b57150cb82ac4c",
-      "bytes": 8800
+      "sha256": "6a7ad087b6ffe55d6bc4b93804e8ecb5aa5301bb4ba9e67b3dcf0f79c39fb182",
+      "bytes": 9127
     },
     "inputs/meta.json.gz": {
       "sha256": "de53af41ed4d95aa65760e41d95cbe0f0a33357aaf5da1362ffe2c89a8581cc4",
@@ -325,16 +325,18 @@
       "bytes": 4838098
     },
     "worker.js": {
-      "sha256": "0154ed7d9ce932223b1eef304fb35979062103a8003b3e31ead4318b522f870e",
-      "bytes": 2515
+      "sha256": "82f0f98c44a6a556efb92b5c0f75cd97141c26c9bc2f35cfba7ee5da1b080414",
+      "bytes": 2516
     }
   },
   "parameter_ranking_20261108": {
     "passed": true,
-    "checks": 107319,
+    "sort": "full-window Sharpe descending",
+    "risk": "arithmetic mean of calendar-year maximum drawdowns; sample daily volatility; zero-risk-free arithmetic Sharpe, 244 days",
+    "checks": 85848,
     "browser": true,
-    "sort": "training70 annual-return minus benchmark-annual-return; validation30 is not sorted",
-    "scope": "method-page conclusions, purpose glossary, read-only parameter links and XLSX; engines and inputs unchanged",
-    "current_data_cutoff": "2026-10-30"
+    "unchangedNavAndTrades": true,
+    "rawInputsUnchanged": true,
+    "scope": "risk calculations, ranking, derived downloads and display; trading rules unchanged"
   }
 }

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>股东增持被套策略</title><link rel="stylesheet" href="./style.css?v=hold1"><link rel="stylesheet" href="research-ranking.css?v=20261108"><script defer src="research-ranking.js?v=20261108c"></script><script defer src="research-rank-apply.js?v=20261108"></script>
-<link rel="stylesheet" href="./pool-compare.css?v=pool1"><script defer src="./vendor/plotly.min.js"></script><script defer src="./pool-compare.js?v=pool1"></script><script defer src="./app.js?v=start-20261107"></script></head><body>
+<title>股东增持被套策略</title><link rel="stylesheet" href="./style.css?v=hold1"><link rel="stylesheet" href="research-ranking.css?v=sharpe-20261108"><script defer src="research-ranking.js?v=sharpe-20261108"></script><script defer src="research-rank-apply.js?v=20261108"></script>
+<link rel="stylesheet" href="./pool-compare.css?v=pool1"><script defer src="./vendor/plotly.min.js"></script><script defer src="./pool-compare.js?v=pool1"></script><script defer src="./core.js?v=sharpe-20261108"></script><script defer src="./app.js?v=sharpe-20261108"></script></head><body>
 <header><div class="shell"><div class="mast"><strong>股东增持被套策略</strong><span id="interval">股东增持被套 · 固定持有期</span></div>
 <nav aria-label="研究模块"><button data-page="method" aria-current="page">方法及说明</button><button data-page="daily">每日股票池</button><button data-page="account">净值与资金</button><button data-page="compare">持有期对比</button><button data-page="periods">年度与牛熊</button></nav></div></header>
 <main class="shell"><section id="method" class="method"><p class="eyebrow">股东增持被套策略</p><h1>股东买入后被套，<br>跟随买入，持有到期。</h1>
@@ -34,7 +34,7 @@
 <section id="compare" hidden><h1>1—24 个月持有期对比</h1><p class="note">只改变持有月份，其余采用“当前结果”的参数、门槛和剔除名单。每一行都是独立的 100 万元账户，不是个股收益的简单平均。</p><div class="buttons"><button id="compare-run" class="primary">计算全部持有期</button><button id="export-compare" disabled>下载对比 CSV</button></div><p id="compare-status" role="status"></p><div id="compare-chart" class="chart" hidden></div><div id="compare-table"></div></section>
 <section id="periods" hidden><h1>年度与牛熊表现</h1><h2>分年度</h2><div id="years-table"></div><h2>市场环境</h2><p class="note">沿用原终端的事后牛熊标签，仅用于归因、不参与买卖；“未划分”保留原样。非连续时段按各日收益复合。</p><div id="regime-table"></div></section>
 </div>
-<details><summary>数据口径与限制</summary>
+<p id="risk-definition" class="muted">风险统计：平均年度最大回撤按每个自然年分别计算后等权平均，首尾不足整年按已有交易日计入；不是全历史最大回撤，也不是最坏年份。波动率按日收益样本标准差年化，Sharpe 无风险利率取0，每年244个交易日。</p><details><summary>数据口径与限制</summary>
 <p>增持比例＝同公司同次披露、去重后的股东与管理层实际增持股数÷对应总股本。不把增持计划当成交，不跨公告日累计。股东成本是实际增持股数加权价格，不是账户买入价，也不能证明这些股东至今仍持有。</p>
 <p>被套程度＝max(0，1－收盘价÷股东成本)。0% 包含股价不低于成本的情况；0—10% 为大于 0%、不超过 10%，其他档位同理。比较前舍入至百分数的小数点后十位，避免浮点边界误差。增持下拉框为至少 1%—10%，每档 0.5%。</p>
 <p>交易日公告从当日收盘起使用，非交易日公告从下个开盘前使用；以当时已知且达到增持比例的最新披露为候选参考。开盘只用上一交易日真实收盘判断被套条件，历史门槛也只使用当时可得的快照。</p>
