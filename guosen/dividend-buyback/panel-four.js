@@ -9,7 +9,7 @@
  document.getElementById('reservedPanel').before(panel);
  const original=window.selectPanel;
  window.selectPanel=function(number){original(number);const active=Number(number)===4;panel.classList.toggle('panel-hidden',!active);
-  if(active){document.getElementById('reservedPanel').classList.add('panel-hidden');if(!frame.hasAttribute('src'))frame.src='./shareholder-increase/index.html';}
+  if(active){document.getElementById('reservedPanel').classList.add('panel-hidden');if(!frame.hasAttribute('src'))frame.src='./shareholder-increase/index.html?v=nav-20261108-1';}
   button.querySelector('.nav-meta').textContent=active?'面板 4 · 当前面板':'面板 4 · 在线结果版';
  };
 })();

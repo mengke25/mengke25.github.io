@@ -9,7 +9,7 @@
  document.getElementById('reservedPanel').before(panel);
  const original=window.selectPanel;
  window.selectPanel=function(number){original(number);const active=Number(number)===5;panel.classList.toggle('panel-hidden',!active);
-  if(active){document.getElementById('reservedPanel').classList.add('panel-hidden');if(!frame.hasAttribute('src'))frame.src='./buyback-incentive/index.html';}
+  if(active){document.getElementById('reservedPanel').classList.add('panel-hidden');if(!frame.hasAttribute('src'))frame.src='./buyback-incentive/index.html?v=nav-20261108-1';}
   button.querySelector('.nav-meta').textContent=active?'面板 5 · 当前面板':'面板 5 · 用途与公告阶段';
  };
 })();

@@ -1,0 +1,77 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "kind": "shareholder",
+      "rank": 1,
+      "points": 4072,
+      "metricsUnchanged": true,
+      "tradesUnchanged": true,
+      "independentRiskCheck": true
+    },
+    {
+      "kind": "shareholder",
+      "rank": 2,
+      "points": 4072,
+      "metricsUnchanged": true,
+      "tradesUnchanged": true,
+      "independentRiskCheck": true
+    },
+    {
+      "kind": "shareholder",
+      "rank": 3,
+      "points": 4072,
+      "metricsUnchanged": true,
+      "tradesUnchanged": true,
+      "independentRiskCheck": true
+    },
+    {
+      "kind": "buyback",
+      "rank": 1,
+      "points": 4085,
+      "metricsUnchanged": true,
+      "tradesUnchanged": true,
+      "independentRiskCheck": true
+    },
+    {
+      "kind": "buyback",
+      "rank": 2,
+      "points": 4085,
+      "metricsUnchanged": true,
+      "tradesUnchanged": true,
+      "independentRiskCheck": true
+    },
+    {
+      "kind": "buyback",
+      "rank": 3,
+      "points": 4085,
+      "metricsUnchanged": true,
+      "tradesUnchanged": true,
+      "independentRiskCheck": true
+    },
+    {
+      "kind": "incentive",
+      "rank": 1,
+      "points": 4085,
+      "metricsUnchanged": true,
+      "tradesUnchanged": true,
+      "independentRiskCheck": true
+    },
+    {
+      "kind": "incentive",
+      "rank": 2,
+      "points": 4085,
+      "metricsUnchanged": true,
+      "tradesUnchanged": true,
+      "independentRiskCheck": true
+    },
+    {
+      "kind": "incentive",
+      "rank": 3,
+      "points": 4085,
+      "metricsUnchanged": true,
+      "tradesUnchanged": true,
+      "independentRiskCheck": true
+    }
+  ]
+}
