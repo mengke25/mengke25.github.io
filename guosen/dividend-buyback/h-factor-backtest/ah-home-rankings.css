@@ -1,0 +1,9 @@
+.parameter-ranking{margin:2rem 0 3rem;padding:1.5rem 0;border-top:1px solid var(--line,#d5e1e3);border-bottom:1px solid var(--line,#d5e1e3);min-width:0}
+.parameter-ranking h2{margin-top:0}.parameter-ranking>p{max-width:78em;line-height:1.8}
+.ranking-table-wrap{max-width:100%;overflow-x:auto;margin:1.2rem 0;border:1px solid #d5e1e3;border-radius:8px}
+.ranking-table{width:100%;min-width:1060px;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.ranking-table th,.ranking-table td{padding:14px 12px;border-bottom:1px solid #e2e8eb;vertical-align:top;text-align:right;white-space:nowrap}
+.ranking-table th{font-size:13px;background:#eef5f4}.ranking-table th:nth-child(2),.ranking-table td:nth-child(2){text-align:left;min-width:260px;white-space:normal;line-height:1.8}.ranking-table td:first-child,.ranking-table th:first-child{text-align:center}.ranking-table tr:last-child td{border-bottom:0}
+.ranking-actions{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin:18px 0}.ranking-actions label{display:flex;flex-direction:column;gap:6px}.ranking-actions select{min-width:120px}.ranking-actions button{min-height:42px}
+.ranking-rules{font-size:14px;line-height:1.8}.ranking-rules summary{cursor:pointer;color:#086e64}.ranking-rules p{max-width:90em}
+@media(max-width:640px){.parameter-ranking{padding:1rem 0}.ranking-actions{align-items:stretch;flex-direction:column}.ranking-actions button,.ranking-actions select{width:100%}.ranking-table th,.ranking-table td{padding:10px}}
