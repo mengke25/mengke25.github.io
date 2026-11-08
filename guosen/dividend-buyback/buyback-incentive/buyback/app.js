@@ -1,5 +1,5 @@
 'use strict';
-const $=s=>document.querySelector(s),worker=new Worker('worker.js?v=sharpe-20261108');
+const $=s=>document.querySelector(s),worker=new Worker('worker.js?v=active-20261108-1');
 let manifest=null,meta=null,result=null,detail=null,current='method',comparison=null,busy=false,selectedDay=0;
 const pct=x=>x===null||!Number.isFinite(x)?'—':(x*100).toFixed(2)+'%',num=(x,d=2)=>x===null||!Number.isFinite(x)?'—':x.toLocaleString('zh-CN',{minimumFractionDigits:d,maximumFractionDigits:d});
 const esc=x=>String(x??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));

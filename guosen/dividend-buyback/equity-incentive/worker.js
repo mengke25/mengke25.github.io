@@ -1,5 +1,6 @@
 'use strict';
 importScripts('core.js?v=sharpe-20261108');
+importScripts("active-window.js?v=active-20261108-1");
 let data=null,manifest=null,result=null;
 const cache=new Map();
 function progress(message){postMessage({type:'progress',message});}
@@ -19,7 +20,7 @@ async function load(){
  }
  data=Incentive.initialize(d);
 }
-function run(p){const key=JSON.stringify(p);if(cache.has(key))return cache.get(key);const r=Incentive.run(data,p);if(cache.size>14)cache.delete(cache.keys().next().value);cache.set(key,r);return r;}
+function run(p){const key=JSON.stringify(p);if(cache.has(key))return cache.get(key);const r=ActiveWindow.apply(data,Incentive.run(data,p),"incentive");if(cache.size>14)cache.delete(cache.keys().next().value);cache.set(key,r);return r;}
 onmessage=async ({data:msg})=>{
  try{
   await load();
@@ -32,7 +33,7 @@ onmessage=async ({data:msg})=>{
    const r=run(msg.params);postMessage({type:'poolCompare',id:msg.id,pair:[msg.before,msg.after].map(day=>Incentive.inspect(data,r,day))});
   }else if(msg.type==='compare'){
    if(!result)throw Error('请先生成回测');const rows=[];
-   for(let months=1;months<=12;months++){progress('对比持有期 '+months+' / 12');const r=run({...result.params,months});rows.push({months,...r.summary,nav:r.nav.map(x=>x[0])});}
+   for(let months=1;months<=12;months++){progress('对比持有期 '+months+' / 12');const r=run({...result.params,months});rows.push({months,...r.summary,nav:r.nav.map(x=>x[0]),active:r.active});}
    postMessage({type:'compare',rows});
   }
  }catch(e){postMessage({type:'error',id:msg.id,message:e.message});}

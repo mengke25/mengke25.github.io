@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>股东增持被套策略</title><link rel="stylesheet" href="./style.css?v=hold1"><link rel="stylesheet" href="research-ranking.css?v=nav-20261108-1"><script defer src="ranking-nav.js?v=nav-20261108-1"></script><script defer src="research-ranking.js?v=nav-20261108-1"></script><script defer src="research-rank-apply.js?v=20261108"></script>
-<link rel="stylesheet" href="./pool-compare.css?v=pool1"><script defer src="./vendor/plotly.min.js"></script><script defer src="./pool-compare.js?v=pool1"></script><script defer src="./core.js?v=sharpe-20261108"></script><script defer src="./app.js?v=sharpe-20261108"></script></head><body>
+<title>股东增持被套策略</title><link rel="stylesheet" href="./style.css?v=hold1"><link rel="stylesheet" href="research-ranking.css?v=active-20261108-1"><script defer src="ranking-nav.js?v=active-20261108-1"></script><script defer src="ranking-run.js?v=active-20261108-1"></script><script defer src="research-ranking.js?v=active-20261108-1"></script><script defer src="research-rank-apply.js?v=20261108"></script>
+<link rel="stylesheet" href="./pool-compare.css?v=pool1"><script defer src="./vendor/plotly.min.js"></script><script defer src="./pool-compare.js?v=pool1"></script><script defer src="./core.js?v=sharpe-20261108"></script><script defer src="./app.js?v=active-20261108-1"></script><script defer src="active-window-ui.js?v=active-20261108-1"></script><style>.start-shortcuts{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}.start-shortcuts button{font-size:12px;padding:5px 8px}</style></head><body>
 <header><div class="shell"><div class="mast"><strong>股东增持被套策略</strong><span id="interval">股东增持被套 · 固定持有期</span></div>
 <nav aria-label="研究模块"><button data-page="method" aria-current="page">方法及说明</button><button data-page="daily">每日股票池</button><button data-page="account">净值与资金</button><button data-page="compare">持有期对比</button><button data-page="periods">年度与牛熊</button></nav></div></header>
 <main class="shell"><section id="method" class="method"><p class="eyebrow">股东增持被套策略</p><h1>股东买入后被套，<br>跟随买入，持有到期。</h1>
@@ -15,7 +15,7 @@
 <button class="primary" data-page="daily">设置参数，查看股票池 →</button></section>
 <div id="workspace" hidden>
 <div class="toolbar" id="parameters"><label>合计增持比例至少<select id="ratio"></select></label><label>被套区间<select id="band"></select></label><label>固定持有期<select id="months"></select></label><label>策略起始日<input id="start-date" type="date" required aria-describedby="start-hint"></label></div>
-<p id="start-hint" class="hint">从所选日期以 100 万现金重新开始，不继承此前持仓；休市日顺延。此前累计收益为 0，图表不展示未运行时段；净值比较基期为起始交易日前一交易日收盘（净值 1）。</p>
+<p id="start-hint" class="hint">从所选日起以 100 万现金重新开始，不继承旧持仓；休市日起点顺延。绩效与曲线从首次实际买入开始，基期为其前一交易日收盘（净值 1），万得全A同日对齐。首笔买入当天收益和之后的空仓日均计入；无买入则不计算绩效。</p>
 <fieldset id="gates"><legend>6大门槛因子 · 可独立勾选</legend><div class="gate-choices">
 <label><input type="checkbox" value="16" checked>历史非 ST</label><label><input type="checkbox" value="8" checked>净利润非负</label><label><input type="checkbox" value="1">流动性</label><label><input type="checkbox" value="2">股权质押</label><label><input type="checkbox" value="4">商誉</label><label><input type="checkbox" value="32">ROE</label></div>
 <p class="hint">所选条件须同时满足；全不选则不额外叠加这六项门槛。沿用因子终端当时可用的历史快照。</p>

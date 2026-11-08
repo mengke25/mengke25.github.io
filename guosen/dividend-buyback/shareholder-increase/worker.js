@@ -1,5 +1,6 @@
 'use strict';
 importScripts('./core.js?v=sharpe-20261108');
+importScripts("active-window.js?v=active-20261108-1");
 let data,manifest;const cache=new Map();
 async function asset(path){
  const r=await fetch('./'+path);if(!r.ok)throw Error('输入读取失败：'+path);
@@ -10,7 +11,7 @@ async function asset(path){
 }
 function result(p){
  const config=FixedHold.settings(p),key=JSON.stringify(config);
- if(!cache.has(key)){cache.set(key,FixedHold.run(data,config));if(cache.size>5)cache.delete(cache.keys().next().value);}
+ if(!cache.has(key)){cache.set(key,ActiveWindow.apply(data,FixedHold.run(data,config),"shareholder"));if(cache.size>5)cache.delete(cache.keys().next().value);}
  return cache.get(key);
 }
 self.onmessage=async({data:msg})=>{
@@ -33,7 +34,7 @@ self.onmessage=async({data:msg})=>{
    else if(type==='compare'){
     payload=[];
     for(let months=1;months<=24;months++){
-     const r=FixedHold.run(data,{...p,months});payload.push({months,...r.summary});
+     const r=ActiveWindow.apply(data,FixedHold.run(data,{...p,months}),"shareholder");payload.push({months,...r.summary});
      self.postMessage({id,progress:`持有期对比 ${months}/24`});await new Promise(resolve=>setTimeout(resolve,0));
     }
    }else throw Error('未知操作');

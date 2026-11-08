@@ -4,74 +4,83 @@
     {
       "kind": "shareholder",
       "rank": 1,
-      "points": 4072,
-      "metricsUnchanged": true,
-      "tradesUnchanged": true,
-      "independentRiskCheck": true
+      "firstEntryDate": "2015-09-28",
+      "waitingDays": 1392,
+      "points": 2680,
+      "rawTradesAndLedgerUnchanged": true,
+      "independentMetrics": true
     },
     {
       "kind": "shareholder",
       "rank": 2,
-      "points": 4072,
-      "metricsUnchanged": true,
-      "tradesUnchanged": true,
-      "independentRiskCheck": true
+      "firstEntryDate": "2012-11-28",
+      "waitingDays": 705,
+      "points": 3367,
+      "rawTradesAndLedgerUnchanged": true,
+      "independentMetrics": true
     },
     {
       "kind": "shareholder",
       "rank": 3,
-      "points": 4072,
-      "metricsUnchanged": true,
-      "tradesUnchanged": true,
-      "independentRiskCheck": true
+      "firstEntryDate": "2012-11-28",
+      "waitingDays": 705,
+      "points": 3367,
+      "rawTradesAndLedgerUnchanged": true,
+      "independentMetrics": true
     },
     {
       "kind": "buyback",
       "rank": 1,
-      "points": 4085,
-      "metricsUnchanged": true,
-      "tradesUnchanged": true,
-      "independentRiskCheck": true
+      "firstEntryDate": "2019-10-17",
+      "waitingDays": 2377,
+      "points": 1708,
+      "rawTradesAndLedgerUnchanged": true,
+      "independentMetrics": true
     },
     {
       "kind": "buyback",
       "rank": 2,
-      "points": 4085,
-      "metricsUnchanged": true,
-      "tradesUnchanged": true,
-      "independentRiskCheck": true
+      "firstEntryDate": "2019-10-17",
+      "waitingDays": 2377,
+      "points": 1708,
+      "rawTradesAndLedgerUnchanged": true,
+      "independentMetrics": true
     },
     {
       "kind": "buyback",
       "rank": 3,
-      "points": 4085,
-      "metricsUnchanged": true,
-      "tradesUnchanged": true,
-      "independentRiskCheck": true
+      "firstEntryDate": "2019-10-17",
+      "waitingDays": 2377,
+      "points": 1708,
+      "rawTradesAndLedgerUnchanged": true,
+      "independentMetrics": true
     },
     {
       "kind": "incentive",
       "rank": 1,
-      "points": 4085,
-      "metricsUnchanged": true,
-      "tradesUnchanged": true,
-      "independentRiskCheck": true
+      "firstEntryDate": "2019-10-16",
+      "waitingDays": 2376,
+      "points": 1709,
+      "rawTradesAndLedgerUnchanged": true,
+      "independentMetrics": true
     },
     {
       "kind": "incentive",
       "rank": 2,
-      "points": 4085,
-      "metricsUnchanged": true,
-      "tradesUnchanged": true,
-      "independentRiskCheck": true
+      "firstEntryDate": "2019-10-16",
+      "waitingDays": 2376,
+      "points": 1709,
+      "rawTradesAndLedgerUnchanged": true,
+      "independentMetrics": true
     },
     {
       "kind": "incentive",
       "rank": 3,
-      "points": 4085,
-      "metricsUnchanged": true,
-      "tradesUnchanged": true,
-      "independentRiskCheck": true
+      "firstEntryDate": "2019-10-16",
+      "waitingDays": 2376,
+      "points": 1709,
+      "rawTradesAndLedgerUnchanged": true,
+      "independentMetrics": true
     }
   ]
 }
