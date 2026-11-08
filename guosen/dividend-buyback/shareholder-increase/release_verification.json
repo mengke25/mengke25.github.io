@@ -157,7 +157,7 @@
       "bytes": 8852
     },
     "index.html": {
-      "sha256": "54e9b5650c81655e9ee1f947fc611ea77549825c346156662006f09ff680549f",
+      "sha256": "e834d2528107376f6dc25844d920f6b406d1936857eedb8f022948a0d451bdae",
       "bytes": 10606
     },
     "inputs/meta.json.gz": {
@@ -213,8 +213,8 @@
       "bytes": 1147
     },
     "research-ranking.js": {
-      "sha256": "99d489ae9b4d97ab76b8fe165fac32ffb083c88d4b0122e789ce1e2f410c1a82",
-      "bytes": 8651
+      "sha256": "450205768205e60c1575bc5e8b03e540366296d6621a8d61d69047e4b72976b6",
+      "bytes": 8969
     },
     "research-ranking.json": {
       "sha256": "1e240f459a094634f23a85edd34a2cb2c19d158e7c13ed4e9f0c58f37eebaa2d",
@@ -240,5 +240,10 @@
     "sort": "training70 annual-return minus benchmark-annual-return; validation30 is not sorted",
     "scope": "method-page conclusions, purpose glossary, read-only parameter links and XLSX; engines and inputs unchanged",
     "current_data_cutoff": "2026-10-13"
+  },
+  "plain_language_copy_20261108": {
+    "passed": true,
+    "verifiedAt": "2026-11-08T07:35:13.867Z",
+    "scope": "labels and explanations only; ranking, calculations and inputs unchanged"
   }
 }
