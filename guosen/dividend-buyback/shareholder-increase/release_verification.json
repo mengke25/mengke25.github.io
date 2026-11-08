@@ -157,8 +157,8 @@
       "bytes": 8852
     },
     "index.html": {
-      "sha256": "2c90519e38d89d4ac0db189c327ec1d4e3daa6613118b707262371da5d16fd90",
-      "bytes": 10605
+      "sha256": "54e9b5650c81655e9ee1f947fc611ea77549825c346156662006f09ff680549f",
+      "bytes": 10606
     },
     "inputs/meta.json.gz": {
       "sha256": "3f88b588e32ea1542e74c34b91dbce4698b2c996150e57ba3188a9593af756c6",
@@ -213,11 +213,11 @@
       "bytes": 1147
     },
     "research-ranking.js": {
-      "sha256": "ae77e68191058ff11811a90b4a77a5370ac56a0176b89fec94cac2319b064ea6",
-      "bytes": 8526
+      "sha256": "99d489ae9b4d97ab76b8fe165fac32ffb083c88d4b0122e789ce1e2f410c1a82",
+      "bytes": 8651
     },
     "research-ranking.json": {
-      "sha256": "9ecaf557dcd986b1a883dd92395c17984b31264db28cef5fb15061ecebace634",
+      "sha256": "1e240f459a094634f23a85edd34a2cb2c19d158e7c13ed4e9f0c58f37eebaa2d",
       "bytes": 6865
     },
     "style.css": {
