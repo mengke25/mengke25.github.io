@@ -157,32 +157,8 @@
       "bytes": 7691
     },
     "index.html": {
-      "sha256": "20c86356d5ffffb4027cfd2cc7dfd8da546dbd074c95e61b4a57b349ed1b077a",
-      "bytes": 8737
-    },
-    "manifest.json": {
-      "sha256": "6d9ce25db861335db1d68fa8a12293a3d66c2c5f9120290bffb24b82df379802",
-      "bytes": 6049
-    },
-    "overrides.css": {
-      "sha256": "36278fa514cef4e1d88c6b79fa04b4e33c23521d837caa1999ce0d1a361ccf28",
-      "bytes": 484
-    },
-    "pool-compare.css": {
-      "sha256": "dd7a6b8821d246d73d41c02991f983bdb728b07fb6be8c63bae959283de3b053",
-      "bytes": 722
-    },
-    "pool-compare.js": {
-      "sha256": "12d6b8bb163b7d33f7cde11183428b9b3e4d7bd36d5b93a2fa4acafb3c25c90c",
-      "bytes": 14183
-    },
-    "style.css": {
-      "sha256": "a1bf1381858e1c1ad91eb01be3cb6533a80a98364f8e604c729ba7e724da690a",
-      "bytes": 5949
-    },
-    "worker.js": {
-      "sha256": "0154ed7d9ce932223b1eef304fb35979062103a8003b3e31ead4318b522f870e",
-      "bytes": 2515
+      "sha256": "384c1911cb419071440b095f2c28b8c93b8c0928e6d1478852b57150cb82ac4c",
+      "bytes": 8800
     },
     "inputs/meta.json.gz": {
       "sha256": "de53af41ed4d95aa65760e41d95cbe0f0a33357aaf5da1362ffe2c89a8581cc4",
@@ -320,9 +296,45 @@
       "sha256": "01c204d848470b59d3e9d7906fbcf4409c5c5064dbea6d0274c0ec6c5e0b3168",
       "bytes": 279349
     },
+    "manifest.json": {
+      "sha256": "6d9ce25db861335db1d68fa8a12293a3d66c2c5f9120290bffb24b82df379802",
+      "bytes": 6049
+    },
+    "overrides.css": {
+      "sha256": "36278fa514cef4e1d88c6b79fa04b4e33c23521d837caa1999ce0d1a361ccf28",
+      "bytes": 484
+    },
+    "pool-compare.css": {
+      "sha256": "dd7a6b8821d246d73d41c02991f983bdb728b07fb6be8c63bae959283de3b053",
+      "bytes": 722
+    },
+    "pool-compare.js": {
+      "sha256": "12d6b8bb163b7d33f7cde11183428b9b3e4d7bd36d5b93a2fa4acafb3c25c90c",
+      "bytes": 14183
+    },
+    "research-rank-apply.js": {
+      "sha256": "1da926040b9a3c40b9b6adebd13eb97cd91f72bcf994f72aafd0a670d55f121d",
+      "bytes": 1155
+    },
+    "style.css": {
+      "sha256": "a1bf1381858e1c1ad91eb01be3cb6533a80a98364f8e604c729ba7e724da690a",
+      "bytes": 5949
+    },
     "vendor/plotly.min.js": {
       "sha256": "6ceddd4bac82a64f5a2b8814a4d10bb4288379262f1989caee3148e7c3509c72",
       "bytes": 4838098
+    },
+    "worker.js": {
+      "sha256": "0154ed7d9ce932223b1eef304fb35979062103a8003b3e31ead4318b522f870e",
+      "bytes": 2515
     }
+  },
+  "parameter_ranking_20261108": {
+    "passed": true,
+    "checks": 107319,
+    "browser": true,
+    "sort": "training70 annual-return minus benchmark-annual-return; validation30 is not sorted",
+    "scope": "method-page conclusions, purpose glossary, read-only parameter links and XLSX; engines and inputs unchanged",
+    "current_data_cutoff": "2026-10-30"
   }
 }

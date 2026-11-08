@@ -1,11 +1,12 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>股东增持被套策略</title><link rel="stylesheet" href="./style.css?v=hold1">
+<title>股东增持被套策略</title><link rel="stylesheet" href="./style.css?v=hold1"><link rel="stylesheet" href="research-ranking.css?v=20261108"><script defer src="research-ranking.js?v=20261108"></script><script defer src="research-rank-apply.js?v=20261108"></script>
 <link rel="stylesheet" href="./pool-compare.css?v=pool1"><script defer src="./vendor/plotly.min.js"></script><script defer src="./pool-compare.js?v=pool1"></script><script defer src="./app.js?v=start-20261107"></script></head><body>
 <header><div class="shell"><div class="mast"><strong>股东增持被套策略</strong><span id="interval">股东增持被套 · 固定持有期</span></div>
 <nav aria-label="研究模块"><button data-page="method" aria-current="page">方法及说明</button><button data-page="daily">每日股票池</button><button data-page="account">净值与资金</button><button data-page="compare">持有期对比</button><button data-page="periods">年度与牛熊</button></nav></div></header>
 <main class="shell"><section id="method" class="method"><p class="eyebrow">股东增持被套策略</p><h1>股东买入后被套，<br>跟随买入，持有到期。</h1>
 <p class="intro">看股东和管理层实际买了多少、股价比他们的成本低了多少，再比较不同持有期的收益。</p>
+<section id="research-ranking" class="research-ranking" data-json="research-ranking.json" data-root="../" aria-label="历史参数排名">正在核对历史参数排名…</section>
 <dl><dt>怎么买</dt><dd>同公司、同次披露的股东与管理层实际增持合计达到所选比例，被套程度落在所选区间，并通过勾选的门槛，就进入候选池。用已知信息筛选，下一开盘能成交才买。</dd>
 <dt>怎么卖</dt><dd>买入后持有所选的 1—24 个自然月，到期卖出。股价提前解套也不提前卖；同一笔披露只建仓一次，持仓期间不加仓。到期不能成交，等到下一可卖开盘。</dd>
 <dt>怎么分配</dt><dd>本金固定 100 万元。可用现金等额买入当日可成交的新标的，没有就留现金。不借钱，不计买卖费用。</dd>

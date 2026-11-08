@@ -157,28 +157,8 @@
       "bytes": 8852
     },
     "index.html": {
-      "sha256": "3c1a90547987254aa063681f9d5d8ae3732a670f9190855b0afbc8b4965127af",
-      "bytes": 10238
-    },
-    "manifest.json": {
-      "sha256": "5b6dd1689a3e4d9c588e9c4f6ac23a5fdf126150444fca4b72591fe2a55a9a34",
-      "bytes": 1448
-    },
-    "pool-compare.css": {
-      "sha256": "dd7a6b8821d246d73d41c02991f983bdb728b07fb6be8c63bae959283de3b053",
-      "bytes": 722
-    },
-    "pool-compare.js": {
-      "sha256": "12d6b8bb163b7d33f7cde11183428b9b3e4d7bd36d5b93a2fa4acafb3c25c90c",
-      "bytes": 14183
-    },
-    "style.css": {
-      "sha256": "a1bf1381858e1c1ad91eb01be3cb6533a80a98364f8e604c729ba7e724da690a",
-      "bytes": 5949
-    },
-    "worker.js": {
-      "sha256": "c701f0fc4a7a523060861eec46bd47d6556b7cc4fef6e11d67160f846a4941c6",
-      "bytes": 2433
+      "sha256": "2c90519e38d89d4ac0db189c327ec1d4e3daa6613118b707262371da5d16fd90",
+      "bytes": 10605
     },
     "inputs/meta.json.gz": {
       "sha256": "3f88b588e32ea1542e74c34b91dbce4698b2c996150e57ba3188a9593af756c6",
@@ -212,9 +192,53 @@
       "sha256": "2161e3b43dcc4395dfbd756c0a883ef4b786c9ab439e209e3bc91d2b5a2ea8ac",
       "bytes": 39669
     },
+    "manifest.json": {
+      "sha256": "5b6dd1689a3e4d9c588e9c4f6ac23a5fdf126150444fca4b72591fe2a55a9a34",
+      "bytes": 1448
+    },
+    "pool-compare.css": {
+      "sha256": "dd7a6b8821d246d73d41c02991f983bdb728b07fb6be8c63bae959283de3b053",
+      "bytes": 722
+    },
+    "pool-compare.js": {
+      "sha256": "12d6b8bb163b7d33f7cde11183428b9b3e4d7bd36d5b93a2fa4acafb3c25c90c",
+      "bytes": 14183
+    },
+    "research-rank-apply.js": {
+      "sha256": "1da926040b9a3c40b9b6adebd13eb97cd91f72bcf994f72aafd0a670d55f121d",
+      "bytes": 1155
+    },
+    "research-ranking.css": {
+      "sha256": "6432fed1687e36b54bbd73e3faaf524457447025ea3e6b178e850d193033bac7",
+      "bytes": 1147
+    },
+    "research-ranking.js": {
+      "sha256": "ae77e68191058ff11811a90b4a77a5370ac56a0176b89fec94cac2319b064ea6",
+      "bytes": 8526
+    },
+    "research-ranking.json": {
+      "sha256": "9ecaf557dcd986b1a883dd92395c17984b31264db28cef5fb15061ecebace634",
+      "bytes": 6865
+    },
+    "style.css": {
+      "sha256": "a1bf1381858e1c1ad91eb01be3cb6533a80a98364f8e604c729ba7e724da690a",
+      "bytes": 5949
+    },
     "vendor/plotly.min.js": {
       "sha256": "6ceddd4bac82a64f5a2b8814a4d10bb4288379262f1989caee3148e7c3509c72",
       "bytes": 4838098
+    },
+    "worker.js": {
+      "sha256": "c701f0fc4a7a523060861eec46bd47d6556b7cc4fef6e11d67160f846a4941c6",
+      "bytes": 2433
     }
+  },
+  "parameter_ranking_20261108": {
+    "passed": true,
+    "checks": 107319,
+    "browser": true,
+    "sort": "training70 annual-return minus benchmark-annual-return; validation30 is not sorted",
+    "scope": "method-page conclusions, purpose glossary, read-only parameter links and XLSX; engines and inputs unchanged",
+    "current_data_cutoff": "2026-10-13"
   }
 }

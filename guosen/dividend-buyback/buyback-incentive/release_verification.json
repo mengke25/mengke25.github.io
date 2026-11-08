@@ -13,24 +13,10 @@
     "ST_periodic_snapshots"
   ],
   "files": {
-    "catalog-core.js": "ebf945bf9e62b89cb519b34f39d8b32188b32269747f542d85715840a82e4a08",
-    "catalog-manifest.json": "aabc9d49147c3812690c185273bced0922fe9c76476d3a0784c952425c837d39",
-    "catalog.json.gz": "c902ee3cfdb6f49acebd07313682e821aefd50366fa4596b9563a9859aa03404",
-    "hub.css": "7b9fc20dde3f3ca71843faf1ad96ef70f62c5b97cc3f261dfe56d8c0a5c68a52",
-    "hub.js": "478b3279d162cfc58b641681bd9b87e3975b7cfed22f2283e432d7210625b0fe",
-    "index.html": "ba9e352f71045f3641089d0fd5b30dee291d6b04769ad3bca8755d441a5c9a12",
-    "pool-compare.js": "12d6b8bb163b7d33f7cde11183428b9b3e4d7bd36d5b93a2fa4acafb3c25c90c",
-    "style.css": "a1bf1381858e1c1ad91eb01be3cb6533a80a98364f8e604c729ba7e724da690a",
     "buyback/app.js": "71e90daadaf09e893249d0d42cdfb29cd3604879e15ad616ebbfb5a538e2443c",
     "buyback/buyback-filter.js": "0f7b35440c8c662264a8302445db4b7812c9bdbbc324f5d16fc47b79c5542296",
     "buyback/core.js": "7b01a2f80a9da5495643b64bc6fe52b7c47d61a8f4b261ec13219c8dc4c95965",
-    "buyback/index.html": "8f5ee3c07ab70017b8da8494d6b51a412b9d459d7786649c8320061656176f03",
-    "buyback/manifest.json": "2970207bf34c3f70f725e6f5dccc5122fdb070cf427d4d19e3662c6ec719163a",
-    "buyback/overrides.css": "36278fa514cef4e1d88c6b79fa04b4e33c23521d837caa1999ce0d1a361ccf28",
-    "buyback/pool-compare.css": "dd7a6b8821d246d73d41c02991f983bdb728b07fb6be8c63bae959283de3b053",
-    "buyback/pool-compare.js": "12d6b8bb163b7d33f7cde11183428b9b3e4d7bd36d5b93a2fa4acafb3c25c90c",
-    "buyback/style.css": "a1bf1381858e1c1ad91eb01be3cb6533a80a98364f8e604c729ba7e724da690a",
-    "buyback/worker.js": "3b73588e3058313d47ea0eac75a8f508d91f161cc1eca1f0dd5c2c08ad9f5c2e",
+    "buyback/index.html": "b26c19fbc5d6c5f1182c7c81bc6a3d567269f1ab54aff28517f2c747f8470280",
     "buyback/inputs/meta.json.gz": "af5063182e5ee091b37e2b64203044415117fac84b8ac7f6655f86e1b71e927c",
     "buyback/inputs/quotes_0000.json.gz": "5629254719853bf9823b1f3e14c195fbd4efcb58766d8c1c7e31293eeed360bf",
     "buyback/inputs/quotes_0100.json.gz": "d50d6b724c36b2ed2aae09f219fff4b2aeb366293fedc139010126209765adfd",
@@ -69,6 +55,56 @@
     "buyback/inputs/quotes_3400.json.gz": "2315731af2cf46a314ef398d7314515cc48053685200aeed64ca88f80e928794",
     "buyback/inputs/quotes_3500.json.gz": "4624e26924accd0d0ebcf7fce2bcb86901086760bd3937636fc21aa071d376ea",
     "buyback/inputs/quotes_3600.json.gz": "4599fd8ad630bbfc20d5837b960edf0c1c4d733b06015936a042a3fb0fa1972b",
-    "buyback/vendor/plotly.min.js": "6ceddd4bac82a64f5a2b8814a4d10bb4288379262f1989caee3148e7c3509c72"
+    "buyback/manifest.json": "2970207bf34c3f70f725e6f5dccc5122fdb070cf427d4d19e3662c6ec719163a",
+    "buyback/overrides.css": "36278fa514cef4e1d88c6b79fa04b4e33c23521d837caa1999ce0d1a361ccf28",
+    "buyback/pool-compare.css": "dd7a6b8821d246d73d41c02991f983bdb728b07fb6be8c63bae959283de3b053",
+    "buyback/pool-compare.js": "12d6b8bb163b7d33f7cde11183428b9b3e4d7bd36d5b93a2fa4acafb3c25c90c",
+    "buyback/research-rank-apply.js": "1da926040b9a3c40b9b6adebd13eb97cd91f72bcf994f72aafd0a670d55f121d",
+    "buyback/style.css": "a1bf1381858e1c1ad91eb01be3cb6533a80a98364f8e604c729ba7e724da690a",
+    "buyback/vendor/plotly.min.js": "6ceddd4bac82a64f5a2b8814a4d10bb4288379262f1989caee3148e7c3509c72",
+    "buyback/worker.js": "3b73588e3058313d47ea0eac75a8f508d91f161cc1eca1f0dd5c2c08ad9f5c2e",
+    "catalog-core.js": "ebf945bf9e62b89cb519b34f39d8b32188b32269747f542d85715840a82e4a08",
+    "catalog-manifest.json": "aabc9d49147c3812690c185273bced0922fe9c76476d3a0784c952425c837d39",
+    "catalog.json.gz": "c902ee3cfdb6f49acebd07313682e821aefd50366fa4596b9563a9859aa03404",
+    "hub.css": "7b9fc20dde3f3ca71843faf1ad96ef70f62c5b97cc3f261dfe56d8c0a5c68a52",
+    "hub.js": "478b3279d162cfc58b641681bd9b87e3975b7cfed22f2283e432d7210625b0fe",
+    "index.html": "2bfe6a2321c35d207e76b23e45e16d8e371269d802478250925bd65ee772527e",
+    "pool-compare.js": "12d6b8bb163b7d33f7cde11183428b9b3e4d7bd36d5b93a2fa4acafb3c25c90c",
+    "research-ranking.css": "6432fed1687e36b54bbd73e3faaf524457447025ea3e6b178e850d193033bac7",
+    "research-ranking.js": "ae77e68191058ff11811a90b4a77a5370ac56a0176b89fec94cac2319b064ea6",
+    "research-ranking.json": "eafec394a6ca01648936369da5b946ced878895900d4a7055e2626fa319ed57c",
+    "style.css": "a1bf1381858e1c1ad91eb01be3cb6533a80a98364f8e604c729ba7e724da690a"
+  },
+  "content_update_20261108": {
+    "passed": true,
+    "checked_at": "2026-11-08T06:47:12.896Z",
+    "purpose_names": [
+      "注销减资",
+      "拟用于股权激励",
+      "员工持股计划",
+      "市值管理 / 维护价值",
+      "股权激励注销",
+      "盈利补偿",
+      "可转债转换",
+      "激励或员工持股（未拆分）"
+    ],
+    "ledger_filters": 8,
+    "buyback_options_match": true,
+    "mobile_overflow": false,
+    "errors": [],
+    "changed_release_assets": [
+      "index.html"
+    ],
+    "unchanged_release_assets": 56,
+    "old_html_sha256": "ba9e352f71045f3641089d0fd5b30dee291d6b04769ad3bca8755d441a5c9a12",
+    "new_html_sha256": "fcd6b5dc3ae56f90a54b58c2509dece15de67236ddb4bfbfc160236ca2a54bc6"
+  },
+  "parameter_ranking_20261108": {
+    "passed": true,
+    "checks": 107319,
+    "browser": true,
+    "sort": "training70 annual-return minus benchmark-annual-return; validation30 is not sorted",
+    "scope": "method-page conclusions, purpose glossary, read-only parameter links and XLSX; engines and inputs unchanged",
+    "current_data_cutoff": "2026-10-30"
   }
 }
